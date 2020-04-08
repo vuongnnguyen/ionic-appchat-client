@@ -1,0 +1,17 @@
+<p (click)='addMember()' *ngIf='room.type== "group"'>Thêm thành viên</p>
+<p (click)='changeNickNames()'>Biệt danh</p>
+
+<p (click)='dismissNotification()'  *ngIf='!isDissmissNotification()'>Tắt thông báo</p>
+<p (click)='missNotification()'  *ngIf='isDissmissNotification()'>Bật thông báo</p>
+
+<p  (click)='hideRoom()' *ngIf='!isHideMsg()'>Ẩn tin nhắn</p>
+<p  (click)='showRoom()' *ngIf='isHideMsg()'>Hiện tin nhắn</p>
+
+<p (click)='deleteMessagesinRoom()'>Xóa tin nhắn</p>
+
+<p (click)='leaveRoom()' *ngIf='room.type=="group"'>Rời nhóm</p>
+
+<p (click)='blockRoom()' *ngIf='!isBlocked()'>Chặn </p>
+<p (click)='unBlockRoom()' *ngIf='isBlocked()'>Bỏ chặn</p>
+
+

@@ -1,0 +1,34 @@
+<ion-grid>
+  <ion-row style="margin-top: 10px;">
+    <ion-col size='12' style="padding-left: 0xp; padding-top: 10px;">
+     
+          <ion-icon (click)='onBack()' slots="start" name="arrow-back"></ion-icon>
+       
+    
+    </ion-col>
+  </ion-row>
+  <ion-row style="margin-top: 10px;">
+    <ion-col size='10'>
+      <ion-input id='seach' placeholder="Nhập số điện thoại hoặc tên"></ion-input>
+    </ion-col>
+    <ion-col size='2'>
+      <ion-button type="button" (click)="onSeach()" fill="clear" size='small'>
+        <ion-icon  name="search"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row >
+    <ion-list>
+      <ion-item *ngFor='let user of listUser'>
+        <ion-avatar><ion-img [src]='user.urlImg'></ion-img></ion-avatar>
+        <ion-label>
+          <small style="margin-left: 5px;">{{user.name}}</small><br>
+          <ion-buttons>
+            <ion-button (click)='addMember(user._id, user.name)' *ngIf='!isJoinedGroup(user._id)'>Thêm vào nhóm</ion-button>
+            <ion-button >Nhắn tin</ion-button>
+          </ion-buttons>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-row>
+</ion-grid>

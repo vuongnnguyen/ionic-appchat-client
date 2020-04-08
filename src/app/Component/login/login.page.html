@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form (ngSubmit)="onLogin(formLogin)" #formLogin="ngForm" >
+          <ion-item class="no-padding-top">
+            <ion-input ngModel #txtEmail="ngModel"
+            name="userName" type="text" placeholder="Số điện thoại"></ion-input>
+          </ion-item>
+          <ion-item class="no-padding-top">
+            <ion-input  ngModel #txtPass="ngModel"
+            name="passWord" type="password" placeholder="Mật khẩu"></ion-input>
+        </ion-item>
+        <ion-button color="primary" (click)="onLogin(formLogin)">Đăng Nhập</ion-button>
+        <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >Đăng kí tài khoản.</a>
+        <p *ngIf="err">{{err}}</p>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

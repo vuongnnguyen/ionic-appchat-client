@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-row style="margin-top: 10px;">
+    <ion-col size='12'>
+        <ion-chip (click)='presentActionSheet()'>
+        <ion-avatar>
+          <img [src]="user.urlImg">
+        </ion-avatar>
+        <ion-label>Chats</ion-label>
+      </ion-chip>
+  
+
+
+
+    </ion-col>
+  </ion-row>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="vv">
+        <ion-icon  name="chatbubbles"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="acceptFriend">
+        <ion-icon name="people"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="notification">
+        <ion-icon name="notifications"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs> 
+
+
+
+
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form  #uploadForm="ngForm" (ngSubmit)="onSubmit()">      
+          
+            <ion-input type="file" name="profile" (change)="onFileSelect($event)" ></ion-input>
+          
+          
+            <ion-button type="submit">Upload</ion-button>
+        
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+</ion-content>
