@@ -64,7 +64,7 @@ export class NotificationPage implements OnInit {
     await this._services.getListNoti(this.listNoti)
     .then( respone => {
       respone.forEach( notification => {
-        console.log('line 59')
+      
         this.listNotificantion.push(notification);
       })
     })

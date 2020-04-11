@@ -24,7 +24,11 @@ export class AddmemberComponent implements OnInit {
   
   constructor(private _services: ChatServicesService, private router: Router, public modalController: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // if(!this.listNameUser){
+    //   this.listNameUser= [];
+    // }
+  }
 
   async onBack() {
     this.modalController.dismiss()
@@ -48,6 +52,9 @@ export class AddmemberComponent implements OnInit {
   }
 
   isJoinedGroup(id: string): boolean {
+    // if(!this.listNameUser){
+      // this.listNameUser= [];
+      //  return false;}
     const index= this.listNameUser.findIndex( docs => {
       return docs.id== id;
     });
@@ -60,9 +67,9 @@ export class AddmemberComponent implements OnInit {
     const obj= { contentSeach: $('#seach').val().toString(), listFriends: this._services.user.friends, skip: this.listUser.length };
     this._services.seachMember(obj)
     .then( res => {
-      console.log(res)
+   
       this.listUser= this.listUser.concat(res);
-      console.log(this.listUser)
+  
     })
     .catch( err => console.log(err.message))
   }

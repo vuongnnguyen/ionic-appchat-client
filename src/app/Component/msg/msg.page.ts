@@ -164,9 +164,12 @@ export class MsgPage implements OnInit {
      }) 
 
     this._services.socket.on('Server-send-message', (message: msg) => {
-      console.log(this.check);
-      if(message.roomname != this.id) return;
-      if(this.check) return;
+
+      if(!this.check && this.id != message.roomname){
+        this._services.presentToastWithOptions(message);
+      }
+      if(message.roomname != this.id || this.check) return;
+      //if(this.check) return;
       const index= this._services.user.block.findIndex( docs => {
         return docs== message.roomname;
       });
@@ -176,7 +179,7 @@ export class MsgPage implements OnInit {
       setTimeout( () => {
         this.content.scrollToBottom(200)
       })
-    });
+    }); 
 
     this._services.socket.on('Server-send-amsg', (message: msg) => {
       if(message.roomname != this.id || this.check) return;
@@ -184,7 +187,7 @@ export class MsgPage implements OnInit {
         return docs== message.roomname;
       });
       if(index != -1) return;
-      console.log('da emit')
+     
       this._services.socket.emit('Client-send-seen-msg', { iduser: this._services.user._id, idroom: this.id, time: +new Date().getTime() });
     })
 
@@ -461,7 +464,7 @@ export class MsgPage implements OnInit {
     const obj= { idroom: this.id, iduser: this._services.user._id, idmsg: idmsg  };
     await this._services.deleteAmsg(obj)
     .then( res => {
-      console.log(res);
+ 
       if(res.index ==1) {
         const index= this.messages.findIndex( message => {
           return message._id== idmsg;
@@ -491,7 +494,7 @@ export class MsgPage implements OnInit {
   }
 
   async loadMsginRoom() {
-    console.log('da vao load')
+   
     this.msgs= [];
     this.users= [];
     await this._services.getMessageinRoom(this.id, this.messages.length, this._services.user._id)
@@ -512,7 +515,7 @@ export class MsgPage implements OnInit {
     }
     
     this.getListObj();
-    console.log(this.msgs)
+
     this.msgs.forEach( msg => {  
         const amsg= this.getUser(msg.idsend);
         msg.name = amsg.name;
@@ -522,8 +525,7 @@ export class MsgPage implements OnInit {
 
     this.msgs= this.msgs.reverse();
     this.messages= this.msgs.concat(this.messages);
-    console.log(this.messages.length)
-    console.log(this.messages)
+
 
     //this.messages= (this.messages.concat(this.msgs)).reverse();
   }
@@ -543,9 +545,7 @@ export class MsgPage implements OnInit {
         }
       })
     })
-    console.log(this.listNameUser);
-    console.log(this.users);
-    console.log(this.listAllNickName)
+
   }
 
   getNickName( iduser: string) : string {

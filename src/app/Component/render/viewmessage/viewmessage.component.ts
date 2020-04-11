@@ -90,7 +90,7 @@ export class ViewmessageComponent implements OnInit {
     });
 
     this._services.socket.on('Server-send-amsg', (msg: msg) => {
-      console.log(msg)
+    
       const indexs= this._services.user.block.findIndex( docs => {
         return docs== msg.roomname;
       })
@@ -100,7 +100,7 @@ export class ViewmessageComponent implements OnInit {
           return amsg.roomname== msg.roomname;
         });
        if(index != -1) {
-         console.log('da vao da')
+  
          this.listMsg.splice(index, 1); 
        }
        
@@ -152,11 +152,11 @@ export class ViewmessageComponent implements OnInit {
     })// k su dung
 
     this._services.socket.on('Server-send-seen-msg', data => {
-      console.log('da nhan su kien emit')
+
       this.listMsg.forEach( docs => {
         if(docs.roomname== data.idroom){
           if(docs.idsend == data.iduser) return;
-          console.log('da vao toi vong kiem duyet')
+    
           docs.listNameUser.forEach( docss => {
             if(docss.id== data.iduser)  docss.seen= data.time;
           })
@@ -171,9 +171,7 @@ export class ViewmessageComponent implements OnInit {
        const index= this.listMsg.findIndex( msg => {
          return msg.roomname== data.idroom;
        });
-       console.log(index)
-       console.log(this.listMsg);
-       console.log(data)
+
        if(index == -1) return;
        this.listMsg.splice(index, 1);
        return;
@@ -190,7 +188,7 @@ export class ViewmessageComponent implements OnInit {
     });
 
     this._services.socket.on('Server-send-createdGroup', (data: msg) => {
-      console.log('das seeen')
+
       const index= this.listMsg.findIndex( docs => { return docs.roomname== data.roomname});
       if(index != -1) return
       this.listMsg.splice(0, 0, data)
@@ -203,7 +201,7 @@ export class ViewmessageComponent implements OnInit {
     });
 
     this._services.socket.on('Server-send-addMember', (data: msg) => {
-      console.log('da vao day')
+     
       const index= this.listMsg.findIndex( docs => {
         return docs.roomname== data.roomname;
       });
@@ -215,7 +213,7 @@ export class ViewmessageComponent implements OnInit {
 
   async ngOnInit() {
    await this.loadMsg();
-   console.log(this.listMsg)
+
   } 
 
   ////
@@ -291,7 +289,7 @@ export class ViewmessageComponent implements OnInit {
             }
             this._services.createGroup(obj)
             .then( res => {
-              console.log(res);
+          
               this.listMsg.splice(0, 0, res)
             })
             .catch( err => console.log(err.message));
@@ -537,7 +535,7 @@ export class ViewmessageComponent implements OnInit {
       this._services.user.hidemsg.splice(indexs, 1)
       console.log(err)
     });
-    console.log(this.listMsg)
+
   }
 
   createRoom(myid: string, idsend: string): string {
@@ -603,8 +601,7 @@ export class ViewmessageComponent implements OnInit {
     if(anickname.nameroom== idroom && anickname.iduser != iduser) {
       const auser= this.getUser(anickname.iduser);
       
-      console.log(auser)
-      console.log(anickname.iduser)
+
       // if(!auser) return;
       obuser.push({id: anickname.iduser, name: auser.name, nickname: anickname.name, seen: anickname.seen})
     }

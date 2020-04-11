@@ -4,19 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { ChangePassPageRoutingModule } from './change-pass-routing.module';
 
-import { HomePage } from './home.page';
-import { MenuComponent } from './menu/menu.component';
+import { ChangePassPage } from './change-pass.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    ChangePassPageRoutingModule
   ],
-
-  declarations: [HomePage, MenuComponent]
+  declarations: [ChangePassPage]
 })
-export class HomePageModule {}
+export class ChangePassPageModule {}

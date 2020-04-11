@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { MiddlewareGuard } from './guard/middleware.guard';
 
 const routes: Routes = [
-  { path: '', loadChildren: () => import('./Component/login/login.module').then( m => m.LoginPageModule)},
+
   { path: 'login', loadChildren: () => import('./Component/login/login.module').then( m => m.LoginPageModule)},
  
-  { path: 'home', loadChildren: () => import('./Component/home/home.module').then( m => m.HomePageModule)},
+  { path: 'home', loadChildren: () => import('./Component/home/home.module').then( m => m.HomePageModule), canActivate: [MiddlewareGuard] },
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
 //   {
 //     path: 'chat',
 //     children: [
@@ -13,7 +15,15 @@ const routes: Routes = [
 //       { path: ':roomName', loadChildren: () => import('./Component/msg/msg.module').then(m => m.MsgPageModule)}
 //   ]
 // },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }, 
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },   {
+    path: 'change-pass',
+    loadChildren: () => import('./Component/change-pass/change-pass.module').then( m => m.ChangePassPageModule)
+  },
+  {
+    path: 'forgot-passprivate',
+    loadChildren: () => import('./Component/forgot-passprivate/forgot-passprivate.module').then( m => m.ForgotPassprivatePageModule)
+  },
+
   // {
   //   path: 'inf-user',
   //   loadChildren: () => import('./Component/inf-user/inf-user.module').then( m => m.InfUserPageModule)

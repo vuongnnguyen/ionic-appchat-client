@@ -5,7 +5,7 @@ import { User } from '../login/login.page';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { MenuController, ActionSheetController } from '@ionic/angular';
+import { MenuController, ActionSheetController, LoadingController } from '@ionic/angular';
 
 
 
@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
 
   constructor(private _services: ChatServicesService, private router: Router,
     private formBuilder: FormBuilder, private httpClient: HttpClient, private menu: MenuController
-    ,private actionSheetControler: ActionSheetController) {
+    ,private actionSheetControler: ActionSheetController, private loadingController: LoadingController) {
     // this._services.getListUser().subscribe( respone => {
     //   this.listUser= respone;
     //   this._services.joinAll(this.listUser);
@@ -36,12 +36,26 @@ export class HomePage implements OnInit {
    }
 
   async ngOnInit() {
+
+    // this._services.socket.emit('Connect', 'vv');
+    // await this._services.socket.on('Reload-dd',async data =>{
+    //  const tt= await this._services.getUserrr()
+    //  this._services.user= tt;
+    //  this.user= this._services.user
+    // })
     this.uploadForm = this.formBuilder.group({
       profile: ['']
     });
-
     this.user= this._services.user
+    
+    // this.loadingController.dismiss();
   
+  }
+  async loadDing(){
+    const loading = await this.loadingController.create({
+      message: 'Loading cities...'
+    });
+    await loading.present();
   }
 
     async presentActionSheet() {
@@ -52,34 +66,35 @@ export class HomePage implements OnInit {
           role: 'destructive',
           icon: 'trash',
           handler: () => {
-            console.log('Delete clicked');
+      
             this.router.navigate(['/home/infor-user'])
 
           }
         }, {
-          text: 'Bảo mật',
+          text: 'Quen Mat Khau',
           icon: 'share',
           handler: () => {
-            console.log('Share clicked');
+           this.router.navigate(['/home/fotrgot-pass-private']);
           }
         }, {
           text: 'Đăng xuất',
           icon: 'arrow-dropright-circle',
           handler: () => {
-            console.log('Play clicked');
+           this._services.deleteCookie('token');
+           this.router.navigate(['/login']);
           }
         }, {
           text: 'Favorite',
           icon: 'heart',
           handler: () => {
-            console.log('Favorite clicked');
+            
           }
         }, {
           text: 'Cancel',
           icon: 'close',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+      
           }
         }]
       })
@@ -119,10 +134,10 @@ export class HomePage implements OnInit {
     this.httpClient.post<any>(url, formData).subscribe( res => {
       const data= {_id: this._services.user._id, urlImg: res.fileName };
         this._services.updateImg(data).subscribe(respone => {
-          console.log(respone);
+
         })
     }, err => {
-      console.log(err);
+     
     }
      
     );

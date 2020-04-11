@@ -28,10 +28,10 @@ export class InviteFriendPage implements OnInit {
   end;
 
   constructor(private _services: ChatServicesService) {
-    console.log('vuong')
+
 
     this._services.socket.on('Server-waitAddFriends', user => {
-      console.log('da vao componenrt')
+   
         this.listFriends.splice(0, 0, user);
     })
 
@@ -121,7 +121,7 @@ export class InviteFriendPage implements OnInit {
   }
 
   accepAdd(friend: friendAccept, index) {
-    console.log(friend);
+ 
     // this.listAceepts[index].status= ' ban be ne'
     const compare= this._services.user._id.localeCompare(friend.idsend+'');
     let nameRoom= '';

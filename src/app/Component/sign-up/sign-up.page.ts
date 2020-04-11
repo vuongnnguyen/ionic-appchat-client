@@ -21,7 +21,7 @@ export class SignUpPage implements OnInit {
   onSignUp(formSignUp: FormGroup) {
     this._services.lognUp(formSignUp.value).subscribe( respone => {
       console.log(respone);
-      this.router.navigate(["/home"]);
+      this.router.navigate(["/login"]);
     }, err => console.log(err.message));
   }
 

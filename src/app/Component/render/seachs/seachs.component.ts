@@ -125,7 +125,7 @@ export class SeachsComponent implements OnInit {
      await this._services.onSeach($("#vuong").val().toString(), time)
     .then(respone => {
       this.err= undefined;
-      console.log(respone);
+
       respone.forEach( user => {
         this.listUser.push(user);
       });
@@ -178,7 +178,7 @@ export class SeachsComponent implements OnInit {
   async loadData(event) {
     await this.onSeach(this.listUser[this.listUser.length-1].created, false);
     // if(kq) {
-      console.log("ket thuc")
+  
       event.target.complete();
     // }
    

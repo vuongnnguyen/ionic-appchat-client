@@ -15,6 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SettingRoomComponent } from './Component/msg/setting-room/setting-room.component';
 import { AddmemberComponent } from './Component/msg/setting-room/addmember/addmember.component';
 import { NicknamesComponent } from './Component/msg/setting-room/nicknames/nicknames.component';
+import { MiddlewareGuard } from './guard/middleware.guard';
+import { MiddlewareAtHomeGuard } from './guard/middleware-at-home.guard';
 
 
 
@@ -23,6 +25,8 @@ import { NicknamesComponent } from './Component/msg/setting-room/nicknames/nickn
   entryComponents: [ SettingRoomComponent, AddmemberComponent, NicknamesComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ReactiveFormsModule],
   providers: [
+    // MiddlewareAtHomeGuard,
+    // MiddlewareGuard,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

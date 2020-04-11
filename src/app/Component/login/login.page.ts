@@ -51,9 +51,11 @@ export class LoginPage implements OnInit {
 
   onLogin(formLogin: FormGroup) {
     this._services.login(formLogin.value).subscribe( respone => {
-      this.user= respone;
+      const token= respone.token;
+      this.user= respone.user;
       this._services.user= this.user;
-      console.log(this._services.user);
+    
+      this._services.setCookie('token', token, 1);
       this.router.navigate(["/home"]);
 
       this._services.socket.emit('Client-join-room', this.user.room );

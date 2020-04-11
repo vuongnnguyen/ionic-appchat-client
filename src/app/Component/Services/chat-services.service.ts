@@ -7,6 +7,8 @@ import { MsgPage, message } from '../msg/msg.page';
 import { Notifican } from '../notification/notification.page';
 import { friendAccept } from '../invite-friend/invite-friend.page';
 import { msg } from '../render/viewmessage/viewmessage.component';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 export interface listAccept{
   _id: string;
@@ -76,8 +78,8 @@ export class ChatServicesService {
 
 
 
-  constructor( private http: HttpClient) {
-    console.log('day la contrusctor')
+  constructor( private http: HttpClient, public toastController: ToastController, private router: Router) {
+  
     this.socket = io('http://localhost:3000');
     this.socket.on("Server-send-chat", data => {
       // $("#tn").text(data);
@@ -96,7 +98,7 @@ export class ChatServicesService {
     })
 
     this.socket.on('Server-waitAddFriends', user => {
-      console.log('da vao ben trong services')
+    
        // this.listFriends.splice(0, 0, user);
         // this.user.waitaccept.push(user);
         this.user.friendaccepts.push(user._id)
@@ -219,6 +221,106 @@ export class ChatServicesService {
     //   console.log('day la' + notifican)
     // })
    }
+
+   getInfoToast(message: msg): {nameroom: string, namesend: string} {
+      if(message.type== 'aroom'){
+        if(message.nickname== 'nulls') {return {nameroom: message.name, namesend: message.name};}
+        return {nameroom: message.nickname, namesend: message.nickname};
+      }
+      if(message.nickname== 'nulls') { return {nameroom: message.room, namesend: message.name}};
+      return {nameroom: message.room, namesend: message.nickname};
+   }
+
+   async presentToastWithOptions(message: msg) {
+     const info= this.getInfoToast(message);
+    const toast = await this.toastController.create({
+      header: info.nameroom,
+      message: `${info.namesend}: ${message.msg}. ${message.created}`,
+      position: 'top',
+      duration: 5000,
+      showCloseButton: true,
+      buttons: [
+        {
+          // side: 'start',
+          icon: 'star',
+          text: 'Favorite',
+          handler: () => {
+            this.router.navigate([`/home/chat/${message.roomname}`]);
+          }
+        }, {
+          text: 'Done',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    toast.present();
+  }
+
+
+
+   getUserrr(): Promise<User> {
+    const url= 'http://localhost:3000/user/get-user';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.getCookie('token')
+      })
+    };
+    const body= JSON.stringify({dd: 'dd'});
+    return this.http.post<User>(url, body, httpOptions ).toPromise()
+    .then( res => res)
+    .catch( err => {
+      console.log(err.message)
+       throw err})
+ }
+
+   middleWare(): Promise<{stt: boolean, user: User}> {
+     const url= 'http://localhost:3000/user/middle-ware';
+     const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.getCookie('token')
+      })
+    };
+    const body= JSON.stringify({token: this.getCookie('token') });
+    return this.http.post<{stt: boolean, user: User}>(url, body, httpOptions ).toPromise()
+    .then( res => res)
+    .catch( err => {
+      console.log(err.message);
+       throw err})
+  }
+     
+   
+
+  deleteCookie(name: string) {
+    document.cookie = name+'=; Max-Age=-99999999;';
+  }
+
+   setCookie(key, value, timeExpries) {
+    let newDay= new Date();
+    newDay.setTime(timeExpries*60*60*1000+ newDay.getTime());
+    document.cookie= `${key}=${value}; expires=${newDay.toUTCString()}`;
+
+   }
+
+  getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
    addMember(obj): Promise<msg> {
     const url= 'http://localhost:3000/user/add-member';
@@ -346,16 +448,33 @@ export class ChatServicesService {
 
 
 
+  changePass(obj): Promise<{token: string}> {
+    const url = 'http://localhost:3000/user/change-pass';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.getCookie('token')
+      })
+    };
+    const body= JSON.stringify(obj);
+    console.log(obj);
+    return this.http.post<{token:string}>( url, body,  httpOptions).toPromise()
+    .then( respone => {
+      console.log(respone);
+      return respone
+    })
+    .catch( err =>  { throw err })
+  }
 
-  upDateUser(obj) {
-    const url= 'http://localhost:3000/update-user';
+  upDateUser(obj): Promise<{user:{name: string, userName: string}, token: string}> {
+    const url= 'http://localhost:3000/user/update-user';
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
       })
     }
     const body= JSON.stringify(obj);
-    return this.http.post<boolean>(url, body, httpOptions).toPromise()
+    return this.http.post<{user:{name: string, userName: string}, token: string}>(url, body, httpOptions).toPromise()
     .then( res => res) 
     .catch( err => {throw err})
   }
@@ -373,7 +492,7 @@ export class ChatServicesService {
       const body= JSON.stringify(obj);
       return this.http.post<objMsgUser>( url, body,  httpOptions).toPromise()
       .then( respone => {
-        console.log(respone)
+  
         return respone})
       .catch( err =>  { throw err })
   } 
@@ -452,7 +571,7 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify(value);
-    return this.http.post<User>(url, body, httpOptions);
+    return this.http.post<{user: User, token: string}>(url, body, httpOptions);
 
   }
 
@@ -496,7 +615,7 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify(value);
-    console.log(body);
+
     return this.http.post(url, body, httpOptions);
 
   }
@@ -544,9 +663,9 @@ export class ChatServicesService {
   }
 
   joinAll(listUser: User[]) {
-    console.log('list', listUser);
+
     listUser.forEach( user => {
-      console.log(user);
+    
       this.join(user._id);
     })
   }

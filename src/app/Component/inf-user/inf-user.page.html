@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <ion-img style="width: 100%; height: auto; max-height: 178px; max-width: 100px; display: block; margin: 0 auto;" [src]='_services.user.urlImg'></ion-img>
+  <ion-img style="width: 100%; height: auto; max-height: 178px; max-width: 100px; display: block; margin: 0 auto;"  [src]='_services.user.urlImg'></ion-img>
 <ion-list>
   
   <ion-item >
@@ -19,7 +19,7 @@
   </ion-item>
 
   <ion-item >
-    <ion-label  style="width: 15%;">Tên:</ion-label>
+    <ion-label  style="width: 15%;">Sdt:</ion-label>
     <ion-input id="userName"  type='text' value={{_services.user.userName}} [disabled]='isDisabled("userName")' style="width: 70%;" ></ion-input>
     <ion-button (click)='dontDisabled("userName")'>Sửa</ion-button>
   </ion-item>
@@ -29,6 +29,20 @@
 <p *ngIf='err'>{{err}}</p>
 
 <ion-button (click)='onUpdate()'>Cập Nhật</ion-button>
+
+<form  #formPass="ngForm" >
+  <ion-item class="no-padding-top">
+    <ion-input ngModel #txtEmail="ngModel"
+    name="passOld" type="password" placeholder="mk cu"></ion-input>
+  </ion-item>
+  <ion-item class="no-padding-top">
+    <ion-input  ngModel #txtPass="ngModel"
+    name="passNew" type="password" placeholder="Mật khẩu moi"></ion-input>
+</ion-item>
+<ion-button color="primary" (click)='changePassWord(formPass)' >Thay doi mk</ion-button>
+<!-- <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >Đăng kí tài khoản.</a> -->
+<p *ngIf="errPass">{{errPass}}</p>
+</form>
 
  
 </ion-content>

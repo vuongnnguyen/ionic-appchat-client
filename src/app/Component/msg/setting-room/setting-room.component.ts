@@ -46,12 +46,13 @@ export class SettingRoomComponent implements OnInit {
   }
 
   async addMember() {
-    console.log(this.listNameUser);
+ 
     const modal = await this.modalController.create({
       component: AddmemberComponent,
       componentProps: {
         'room': this.room,
-        'listAllNickName': this.listAllNickName,
+        'listAllNickName': this.listAllNickName,// k can
+        'listNameUser': this.listNameUser
       }
     });
     return await modal.present();
