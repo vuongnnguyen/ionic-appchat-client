@@ -15,10 +15,7 @@ const routes: Routes = [
 //       { path: ':roomName', loadChildren: () => import('./Component/msg/msg.module').then(m => m.MsgPageModule)}
 //   ]
 // },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },   {
-    path: 'change-pass',
-    loadChildren: () => import('./Component/change-pass/change-pass.module').then( m => m.ChangePassPageModule)
-  },
+
   {
     path: 'forgot-passprivate',
     loadChildren: () => import('./Component/forgot-passprivate/forgot-passprivate.module').then( m => m.ForgotPassprivatePageModule)
@@ -40,6 +37,10 @@ const routes: Routes = [
      path: 'signup',
      loadChildren: () => import('./Component/sign-up/sign-up.module').then( m => m.SignUpPageModule)
    },
+    { path: '**', redirectTo: 'login', pathMatch: 'full' },   {
+    path: 'change-pass',
+    loadChildren: () => import('./Component/change-pass/change-pass.module').then( m => m.ChangePassPageModule)
+  }
   // {
   //   path: 'home',
   //   loadChildren: () => import('./Component/home/home.module').then( m => m.HomePageModule)
