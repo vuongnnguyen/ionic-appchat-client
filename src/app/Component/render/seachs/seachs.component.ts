@@ -51,6 +51,21 @@ export class SeachsComponent implements OnInit {
    
   }
 
+  goChatMessage(iduser){
+    const compare= this._services.user._id.localeCompare(iduser+'');
+    let nameRoom= '';
+     if( compare> 0){ 
+        nameRoom= this._services.user._id+ iduser;
+     }
+     else{
+        nameRoom= iduser+ this._services.user._id;
+     }
+     this.router.navigate([`/home/chat/${nameRoom}`]);
+
+
+  }
+
+
   isLoading(_id):boolean{
       const index= this.listLoading.findIndex( id => {
         return id== _id

@@ -37,6 +37,7 @@
         <ion-button *ngIf='!checkFriends(user._id) && checkWaitAccept(user._id)'  [disabled]="isLoading(user._id)" (click)="backupAddFriend(user._id)">Hủy lời mời</ion-button>
       
         <p *ngIf='checkFriends(user._id)'>Bạn bè</p>
+        <ion-button (click)='goChatMessage(user._id)' *ngIf='checkFriends(user._id)'>Nhan tin</ion-button>>
     </ion-label>
     </ion-item>
 
