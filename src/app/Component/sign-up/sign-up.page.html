@@ -9,7 +9,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <form (ngSubmit)="onSignUp(formSignUp)" #formSignUp="ngForm" >
+        <form  #formSignUp="ngForm" >
           <ion-item class="no-padding-top">
             <ion-input ngModel #txtEmail="ngModel"
             name="userName" type="text" placeholder="Số điện thoại"></ion-input>
@@ -22,7 +22,7 @@
             <ion-input  ngModel #txtPass="ngModel"
             name="passWord" type="password" placeholder="Mật khẩu"></ion-input>
         </ion-item>
-        <ion-button color="primary" >Đăng Nhập</ion-button>
+        <ion-button color="primary" (click)="onSignUp(formSignUp)" >Đăng ki</ion-button>
         </form>
       </ion-col>
     </ion-row>

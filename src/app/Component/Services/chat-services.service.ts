@@ -582,7 +582,7 @@ export class ChatServicesService {
         'Content-Type':  'application/json',
         //'Authorization': 'my-auth-token'
       })
-    };
+    }; 
     const body= JSON.stringify(value);
     return this.http.post(url, body, httpOptions);
   }

@@ -23,6 +23,6 @@ export class SignUpPage implements OnInit {
       console.log(respone);
       this.router.navigate(["/login"]);
     }, err => console.log(err.message));
-  }
+  } 
 
 }
