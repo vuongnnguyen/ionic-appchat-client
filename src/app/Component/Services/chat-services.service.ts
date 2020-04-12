@@ -91,6 +91,7 @@ export class ChatServicesService {
       });
       if(index != -1) this.user.msg.splice(index, 1);
       this.user.msg.push(msg._id);
+
     });
     this.socket.on('Server-send-ReloadUser', datta => {
       this.reloadUser(this.user._id)

@@ -28,6 +28,7 @@ export interface  msg{
   nickname: string; // name ben nickname
 
   listNameUser: objUser[];
+  
 
   // idDelete: string;
   // idUserDlt: string;
@@ -63,19 +64,23 @@ export class ViewmessageComponent implements OnInit {
 
   msgs: msg[]= [];
   listMsg: msg[]= [];
+  arrSendMsg= [];
 
   constructor(private _services: ChatServicesService, private alertCtrl: AlertController) {
 
 
     this._services.socket.on('Server-send-leave-room', data => {
+
       // if(this._services.user._id != data.iduser) return;
       const index= this.listMsg.findIndex( docs => {
         return docs.roomname== data.idroom;
       });
       if(index != -1) this.listMsg.splice(index, 1);
+
     })
 
     this._services.socket.on('Server-send-change-nickName', data => {
+
       this.listMsg.forEach( docs => {
         if(docs.roomname== data.idroom){
           if(docs.idsend== data.iduser) {
@@ -90,6 +95,7 @@ export class ViewmessageComponent implements OnInit {
     });
 
     this._services.socket.on('Server-send-amsg', (msg: msg) => {
+      this.arrSendMsg.push(1);
     
       const indexs= this._services.user.block.findIndex( docs => {
         return docs== msg.roomname;
@@ -99,15 +105,16 @@ export class ViewmessageComponent implements OnInit {
           // return JSON.stringify(amsg) == JSON.stringify(msg);
           return amsg.roomname== msg.roomname;
         });
-       if(index != -1) {
-  
-         this.listMsg.splice(index, 1); 
+       if(index != -1) { 
+         this.listMsg.splice(index, 1);
        }
-       
-       this.listMsg.splice(0, 0 , msg)
+       this.listMsg.splice(0, 0, msg);
+       this.arrSendMsg.splice(1, 0);
+
     });
 
     this._services.socket.on('Server-send-updateTime', (message) => {
+
       this.listMsg.forEach( amsg => {
         // { _id: amsg._id, creatednew: obj.created, createdold: message.created };
         if(amsg._id== message._id){
@@ -119,6 +126,7 @@ export class ViewmessageComponent implements OnInit {
     })
 
     this._services.socket.on('Server-send-deleteAllmsg', data => {
+
       const index= this.listMsg.findIndex( msg => {
         return msg.roomname== data.idroom;
       })
@@ -127,6 +135,7 @@ export class ViewmessageComponent implements OnInit {
     });
 
     this._services.socket.on('Server-send-hide-room', data =>{
+
       const index= this._services.user.hidemsg.findIndex( docs => {
         return docs== data.idmsg;
       });
@@ -135,12 +144,14 @@ export class ViewmessageComponent implements OnInit {
     });
 
     this._services.socket.on('Server-send-show-room', data => {
+
       const index= this._services.user.hidemsg.findIndex( docs => { return docs== data.idmsg });
       if(index== -1) return;
       this._services.user.hidemsg.splice(index, 1);
     })
 
     this._services.socket.on('My-update-seen-msg', data => {
+
       this.listMsg.forEach( docs => {
         if(docs.roomname== data.idroom){
           if(docs.idsend == data.iduser) return;
@@ -195,13 +206,14 @@ export class ViewmessageComponent implements OnInit {
     }); 
 
     this._services.socket.on('Server-send-deleteAllmsg-inRoom', data => {
+
      const index= this.listMsg.findIndex( docs =>{ return docs.roomname== data.idroom});
      if(index == -1) return;
      this.listMsg.splice(index, 1);
     });
 
     this._services.socket.on('Server-send-addMember', (data: msg) => {
-     
+
       const index= this.listMsg.findIndex( docs => {
         return docs.roomname== data.roomname;
       });
@@ -545,6 +557,8 @@ export class ViewmessageComponent implements OnInit {
   }
 
   async loadMsg() {
+console.log('loaddd')
+console.log(this._services.user.msg)
     this.msgs= [];
     this.users= [];
     this.rooms= [];
@@ -638,6 +652,15 @@ export class ViewmessageComponent implements OnInit {
   }
 
   async loadData(event) {
+    if(this.arrSendMsg.length > 0) {
+      event.target.complete();
+      return;
+    }
+    if(this.listMsg.length== this._services.user.msg.length ){
+      event.target.disabled= true;// chi cho lan sau nen phai return
+      event.target.complete();
+      return;
+      }
     await this.loadMsg();
     event.target.complete();
   }

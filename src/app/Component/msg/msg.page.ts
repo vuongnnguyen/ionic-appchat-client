@@ -569,19 +569,20 @@ export class MsgPage implements OnInit {
 
   sendMessage(){
     const amessage= { _id: new Date().getTime()+'',
+    idsend: this._services.user._id,
     seen: false,
     msg: this.newMsg.trim(),
     created: new Date().getTime(),
     roomname: this.id,
-    idsend: this._services.user._id,
-    urlImg:  this.rooms.type== 'aroom'? this._services.user.urlImg: this.rooms.urlImg ,
     name: this._services.user.name,
 
+    urlImg:  this.rooms.type== 'aroom'? this._services.user.urlImg: this.rooms.urlImg ,
+        nickname: this.getNickName(this._services.user._id),
     room: this.rooms.name,
     color: this.rooms.color,
     type: this.rooms.type,
 
-    nickname: this.getNickName(this._services.user._id),
+
     listNameUser: this.listNameUser
   }
   this.messages.push(amessage);
