@@ -36,10 +36,10 @@ const routes: Routes = [
   //   path: 'signin',
   //   loadChildren: () => import('./Component/sign-in/sign-in.module').then( m => m.SignInPageModule)
   // },
-  // {
-  //   path: 'signup',
-  //   loadChildren: () => import('./Component/sign-up/sign-up.module').then( m => m.SignUpPageModule)
-  // },
+   {
+     path: 'signup',
+     loadChildren: () => import('./Component/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+   },
   // {
   //   path: 'home',
   //   loadChildren: () => import('./Component/home/home.module').then( m => m.HomePageModule)

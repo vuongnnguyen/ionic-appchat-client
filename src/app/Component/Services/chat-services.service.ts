@@ -80,7 +80,7 @@ export class ChatServicesService {
 
   constructor( private http: HttpClient, public toastController: ToastController, private router: Router) {
   
-    this.socket = io('http://localhost:3000');
+    this.socket = io('https://vuongdeptrai.herokuapp.com');
     this.socket.on("Server-send-chat", data => {
       // $("#tn").text(data);
       // this.setMsg(data);
@@ -262,7 +262,7 @@ export class ChatServicesService {
 
 
    getUserrr(): Promise<User> {
-    const url= 'http://localhost:3000/user/get-user';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/get-user';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -278,7 +278,7 @@ export class ChatServicesService {
  }
 
    middleWare(): Promise<{stt: boolean, user: User}> {
-     const url= 'http://localhost:3000/user/middle-ware';
+     const url= 'https://vuongdeptrai.herokuapp.com/user/middle-ware';
      const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -323,7 +323,7 @@ export class ChatServicesService {
   }
 
    addMember(obj): Promise<msg> {
-    const url= 'http://localhost:3000/user/add-member';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/add-member';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -339,7 +339,7 @@ export class ChatServicesService {
  }
 
    seachMember(obj): Promise<userSeach>{
-      const url= 'http://localhost:3000/user/seach-member';
+      const url= 'https://vuongdeptrai.herokuapp.com/user/seach-member';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -353,7 +353,7 @@ export class ChatServicesService {
    }
 
    createGroup(obj): Promise<msg> {
-     const url= 'http://localhost:3000/user/create-group';
+     const url= 'https://vuongdeptrai.herokuapp.com/user/create-group';
      const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -373,7 +373,7 @@ export class ChatServicesService {
    }
 
    deleteAmsg(obj): Promise<{index: number, message: msg}> {
-    const url= 'http://localhost:3000/user/delete-amsg';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/delete-amsg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -387,7 +387,7 @@ export class ChatServicesService {
    } 
    
   updateTime(obj) : Promise<boolean> {
-    const url= 'http://localhost:3000/user/update-seen-msg';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/update-seen-msg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -402,7 +402,7 @@ export class ChatServicesService {
   
    
   deleteAllMsg(obj): Promise<boolean> {
-    const url= 'http://localhost:3000/user/delete-allmsg';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/delete-allmsg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -431,7 +431,7 @@ export class ChatServicesService {
 
    
   getMessageinRoom(roomname, skip, iduser): Promise<objMessage> {
-      const url = 'http://localhost:3000/user/get-messagess';
+      const url = 'https://vuongdeptrai.herokuapp.com/user/get-messagess';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -449,7 +449,7 @@ export class ChatServicesService {
 
 
   changePass(obj): Promise<{token: string}> {
-    const url = 'http://localhost:3000/user/change-pass';
+    const url = 'https://vuongdeptrai.herokuapp.com/user/change-pass';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -467,7 +467,7 @@ export class ChatServicesService {
   }
 
   upDateUser(obj): Promise<{user:{name: string, userName: string}, token: string}> {
-    const url= 'http://localhost:3000/user/update-user';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/update-user';
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -481,7 +481,7 @@ export class ChatServicesService {
   
 
   getListMsg(listmsg: Array<any>, skip: number, myid): Promise<objMsgUser> {
-      const url= 'http://localhost:3000/user/getlistmsg';
+      const url= 'https://vuongdeptrai.herokuapp.com/user/getlistmsg';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -499,7 +499,7 @@ export class ChatServicesService {
 
 
    getListUser(listUser: Array<string>): Promise<listAccept[]>{
-    const url= "http://localhost:3000/user/getlistuser";
+    const url= "https://vuongdeptrai.herokuapp.com/user/getlistuser";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -515,7 +515,7 @@ export class ChatServicesService {
     
    getListAccept(listAccept: Array<any>, skip): Promise<friendAccept[]> {
 
-    const url= "http://localhost:3000/user/getaccept";
+    const url= "https://vuongdeptrai.herokuapp.com/user/getaccept";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -531,7 +531,7 @@ export class ChatServicesService {
 
 
    reloadUser(_id) {
-      const url= "http://localhost:3000/user/getuser";
+      const url= "https://vuongdeptrai.herokuapp.com/user/getuser";
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -546,7 +546,7 @@ export class ChatServicesService {
     }
 
   getListNoti(listNoti: Array<any>): Promise<Notifican[]> {
-    const url= "http://localhost:3000/notifi/getnoti";
+    const url= "https://vuongdeptrai.herokuapp.com/notifi/getnoti";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -563,7 +563,7 @@ export class ChatServicesService {
 
 
   login(value) {
-    const url= "http://localhost:3000/user/signIn";
+    const url= "https://vuongdeptrai.herokuapp.com/user/signIn";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -576,7 +576,7 @@ export class ChatServicesService {
   }
 
   lognUp(value) {
-    const url= "http://localhost:3000/user/signUp";
+    const url= "https://vuongdeptrai.herokuapp.com/user/signUp";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -588,7 +588,7 @@ export class ChatServicesService {
   }
 
   onSeach(userName, time): Promise<User[]> {
-    const url= "http://localhost:3000/user/users";
+    const url= "https://vuongdeptrai.herokuapp.com/user/users";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -607,7 +607,7 @@ export class ChatServicesService {
   }
 
   updateImg(value) {
-    const url= 'http://localhost:3000/user/updateImg';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/updateImg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -638,7 +638,7 @@ export class ChatServicesService {
 
 
   onAvatar(value) {
-    const url= "http://localhost:3000/user/vuong";
+    const url= "https://vuongdeptrai.herokuapp.com/user/vuong";
     // const httpOptions = {
     //   headers: new HttpHeaders({
     //     'Content-Type':  'application/json',
