@@ -287,14 +287,14 @@ export class MsgPage implements OnInit {
   }
 
   getSeen() :{ isseen: boolean, status: string} {
-    if(this.messages.length== 0 ) return { isseen: false, status: 'k co tin nhan'};
+    if(this.messages.length== 0 ) return { isseen: false, status: ''};
     let arrSeen: Array<{_id: string, name: string}>= [];
     let status= '';
     let count= 0;
     let isssen: boolean= false;
     if(this.rooms.type== 'arrom'){
-     if(this.listNameUser[0].seen >= this.messages[this.messages.length-1].created) return { isseen: true, status: 'da xem aroom'};
-     return { isseen: false, status: 'chua  xem aroom'};
+     if(this.listNameUser[0].seen >= this.messages[this.messages.length-1].created) return { isseen: true, status: 'da xem'};
+     return { isseen: false, status: 'chua xem'};
     }
 
     this.listNameUser.forEach( nameuser => {

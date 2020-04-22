@@ -34,6 +34,20 @@ export class AddmemberComponent implements OnInit {
     this.modalController.dismiss()
   }
 
+  goChatMessage(iduser){
+    const compare= this._services.user._id.localeCompare(iduser+'');
+    let nameRoom= '';
+     if( compare> 0){ 
+        nameRoom= this._services.user._id+ iduser;
+     }
+     else{
+        nameRoom= iduser+ this._services.user._id;
+     }
+     this.router.navigate([`/home/chat/${nameRoom}`]);
+
+
+  }
+
   addMember(id: string, username: string) {
     this._services.socket.emit('Client-addMember-joinsocket', { iduser: id, idroom: this.room.idroom});
     const obj = { idroom: this.room.idroom, iduser: id, idadd: this._services.user._id, usernameadd: this._services.user.name, username: username };

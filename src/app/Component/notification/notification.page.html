@@ -7,6 +7,10 @@
   </ion-toolbar>
 </ion-header> -->
 
+
+
+<!-- đây ladf hiển thị thông báobáo -->
+
 <ion-content>
   
 
@@ -16,11 +20,12 @@
       <ion-col size='12' *ngFor="let noti of listNotificantion, index as i" style="margin-top: 0px; padding: 0 0;">
         <ion-row style="margin-top: 0px;padding-top: 0px;">
           <ion-col  style="width: auto;" style="max-width: 35px; padding-left: 0px ; padding-right: 3px; padding-top: 7px; padding-bottom: 0px; ">
-           
+           <!-- đây là avtaravtar -->
                <ion-img style="width: 35px!important; height: 35px!important; margin-left: 0px!important; border-radius: 50% ;"  [src]="noti.urlImg" ></ion-img>
                
           </ion-col >
           <ion-col size='10' style="margin-bottom: 0px;padding: 0 0; margin-top: 0px;">
+            <!-- đây là test -->
             <small  style="color: blue; margin-top: 0px;margin-bottom: 0px; line-height: 0px; font-weight: 400; color: black;">{{noti.msg}}</small><br>
             <small style=" margin-left: 0px;margin-top: 0px;margin-bottom: 0px;" *ngIf="!noti.server && noti.status!= 'none'">{{noti.status}}</small>
           </ion-col>

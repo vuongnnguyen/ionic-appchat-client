@@ -24,24 +24,37 @@
     </ion-label>
     </ion-item>
     <ion-item-options side="end" *ngIf='!isHideMsg(msg._id)' >
+      
       <ion-item-option *ngIf='!isDissmissNotification(msg.roomname)' (click)='dismissNotification(msg.roomname)' slot="icon-only" color='light' >
+       <!-- thay cái này bằng icon tắt thông báobáo -->
         <ion-icon name="notifications"></ion-icon>
       </ion-item-option >
+
       <ion-item-option *ngIf='isDissmissNotification(msg.roomname)' (click)='missNotification(msg.roomname)' slot="icon-only" color='light' >
+         <!-- thay cái này bằng icon bậtbật thông báobáo -->
         <ion-icon name="notifications"></ion-icon>
       </ion-item-option>
+
       <ion-item-option (click)='hideRoom(msg._id)'  slot="icon-only" color='light' >
+         <!-- thay cái này bằng icon ẩn tin nhắnnhắn -->
         <ion-icon name="notifications"></ion-icon> 
       </ion-item-option>
+
       <ion-item-option (click)='deleteMessagesinRoom(msg, i)' slot="icon-only" color='light' >
+         <!-- thay cái này bằng icon xóa tin nhắnnhắn-->
         <ion-icon name="notifications"></ion-icon>
       </ion-item-option>
+
       <ion-item-option (click)='blockRoom(msg.roomname)' *ngIf='!isBlocked(msg.roomname)' slot="icon-only" color='light' >
+         <!-- thay cái này bằng icon chặn tin nhắnnhắn -->
         <ion-icon name="notifications"></ion-icon>
       </ion-item-option>
+
       <ion-item-option (click)='unBlockRoom(msg.roomname)' *ngIf='!isBlocked(msg.roomname)' slot="icon-only" color='light' >
+        <!-- thay cái này bằng icon bỏ chặn -->
         <ion-icon name="notifications"></ion-icon>
       </ion-item-option>
+
     </ion-item-options>
   </ion-item-sliding>
 </ion-list>

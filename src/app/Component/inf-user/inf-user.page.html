@@ -1,3 +1,5 @@
+<!-- đây là trang hiển thij thông tin người dùng có thể sửa đcđc -->
+
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -8,16 +10,22 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-img style="width: 100%; height: auto; max-height: 178px; max-width: 100px; display: block; margin: 0 auto;"  [src]='_services.user.urlImg'></ion-img>
-<ion-list>
   
+  <!-- đây là avatar có thể css cho nó đẹp -->
+  <ion-img style="width: 100%; height: auto; max-height: 178px; max-width: 100px; display: block; margin: 0 auto;"  [src]='_services.user.urlImg'></ion-img>
+
+
+  <ion-list>
+  
+    <!-- đây là item chứa têntên -->
   <ion-item >
     <ion-label  style="width: 15%;">Tên:</ion-label>
     <ion-input id='name'  type='text' value={{_services.user.name}} [disabled]='isDisabled("name")' style="width: 70%;" ></ion-input>
     <ion-button (click)='dontDisabled("name")'>Sửa</ion-button>
   </ion-item>
 
+
+  <!-- đây là item chứa userName(tên tài khoảnkhoản) -->
   <ion-item >
     <ion-label  style="width: 15%;">Sdt:</ion-label>
     <ion-input id="userName"  type='text' value={{_services.user.userName}} [disabled]='isDisabled("userName")' style="width: 70%;" ></ion-input>
@@ -26,10 +34,12 @@
 
 </ion-list>
 
+<!-- cái này k  cần làm gì đâu khi bấm nút có lỗi nó hiển thị lỗi thôithôi -->
 <p *ngIf='err'>{{err}}</p>
 
 <ion-button (click)='onUpdate()'>Cập Nhật</ion-button>
 
+<!-- đây là form thay đôi mkmk -->
 <form  #formPass="ngForm" >
   <ion-item class="no-padding-top">
     <ion-input ngModel #txtEmail="ngModel"
