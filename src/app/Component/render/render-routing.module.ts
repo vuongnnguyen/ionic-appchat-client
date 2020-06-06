@@ -7,10 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: RenderPage
-  },
-  {
-    path: 'seach',
-    loadChildren: () => import('./seach/seach.module').then( m => m.SeachPageModule)
   }
 ];
 

@@ -3,8 +3,8 @@ import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 import { ChatServicesService } from '../../Services/chat-services.service';
 import * as $ from 'jquery';
 import { from } from 'rxjs';
-import { User } from '../../login/login.page';
 import { Router } from '@angular/router';
+import { User } from '../../../model/interface';
 
 
 @Component({
@@ -29,9 +29,6 @@ export class SeachsComponent implements OnInit {
   
 
       this._services.socket.on('Server-addFriend', idfd =>{
-        // console.log('0000000000000000000')
-        // this._services.reloadUser(this._services.user._id);
-        // this._services.listLoading= [];
         this._services.user.friends.push(idfd);
       })
 
@@ -41,15 +38,11 @@ export class SeachsComponent implements OnInit {
         });
         this.listLoading.splice(index, 1);
       })
-    // this.ad
   }
 
   async ngOnInit() {
     this.user= this._services.user;
-    // console.log('seppp')
-    // await this._services.reloadUser(this._services.user._id);
-   
-  }
+  };
 
   goChatMessage(iduser){
     const compare= this._services.user._id.localeCompare(iduser+'');
@@ -61,9 +54,7 @@ export class SeachsComponent implements OnInit {
         nameRoom= iduser+ this._services.user._id;
      }
      this.router.navigate([`/home/chat/${nameRoom}`]);
-
-
-  }
+  };
 
 
   isLoading(_id):boolean{
@@ -72,20 +63,14 @@ export class SeachsComponent implements OnInit {
       });
       if(index==-1) return false;
       return true;
-  }
-
-
-
-
-
-  
+  };
 
   backupAddFriend(_id: string) {
     this.listLoading.push(_id);
     this.deleteDocumemt(this._services.user.waitaccept, _id);
     const backupAdd= { idsend: this._services.user._id, idto: _id};
     this._services.socket.emit('Client-send-backupAdd', backupAdd);
-  }
+  };
  
   deleteDocumemt(arr: Array<any>, _id: String) {
     const index= arr.findIndex( document => {
@@ -93,9 +78,7 @@ export class SeachsComponent implements OnInit {
     });
     if( index== -1) return;
     arr.splice(index, 1);
-  }
-
-
+  };
 
   checkWaitAccept(_id: string) {
     const index= this._services.user.waitaccept.findIndex( userWaiat => {
@@ -103,10 +86,7 @@ export class SeachsComponent implements OnInit {
     });
     if(index==-1) return false;
     return true;
-  }
-
-
-
+  };
 
   checkFriends(_id: string) {
     const index= this._services.user.friends.findIndex( friend => {
@@ -114,16 +94,14 @@ export class SeachsComponent implements OnInit {
     });
     if(index == -1) return false;
     return true;
-  }
-
+  };
 
   addFriend(_id: string) {
     this.listLoading.push(_id)
     this._services.user.waitaccept.push(_id);
     const friends= { _idsend: this._services.user._id, urlImg: this._services.user.urlImg, name: this._services.user.name ,_idto: _id }
     this._services.socket.emit('Client-send-addFriend', friends);
-  }
-
+  };
 
   goNotifi() {
     this.router.navigate(["/invite-friend"])

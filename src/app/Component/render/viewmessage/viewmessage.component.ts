@@ -1,55 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ChatServicesService, listAccept, room, nickName } from '../../Services/chat-services.service';
-import { User } from '../../login/login.page';
+import { ChatServicesService } from '../../Services/chat-services.service';
+import { listAccept, nickName, room, User, msg, objUser } from '../../../model/interface';
+
 import { AlertController } from '@ionic/angular';
-
-export interface objUser {
-  id: string;
-  name: string;
-  nickname: string;
-  seen: number;
-}
-export interface  msg{
-  _id: string;
-  seen: boolean;
-  msg: string;
-  created: number;
-  roomname: string;
-
-  idsend: string;
-  urlImg: string;
-  name: string;
-
-  room: string; //ten room cua room
-  color: string; // room
-  type: string; // loai room
-
-  nickname: string; // name ben nickname
-
-  listNameUser: objUser[];
-  
-
-  // idDelete: string;
-  // idUserDlt: string;
-  // deletemsg: Array<any>;
-  // deleteallmsg: number;
-  // createdDlt: number;
-
-}
-//   _id: string;
-//   idsend: string;
-//   idto: string;
-//   sendseen: boolean;
-//   toseen: boolean;
-//   msg: string;
-//   time: number;
-//   created: number;
-//   iduser: string
-//   urlImg: string;
-//   name: string,
-//   roomName: string
-// }
 
 @Component({
   selector: 'app-viewmessage',
@@ -58,13 +12,13 @@ export interface  msg{
 })
 export class ViewmessageComponent implements OnInit {
 
-  users: listAccept[]= [];
-  rooms: room[]= [];
+  users: listAccept[] = [];
+  rooms: room[] = [];
   nickNames: nickName[] = [];
 
-  msgs: msg[]= [];
-  listMsg: msg[]= [];
-  arrSendMsg= [];
+  msgs: msg[] = [];
+  listMsg: msg[] = [];
+  arrSendMsg = [];
 
   constructor(private _services: ChatServicesService, private alertCtrl: AlertController) {
 
@@ -73,7 +27,7 @@ export class ViewmessageComponent implements OnInit {
 
       // if(this._services.user._id != data.iduser) return;
       const index= this.listMsg.findIndex( docs => {
-        return docs.roomname== data.idroom;
+        return docs.roomname == data.idroom;
       });
       if(index != -1) this.listMsg.splice(index, 1);
 
@@ -82,13 +36,13 @@ export class ViewmessageComponent implements OnInit {
     this._services.socket.on('Server-send-change-nickName', data => {
 
       this.listMsg.forEach( docs => {
-        if(docs.roomname== data.idroom){
-          if(docs.idsend== data.iduser) {
-            docs.nickname= data.nickname;
+        if(docs.roomname == data.idroom){
+          if(docs.idsend == data.iduser) {
+            docs.nickname = data.nickname;
             return;
           }
           docs.listNameUser.forEach( docs => {
-            if(docs.id== data.iduser) docs.nickname= data.nickname;
+            if(docs.id == data.iduser) docs.nickname= data.nickname;
           })
         }
       })
@@ -98,7 +52,7 @@ export class ViewmessageComponent implements OnInit {
       this.arrSendMsg.push(1);
     
       const indexs= this._services.user.block.findIndex( docs => {
-        return docs== msg.roomname;
+        return docs == msg.roomname;
       })
       if(indexs != -1) return;
         const index= this.listMsg.findIndex( amsg =>{
@@ -207,15 +161,15 @@ export class ViewmessageComponent implements OnInit {
 
     this._services.socket.on('Server-send-deleteAllmsg-inRoom', data => {
 
-     const index= this.listMsg.findIndex( docs =>{ return docs.roomname== data.idroom});
+     const index = this.listMsg.findIndex( docs =>{ return docs.roomname== data.idroom});
      if(index == -1) return;
      this.listMsg.splice(index, 1);
     });
 
     this._services.socket.on('Server-send-addMember', (data: msg) => {
 
-      const index= this.listMsg.findIndex( docs => {
-        return docs.roomname== data.roomname;
+      const index = this.listMsg.findIndex( docs => {
+        return docs.roomname == data.roomname;
       });
       if(index != -1) this.listMsg.splice(index, 1);
       this.listMsg.splice(0, 0, data);
@@ -273,9 +227,6 @@ export class ViewmessageComponent implements OnInit {
     if(index== -1) return false;
     return true;
   }
-
-
-///
 
   async createGroup() {
     const createdGroup= await this.alertCtrl.create({
@@ -557,8 +508,6 @@ export class ViewmessageComponent implements OnInit {
   }
 
   async loadMsg() {
-console.log('loaddd')
-console.log(this._services.user.msg)
     this.msgs= [];
     this.users= [];
     this.rooms= [];

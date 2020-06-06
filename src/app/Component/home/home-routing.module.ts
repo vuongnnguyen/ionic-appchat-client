@@ -18,7 +18,6 @@ const routes: Routes = [
     ]
     
   },
- // { path: 'chat/: roomName', loadChildren: () => import('../msg/msg.module').then(m => m.MsgPageModule)},
   {
     path: 'chat',
     children: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../login/login.page';
+import { User } from '../../model/interface';
 import { ChatServicesService } from '../Services/chat-services.service';
 import { FormGroup } from '@angular/forms';
 import * as $ from 'jquery';
@@ -11,13 +11,11 @@ import * as $ from 'jquery';
   styleUrls: ['./inf-user.page.scss'],
 })
 export class InfUserPage implements OnInit {
-
-  arrDontDisabled= [];
-  err;
-  errPass;
+  arrDontDisabled = [];
+  err: string;
+  errPass: string;
   formForgotPass: FormGroup;
-
-
+  
   constructor(private _services: ChatServicesService) { }
 
   ngOnInit() {
@@ -40,18 +38,15 @@ export class InfUserPage implements OnInit {
     this._services.upDateUser(obj)
     .then( res => {
       this.err= undefined;
-      this._services.user.name= res.user.name
-      this._services.user.userName= res.user.userName;
-      this._services.deleteCookie('token')
-      this._services.setCookie('token', res.token, 1)
-      
-      this.arrDontDisabled= [];
+      this._services.user.name = res.user.name;
+      this._services.user.userName = res.user.userName;
+      this._services.deleteCookie('token');
+      this._services.setCookie('token', res.token, 1); 
+      this.arrDontDisabled = [];
     })
     .catch( err =>{
-      this.err= err.message;
-      
-    })
-    
+      this.err = err.message;
+    });
   }
 
   dontDisabled(type: string): void {

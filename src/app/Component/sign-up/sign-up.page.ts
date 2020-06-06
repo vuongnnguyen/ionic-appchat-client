@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormGroup } from '@angular/forms';
 import { ChatServicesService } from '../Services/chat-services.service';
-import { User } from '../login/login.page';
+import { User } from '../../model/interface';
 import { Router } from '@angular/router';
 
 @Component({

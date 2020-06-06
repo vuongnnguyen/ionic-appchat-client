@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { handelNickName } from '../../msg.page';
+import { handelNickName } from '../../../../model/interface';
 import * as $ from 'jquery';
 import { AlertController } from '@ionic/angular';
 import { ChatServicesService } from '../../../Services/chat-services.service';
@@ -31,8 +31,8 @@ export class NicknamesComponent implements OnInit {
   }
 
   async changeNickName(user: handelNickName) {
-      const createdGroup= await this.alertCtrl.create({
-        header: 'Thay doi biet danh',
+    const createdGroup = await this.alertCtrl.create({
+      header: 'Thay doi biet danh',
         message: 'Nhap biet danh.',
         inputs: [{
           name: 'nickname',

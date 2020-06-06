@@ -1,74 +1,19 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../login/login.page';
 import * as io from 'socket.io-client';
-import { MsgPage, message } from '../msg/msg.page';
-import { Notifican } from '../notification/notification.page';
-import { friendAccept } from '../invite-friend/invite-friend.page';
-import { msg } from '../render/viewmessage/viewmessage.component';
+
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import * as MYINTERFACE from '../../model/interface';
 
-export interface listAccept{
-  _id: string;
-  name: string;
-  urlImg: string;
-}
-
-
-
-export interface nickName {
-  iduser: string;
-  name: string;
-  nameroom: string;
-  seen: number;
-  created: number;
-}
-// iduser: { type: String},
-// name: { type: String, default: 'null'},
-// nameroom: { type: String},
-// created: { type: Number}
-export interface room {
-  idroom: string;
-  name: string;
-  color: string;
-  type: string;
-  created: number;
-  urlImg: string;
-  countBlock: number;
-}
-// name: { type: String},
-// color: { type: String, default: 'blue'},
-// type: { type: String},
-// created: { type: Number}
-
-export interface objMsgUser{
-  user: Array<listAccept>;
-  listMsg: Array<msg>;
-  room: Array<room>;
-  nickname: Array<nickName>;
-}
-export interface objMessage{
-  user: Array<listAccept>;
-  listMsg: Array<msg>;
-  room: room;
-  nickname: Array<nickName>;
-}
-
-export interface userSeach{
-  _id: string;
-  urlImg: string;
-  name: string;
-  userName: string;
-}
  
 @Injectable({
   providedIn: 'root'
 })
 export class ChatServicesService {
   public socket: SocketIOClient.Socket;
-  user: User;
+  user: MYINTERFACE.User;
   msg= '';
   send= false;
   seach= "";
@@ -85,7 +30,7 @@ export class ChatServicesService {
       // $("#tn").text(data);
       // this.setMsg(data);
     });
-    this.socket.on("Server-send-amsg", (msg: msg) => {
+    this.socket.on("Server-send-amsg", (msg: MYINTERFACE.msg) => {
       const index=this.user.msg.findIndex( amsg => {
         return msg._id== amsg;
       });
@@ -106,7 +51,7 @@ export class ChatServicesService {
 
     })
 
-    this.socket.on('Server-notifiAddFr', (noti: Notifican) =>{
+    this.socket.on('Server-notifiAddFr', (noti: MYINTERFACE.Notifican) =>{
       this.user.notification.push(noti._id);
     });
 
@@ -165,7 +110,7 @@ export class ChatServicesService {
       this.user.hidemsg.splice(index, 1);
     })
     
-    this.socket.on('Server-send-createdGroup', (data: msg) => {
+    this.socket.on('Server-send-createdGroup', (data: MYINTERFACE.msg) => {
       this.socket.emit('Client-join-room', [data.roomname])
       const index1= this.user.room.findIndex( docs => { return docs== data.roomname});
       if(index1 != -1) this.user.room.push(data.roomname);
@@ -223,7 +168,7 @@ export class ChatServicesService {
     // })
    }
 
-   getInfoToast(message: msg): {nameroom: string, namesend: string} {
+   getInfoToast(message: MYINTERFACE.msg): {nameroom: string, namesend: string} {
       if(message.type== 'aroom'){
         if(message.nickname== 'nulls') {return {nameroom: message.name, namesend: message.name};}
         return {nameroom: message.nickname, namesend: message.nickname};
@@ -232,7 +177,7 @@ export class ChatServicesService {
       return {nameroom: message.room, namesend: message.nickname};
    }
 
-   async presentToastWithOptions(message: msg) {
+   async presentToastWithOptions(message: MYINTERFACE.msg) {
      const info= this.getInfoToast(message);
     const toast = await this.toastController.create({
       header: info.nameroom,
@@ -262,7 +207,7 @@ export class ChatServicesService {
 
 
 
-   getUserrr(): Promise<User> {
+   getUserrr(): Promise<MYINTERFACE.User> {
     const url= 'https://vuongdeptrai.herokuapp.com/user/get-user';
     const httpOptions = {
       headers: new HttpHeaders({
@@ -271,14 +216,14 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify({dd: 'dd'});
-    return this.http.post<User>(url, body, httpOptions ).toPromise()
+    return this.http.post<MYINTERFACE.User>(url, body, httpOptions ).toPromise()
     .then( res => res)
     .catch( err => {
       console.log(err.message)
        throw err})
  }
 
-   middleWare(): Promise<{stt: boolean, user: User}> {
+   middleWare(): Promise<{stt: boolean, user: MYINTERFACE.User}> {
      const url= 'https://vuongdeptrai.herokuapp.com/user/middle-ware';
      const httpOptions = {
       headers: new HttpHeaders({
@@ -287,7 +232,7 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify({token: this.getCookie('token') });
-    return this.http.post<{stt: boolean, user: User}>(url, body, httpOptions ).toPromise()
+    return this.http.post<{stt: boolean, user: MYINTERFACE.User}>(url, body, httpOptions ).toPromise()
     .then( res => res)
     .catch( err => {
       console.log(err.message);
@@ -323,7 +268,7 @@ export class ChatServicesService {
     return "";
   }
 
-   addMember(obj): Promise<msg> {
+   addMember(obj): Promise<MYINTERFACE.msg> {
     const url= 'https://vuongdeptrai.herokuapp.com/user/add-member';
     const httpOptions = {
       headers: new HttpHeaders({
@@ -332,14 +277,14 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify(obj);
-    return this.http.post<msg>(url, body, httpOptions ).toPromise()
+    return this.http.post<MYINTERFACE.msg>(url, body, httpOptions ).toPromise()
     .then( res => res)
     .catch( err => {
       console.log(err.message)
        throw err})
  }
 
-   seachMember(obj): Promise<userSeach>{
+   seachMember(obj): Promise<MYINTERFACE.userSeach>{
       const url= 'https://vuongdeptrai.herokuapp.com/user/seach-member';
       const httpOptions = {
         headers: new HttpHeaders({
@@ -348,12 +293,12 @@ export class ChatServicesService {
         })
       };
       const body= JSON.stringify(obj);
-      return this.http.post<userSeach>(url, body, httpOptions ).toPromise()
+      return this.http.post<MYINTERFACE.userSeach>(url, body, httpOptions ).toPromise()
       .then( res => res)
       .catch( err => { throw err})
    }
 
-   createGroup(obj): Promise<msg> {
+   createGroup(obj): Promise<MYINTERFACE.msg> {
      const url= 'https://vuongdeptrai.herokuapp.com/user/create-group';
      const httpOptions = {
       headers: new HttpHeaders({
@@ -362,7 +307,7 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify(obj);
-    return this.http.post<msg>(url, body, httpOptions ).toPromise()
+    return this.http.post<MYINTERFACE.msg>(url, body, httpOptions ).toPromise()
     .then( res => {
       this.user.room.push(res.roomname);
       this.user.msg.push(res._id);
@@ -373,7 +318,7 @@ export class ChatServicesService {
     .catch( err => { throw err});
    }
 
-   deleteAmsg(obj): Promise<{index: number, message: msg}> {
+   deleteAmsg(obj): Promise<{index: number, message: MYINTERFACE.msg}> {
     const url= 'https://vuongdeptrai.herokuapp.com/user/delete-amsg';
     const httpOptions = {
       headers: new HttpHeaders({
@@ -382,7 +327,7 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify(obj);
-    return this.http.post<{index: number, message: msg}>(url, body, httpOptions).toPromise()
+    return this.http.post<{index: number, message: MYINTERFACE.msg}>(url, body, httpOptions).toPromise()
     .then( res => res)
     .catch( err => { throw err})
    } 
@@ -431,7 +376,7 @@ export class ChatServicesService {
    } 
 
    
-  getMessageinRoom(roomname, skip, iduser): Promise<objMessage> {
+  getMessageinRoom(roomname, skip, iduser): Promise<MYINTERFACE.objMessage> {
       const url = 'https://vuongdeptrai.herokuapp.com/user/get-messagess';
       const httpOptions = {
         headers: new HttpHeaders({
@@ -441,7 +386,7 @@ export class ChatServicesService {
       };
       const obj= { roomname: roomname, skip: skip, iduser: iduser };
       const body= JSON.stringify(obj);
-      return this.http.post<objMessage>( url, body,  httpOptions).toPromise()
+      return this.http.post<MYINTERFACE.objMessage>( url, body,  httpOptions).toPromise()
       .then( respone => respone)
       .catch( err =>  { throw err })
 
@@ -481,7 +426,7 @@ export class ChatServicesService {
   }
   
 
-  getListMsg(listmsg: Array<any>, skip: number, myid): Promise<objMsgUser> {
+  getListMsg(listmsg: Array<any>, skip: number, myid): Promise<MYINTERFACE.objMsgUser> {
       const url= 'https://vuongdeptrai.herokuapp.com/user/getlistmsg';
       const httpOptions = {
         headers: new HttpHeaders({
@@ -491,7 +436,7 @@ export class ChatServicesService {
       };
       const obj= { arrMsg: listmsg, skip: skip, myid: myid };
       const body= JSON.stringify(obj);
-      return this.http.post<objMsgUser>( url, body,  httpOptions).toPromise()
+      return this.http.post<MYINTERFACE.objMsgUser>( url, body,  httpOptions).toPromise()
       .then( respone => {
   
         return respone})
@@ -499,7 +444,7 @@ export class ChatServicesService {
   } 
 
 
-   getListUser(listUser: Array<string>): Promise<listAccept[]>{
+   getListUser(listUser: Array<string>): Promise<MYINTERFACE.listAccept[]>{
     const url= "https://vuongdeptrai.herokuapp.com/user/getlistuser";
     const httpOptions = {
       headers: new HttpHeaders({
@@ -509,12 +454,12 @@ export class ChatServicesService {
     };
     const obj= { listUser: listUser};
     const body= JSON.stringify(obj);
-    return this.http.post<listAccept[]>(url, body, httpOptions).toPromise()
+    return this.http.post<MYINTERFACE.listAccept[]>(url, body, httpOptions).toPromise()
     .then( respone => respone)
     .catch( err => err);
   } 
     
-   getListAccept(listAccept: Array<any>, skip): Promise<friendAccept[]> {
+   getListAccept(iduser, skip): Promise<MYINTERFACE.friendAccept[]> {
 
     const url= "https://vuongdeptrai.herokuapp.com/user/getaccept";
     const httpOptions = {
@@ -523,9 +468,9 @@ export class ChatServicesService {
         //'Authorization': 'my-auth-token'
       })
     };
-    const obj= { arrId: listAccept, skip: skip};
+    const obj= { iduser : iduser, skip: skip};
     const body= JSON.stringify(obj);
-    return this.http.post<friendAccept[]>(url, body, httpOptions).toPromise()
+    return this.http.post<MYINTERFACE.friendAccept[]>(url, body, httpOptions).toPromise()
     .then( respone => respone)
     .catch( err => err);
   } 
@@ -541,12 +486,12 @@ export class ChatServicesService {
       };
       const obj= { _id:_id};
       const body= JSON.stringify(obj);
-      return this.http.post<User>(url, body, httpOptions).toPromise()
+      return this.http.post<MYINTERFACE.User>(url, body, httpOptions).toPromise()
       .then( respone => respone)
       .catch( err =>{ throw err});
     }
 
-  getListNoti(listNoti: Array<any>): Promise<Notifican[]> {
+  getListNoti(iduser, skip): Promise<MYINTERFACE.Notifican[]> {
     const url= "https://vuongdeptrai.herokuapp.com/notifi/getnoti";
     const httpOptions = {
       headers: new HttpHeaders({
@@ -554,9 +499,9 @@ export class ChatServicesService {
         //'Authorization': 'my-auth-token'
       })
     };
-    const obj= { arrId: listNoti};
+    const obj= { iduser, skip};
     const body= JSON.stringify(obj);
-    return this.http.post<Notifican[]>(url, body, httpOptions).toPromise()
+    return this.http.post<MYINTERFACE.Notifican[]>(url, body, httpOptions).toPromise()
     .then( respone => respone)
     .catch( err => err);
   }  
@@ -572,7 +517,7 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify(value);
-    return this.http.post<{user: User, token: string}>(url, body, httpOptions);
+    return this.http.post<{user: MYINTERFACE.User, token: string}>(url, body, httpOptions);
 
   }
 
@@ -588,7 +533,7 @@ export class ChatServicesService {
     return this.http.post(url, body, httpOptions);
   }
 
-  onSeach(userName, time): Promise<User[]> {
+  onSeach(userName, time): Promise<MYINTERFACE.User[]> {
     const url= "https://vuongdeptrai.herokuapp.com/user/users";
     const httpOptions = {
       headers: new HttpHeaders({
@@ -598,7 +543,7 @@ export class ChatServicesService {
     };
     const obj= { userName: userName, time: time};
     const body= JSON.stringify(obj);
-     return this.http.post<User[]>(url, body, httpOptions)
+     return this.http.post<MYINTERFACE.User[]>(url, body, httpOptions)
      .toPromise()
      .then( res => res)
      .catch( err => {
@@ -663,7 +608,7 @@ export class ChatServicesService {
     this.socket.emit("Client-send-room", idRoom );
   }
 
-  joinAll(listUser: User[]) {
+  joinAll(listUser: MYINTERFACE.User[]) {
 
     listUser.forEach( user => {
     

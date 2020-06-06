@@ -9,7 +9,6 @@ import { RenderPageRoutingModule } from './render-routing.module';
 import { RenderPage } from './render.page';
 import { SeachsComponent } from './seachs/seachs.component';
 import { ViewmessageComponent } from './viewmessage/viewmessage.component';
-import { UseronlineComponent } from './useronline/useronline.component';
 
 @NgModule({
   imports: [
@@ -18,6 +17,6 @@ import { UseronlineComponent } from './useronline/useronline.component';
     IonicModule,
     RenderPageRoutingModule
   ],
-  declarations: [RenderPage, SeachsComponent, ViewmessageComponent, UseronlineComponent]
+  declarations: [RenderPage, SeachsComponent, ViewmessageComponent]
 })
 export class RenderPageModule {}

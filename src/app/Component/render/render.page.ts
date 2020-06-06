@@ -19,16 +19,6 @@ export class RenderPage implements OnInit {
   }
 
   ngOnInit() {
-
-    // setInterval( () => {
-    //   this.checkSeach= this._services.checkSeach;
-    // }, 100);
-    // console.log('ggggggggggggggggggggg')
-
-    // this._services.socket.on('test-thu', data =>{
-    //   console.log('dayyyyyyyy' + data)
-    // })
-
   } 
 
 }
