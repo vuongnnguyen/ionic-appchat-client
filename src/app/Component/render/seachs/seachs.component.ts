@@ -115,7 +115,7 @@ export class SeachsComponent implements OnInit {
     if(clickked) this.listUser= [];
     this._services.checkSeach= true;
     this.checkSeach= true;  
-     await this._services.onSeach($("#vuong").val().toString(), time)
+     await this._services.onSeach($("#vuong").val().toString().trim(), time)
     .then(respone => {
       this.err= undefined;
 
