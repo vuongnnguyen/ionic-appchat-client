@@ -1,27 +1,25 @@
 <!-- cai nay la trang vừa hiện ra khi đăng nhậpnhập -->
+
 <ion-header>
   <ion-toolbar>
+    <!-- Searchbar with cancel button shown on focus -->
+    <ion-title>Bạn bè</ion-title>
+    <!-- bat đầu cái avataravatar -->
 
-<!-- bat đầu cái avataravatar -->
 
-
-<!-- cái avatar này dùng để click vào thì nó hiển thị tùy chọn cho người dùng  click vào sẽ biếtbiết -->
-      <ion-row style="margin-top: 10px;">
-    <ion-col size='12'>
+    <!-- cái avatar này dùng để click vào thì nó hiển thị tùy chọn cho người dùng  click vào sẽ biếtbiết -->
+    <!-- <ion-row style="margin-top: 10px;">
+      <ion-col size='12'>
         <ion-chip (click)='presentActionSheet()'>
-        <ion-avatar>
-          <img [src]="user.urlImg">
-        </ion-avatar>
-        <ion-label>Chats</ion-label>
-      </ion-chip>
-  
+          <ion-avatar>
+            <img [src]="user.urlImg">
+          </ion-avatar>
+          <ion-label>Chats</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row> -->
 
-
-
-    </ion-col>
-  </ion-row>
-
-  <!-- kết thúc cái avatar -->
+    <!-- kết thúc cái avatar -->
 
   </ion-toolbar>
 </ion-header>
@@ -31,37 +29,27 @@
 
 
 
-<!-- đây là cái tab ở dưới thôi có mấy cái icon coi cái nào k ưng ý thì có thể thay -->
+  <!-- đây là cái tab ở dưới thôi có mấy cái icon coi cái nào k ưng ý thì có thể thay -->
   <ion-tabs>
     <ion-tab-bar slot="bottom">
       <ion-tab-button tab="vv">
-        <ion-icon  name="chatbubbles"></ion-icon>
+        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        <small>Tin nhắn</small>
       </ion-tab-button>
+
       <ion-tab-button tab="acceptFriend">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people-outline"></ion-icon>
+        <small>Nhóm</small>
       </ion-tab-button>
       <ion-tab-button tab="notification">
-        <ion-icon name="notifications"></ion-icon>
+        <ion-icon name="time-outline"></ion-icon>
+        <small>Thông báo</small>
+      </ion-tab-button>
+      <ion-tab-button tab="notification">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <small>Cá Nhân</small>
       </ion-tab-button>
     </ion-tab-bar>
-  </ion-tabs> 
-
-
-
-
-  <!-- <ion-grid>
-    <ion-row>
-      <ion-col>
-        <form  #uploadForm="ngForm" (ngSubmit)="onSubmit()">      
-          
-            <ion-input type="file" name="profile" (change)="onFileSelect($event)" ></ion-input>
-          
-          
-            <ion-button type="submit">Upload</ion-button>
-        
-        </form>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+  </ion-tabs>
 
 </ion-content>

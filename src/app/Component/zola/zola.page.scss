@@ -1,0 +1,37 @@
+ion-content {
+    --background: url(../../../assets/anh-nen-3d-cho-zalo_090719803.jpg);
+    align-items: center;
+    text-align: center;
+}
+#login {
+    font-weight: 500;
+    font-size: 14px;
+    width: 230px;
+    height: 50px;
+}
+#registration {
+    border-radius: 30px;
+    width: 230px;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #67f1da;
+}
+#registration:hover {
+    background-color: rgb(24, 230, 195);
+}
+#registration:active {
+    background-color: #5db3a4;
+    transition: 0.3s;
+}
+h2 {
+    color: blue;
+    font-size: 100px;
+    font-weight: 700;
+    margin: 90px 0 20px 0;
+}
+#slogan {
+    color: blue;
+    font-weight: 600;
+    margin-bottom: 70px;
+}

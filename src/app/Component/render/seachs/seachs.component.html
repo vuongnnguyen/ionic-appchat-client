@@ -1,114 +1,107 @@
 <ion-grid style="margin-top: 0px!important;">
-  <!-- <ion-row style="margin-top: 10px;">
-    <ion-col size='12'>
-        <ion-chip>
-        <ion-avatar>
-          <img [src]="user.urlImg">
-        </ion-avatar>
-        <ion-label>Chats</ion-label>
-      </ion-chip>
-    </ion-col>
-  </ion-row> -->
-  <ion-row > 
-    <ion-col size='2' >
-      <ion-button *ngIf= "checkSeach " fill="clear" size='default' (click)="onBack()">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button> 
+  <!-- <ion-searchbar animated placeholder="Tìm kiếm" (ionInput)="onSeach(0, true)" (ionCancel)="onback()"></ion-searchbar> -->
+
+  <ion-row id="border-search">
+    <ion-col size="2" >
+      <ion-button size="small" id="buttonback" fill="clear" *ngIf="checkSeach" (click)="onBack()">
+        <ion-icon id="icon-back" name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-col>
     <ion-col size="8">
-      <ion-input  placeholder='Tìm kiếm' id="vuong"></ion-input>
+      <ion-input placeholder='Tìm kiếm ...' id="vuong"></ion-input>
     </ion-col>
     <ion-col size="2">
       <ion-button type="button" (click)="onSeach(0, true)" fill="clear" size='small'>
-        <ion-icon  name="search"></ion-icon>
+        <ion-icon name="search"></ion-icon>
       </ion-button>
     </ion-col>
-</ion-row>
+  </ion-row>
 
-  <ion-row *ngIf= "checkSeach " >
-  <ion-list *ngIf="!err" style="width: 100%; height: auto;" >
-    <ion-item   *ngFor="let user of listUser, index as i" style="height: auto !important" >
-      <ion-avatar slot="start" style="margin-top: 0px!important; width: 35px!important; height: 35px!important;" > <ion-img [src]="user.urlImg" ></ion-img> </ion-avatar>
-      <ion-label style="margin-left: 0px!important; width: 100%;" >
-        <ion-text  >
-          <p>{{user.name}}</p>
-        </ion-text>
-        <ion-button *ngIf='!checkFriends(user._id) && !checkWaitAccept(user._id)' [disabled]="isLoading(user._id)" (click)="addFriend(user._id)">Thêm bạn bè</ion-button>
-        <ion-button *ngIf='!checkFriends(user._id) && checkWaitAccept(user._id)'  [disabled]="isLoading(user._id)" (click)="backupAddFriend(user._id)">Hủy lời mời</ion-button>
-      
-        <p *ngIf='checkFriends(user._id)'>Bạn bè</p>
-        <ion-button (click)='goChatMessage(user._id)' *ngIf='checkFriends(user._id)'>Nhan tin</ion-button>
-    </ion-label>
-    </ion-item>
-
-  </ion-list>
-
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="!err" >
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-<p *ngIf="err">{{err}}</p>
-</ion-row>
-</ion-grid> 
-
-
-  <!-- <ion-row>
-    <ion-col size='12'>
-       <ion-button (click)="goNotifi()">
-          Notifica
-       </ion-button>
-    </ion-col>
-  </ion-row> -->
-
-  <!-- <ion-row>
-    <ion-list>
-      <ion-item *ngFor="let user of listUser">
-        <ion-avatar slot="start"> <ion-img [src]="user.urlImg" ></ion-img> </ion-avatar>
-        <ion-label style="margin-left: 5px;">
-          <ion-text >
-            <h3>{{user.name}}</h3>
+  <ion-row *ngIf="checkSeach">
+    <ion-list *ngIf="!err" style="width: 100%; height: auto;">
+      <ion-item *ngFor="let user of listUser, index as i" style="height: auto !important">
+        <ion-avatar slot="start" style="margin-top: 0px!important; width: 35px!important; height: 35px!important;">
+          <ion-img [src]="user.urlImg"></ion-img>
+        </ion-avatar>
+        <ion-label style="margin-left: 0px!important; width: 100%;">
+          <ion-text>
+            <p>{{user.name}}</p>
           </ion-text>
-          <p *ngIf="checkFrends">ppp</p>
-      </ion-label>
+          <ion-button *ngIf='!checkFriends(user._id) && !checkWaitAccept(user._id)' [disabled]="isLoading(user._id)"
+            (click)="addFriend(user._id)">Thêm bạn bè</ion-button>
+          <ion-button *ngIf='!checkFriends(user._id) && checkWaitAccept(user._id)' [disabled]="isLoading(user._id)"
+            (click)="backupAddFriend(user._id)">Hủy lời mời</ion-button>
+          <p *ngIf='checkFriends(user._id)'>Bạn bè</p>
+          <ion-button (click)='goChatMessage(user._id)' *ngIf='checkFriends(user._id)'>Nhan tin</ion-button>
+        </ion-label>
       </ion-item>
+
     </ion-list>
 
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" *ngIf="!err">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <p *ngIf="err">{{err}}</p>
+  </ion-row>
+</ion-grid>
+
+
+<!-- <ion-row>
+      <ion-col size='12'>
+         <ion-button (click)="goNotifi()">
+            Notifica
+         </ion-button>
+      </ion-col>
+    </ion-row> -->
+
+<!-- <ion-row>
       <ion-list>
-      <ion-item *ngFor="let item of items">{{item}}</ion-item>
-    </ion-list>
-
-
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" >
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-  </ion-row> -->
-
-
-
-    <!-- <ion-list>
-      <ion-item *ngFor="let item of items">{{item}}</ion-item>
-    </ion-list> -->
-
-
-
-
-
-
-
-
-
+        <ion-item *ngFor="let user of listUser">
+          <ion-avatar slot="start"> <ion-img [src]="user.urlImg" ></ion-img> </ion-avatar>
+          <ion-label style="margin-left: 5px;">
+            <ion-text >
+              <h3>{{user.name}}</h3>
+            </ion-text>
+            <p *ngIf="checkFrends">ppp</p>
+        </ion-label>
+        </ion-item>
+      </ion-list>
+  
+        <ion-list>
+        <ion-item *ngFor="let item of items">{{item}}</ion-item>
+      </ion-list>
+  
+  
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" >
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    </ion-row> -->
 
 
 
-    
+<!-- <ion-list>
+        <ion-item *ngFor="let item of items">{{item}}</ion-item>
+      </ion-list> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <!-- <p>
-  {{seach}}
-</p> -->
+    {{seach}}
+  </p> -->

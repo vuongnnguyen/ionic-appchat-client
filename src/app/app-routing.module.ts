@@ -4,20 +4,36 @@ import { MiddlewareGuard } from './guard/middleware.guard';
 
 const routes: Routes = [
 
-  { path: 'login', loadChildren: () => import('./Component/login/login.module').then( m => m.LoginPageModule)},
- 
-  { path: 'home', loadChildren: () => import('./Component/home/home.module').then( m => m.HomePageModule), canActivate: [MiddlewareGuard] },
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  {
+    path: 'login',
+    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./Component/home/home.module').then(m => m.HomePageModule), canActivate: [MiddlewareGuard]
+  },
+  {
+    path: 'signup',
+    loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule)
+  },
+  {
+    path: 'signup',
+    loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule)
+  },
+  {
+    path: 'zola',
+    loadChildren: () => import('./Component/zola/zola.module').then(m => m.ZolaPageModule)
+  },
+  {
+    path: 'forgotpassword',
+    loadChildren: () => import('./Component/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordPageModule)
+  },
+  { path: '', redirectTo: 'zola', pathMatch: 'full' },
+  { path: '**', redirectTo: 'zola', pathMatch: 'full' },
 
-     {
-     path: 'signup',
-     loadChildren: () => import('./Component/sign-up/sign-up.module').then( m => m.SignUpPageModule)
-   },
-   {
-     path: 'signup',
-     loadChildren: () => import('./Component/sign-up/sign-up.module').then( m => m.SignUpPageModule)
-   },
-    { path: '**', redirectTo: 'login', pathMatch: 'full' }
+
+
+
 ];
 
 @NgModule({

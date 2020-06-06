@@ -1,3 +1,36 @@
 .seem{
     color: red;
 }
+.textIcons{
+    position: relative;
+}
+.text-small{
+    position: absolute;
+    bottom: 19%;
+    // left: 30%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+ion-item-option{
+    width: 60px;
+}
+ion-icon{
+    font-size: 20px;
+    color: rgb(238, 225, 225);
+}
+ion-img{
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    align-items: center;
+    justify-self: center;
+}
+ion-avatar{
+    width: 45px;
+    height: 47px;
+    text-align: center;
+    align-items: center;
+    justify-self: center;
+}

@@ -11,3 +11,16 @@
     height: auto;
     width: 100%;
 }
+
+#buttonback{
+    --background: none !important;
+}
+#buttonback:hover{
+    --background: none !important;
+    
+}
+#border-search{
+    background-color: rgb(238, 230, 230);
+    border-radius: 5px;
+    margin: 0 5px;
+}

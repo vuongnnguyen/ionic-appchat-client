@@ -1,30 +1,39 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="light" ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Đăng nhập</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content style="position: relative;"> 
+  <div id="title">Bạn có thể đăng nhập bằng số điện thoại hoặc username</div>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <form (ngSubmit)="onLogin(formLogin)" #formLogin="ngForm" >
+        <form (ngSubmit)="onLogin(formLogin)" #formLogin="ngForm">
           <ion-item class="no-padding-top">
-            <ion-input ngModel #txtEmail="ngModel"
-            name="userName" type="text" placeholder="Số điện thoại"></ion-input>
+            <ion-input ngModel #txtEmail="ngModel" name="userName" type="text" placeholder="Số điện thoại"></ion-input>
           </ion-item>
           <ion-item class="no-padding-top">
-            <ion-input  ngModel #txtPass="ngModel"
-            name="passWord" type="password" placeholder="Mật khẩu"></ion-input>
-        </ion-item>
-        <ion-button color="primary" (click)="onLogin(formLogin)">Đăng Nhập</ion-button>
-        <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >Đăng kí tài khoản.</a>
-        <p *ngIf="err">{{err}}</p>
+            <ion-input ngModel #txtPass="ngModel" name="passWord" type="password" placeholder="Mật khẩu"></ion-input>
+          </ion-item>
+          <p style="color: red" *ngIf="err">{{err}}</p>
         </form>
       </ion-col>
     </ion-row>
+    <ion-row>
+      <ion-col size="12"><a [routerLink]="['/forgotpassword']" routerLinkActive="router-link-active" id="recoverhPassword">Lấy
+          lại mật khẩu</a></ion-col>
+    </ion-row>
+    <ion-row style="text-align: center;">
+      <ion-col size="12">
+        <ion-button color="primary" shape="round" (click)="onLogin(formLogin)" id="password">Đăng Nhập</ion-button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
-
-
+  <div style="position: absolute;bottom: 4%;left: 25%;">
+    <a href="" style="font-size: 14px; padding-bottom:5px;color: rgb(155, 152, 144);">Các câu hỏi thường gặp</a>
+  </div>
 </ion-content>

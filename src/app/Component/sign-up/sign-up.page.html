@@ -1,32 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>signUp</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tạo tài khoản</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content style="position: relative;">
+  <div id="title">Sử dụng thông tin <a style="font-weight: 700;font-size: 15px; color: black;">thật</a> để xác minh
+  </div>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <form  #formSignUp="ngForm" >
+        <form #formSignUp="ngForm">
           <ion-item class="no-padding-top">
-            <ion-input ngModel #txtEmail="ngModel"
-            name="userName" type="text" placeholder="Số điện thoại"></ion-input>
-          </ion-item>
-            <ion-item class="no-padding-top">
-            <ion-input ngModel #txtEmail="ngModel"
-            name="name" type="text" placeholder="ten "></ion-input>
+            <ion-input ngModel #txtEmail="ngModel" name="name" type="text" placeholder="Tên đầy đủ "></ion-input>
           </ion-item>
           <ion-item class="no-padding-top">
-            <ion-input  ngModel #txtPass="ngModel"
-            name="passWord" type="password" placeholder="Mật khẩu"></ion-input>
-        </ion-item>
-        <ion-button color="primary" (click)="onSignUp(formSignUp)" >Đăng ki</ion-button>
+            <ion-input ngModel #txtEmail="ngModel" name="userName" type="text" placeholder="Số điện thoại"></ion-input>
+          </ion-item>
+          <ion-item class="no-padding-top">
+            <ion-input ngModel #txtPass="ngModel" name="passWord" type="password" placeholder="Mật khẩu"></ion-input>
+          </ion-item>
         </form>
       </ion-col>
     </ion-row>
+    <ion-row style="text-align: center;">
+      <ion-col size="12">
+        <ion-button color="primary" shape="round" (click)="onSignUp(formSignUp)" id="dangki">Đăng ký</ion-button>
+      </ion-col>
+    </ion-row>
   </ion-grid>
-
+  <div style="position: absolute;bottom: 4%;left: 15%;text-align: center;">
+    <a href="" style="font-size: 14px; padding-bottom:5px;color: rgb(155, 152, 144);text-decoration: none;"><a href="">Đăng ký</a> nghĩa
+      là bạn đồng ý <br> với các <a href="">điều khoản</a> sử dụng Zola.</a>
+  </div>
 
 </ion-content>
