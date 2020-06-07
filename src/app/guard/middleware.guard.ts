@@ -21,7 +21,8 @@ export class MiddlewareGuard implements CanActivate {
     
     //  this.router.navigate(['/login']);
     this._services.user= res.user;
-    this._services.socket.emit('Client-join-room', res.user.room );
+    this._services.socket.emit('Client-join-room', { urlImg : res.user.urlImg ,id: res.user._id, rooms : res.user.room });
+    this._services.getStatusUser(res.user._id);
       return true;
   }
   // canActivateChild(

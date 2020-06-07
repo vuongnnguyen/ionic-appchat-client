@@ -20,16 +20,49 @@ export class ChatServicesService {
   checkSeach= false;
   // listLoading= [];
 
+  listStatusUser : MYINTERFACE.statusUser[] = [];
+
 
 
 
   constructor( private http: HttpClient, public toastController: ToastController, private router: Router) {
+    window.onbeforeunload  = () =>{
+      alert('ok')
+    }
+
   
-    this.socket = io('https://vuongdeptrai.herokuapp.com');
+
+    this.socket = io('http://localhost:3000');
     this.socket.on("Server-send-chat", data => {
       // $("#tn").text(data);
       // this.setMsg(data);
     });
+
+    this.socket.on('Server-logout', ( data : MYINTERFACE.statusUser ) => {
+      console.log('co nguoi ofline', data);
+
+      this.listStatusUser.forEach( item => {
+        if(item._id == data._id) {
+          item = data;
+        }
+      });
+      console.log(this.listStatusUser)
+    });
+
+    this.socket.on('Server-send-online',( data : MYINTERFACE.statusUser ) => {
+      console.log('co nguoi online', data);
+      this.listStatusUser.forEach( item => {
+        if(item._id == data._id) {
+          item = data;
+        }
+      });
+      console.log(this.listStatusUser)
+    });
+
+    this.socket.on('Server-check-user', data => {
+      this.socket.emit('Client-check-user', true);
+    })
+
     this.socket.on("Server-send-amsg", (msg: MYINTERFACE.msg) => {
       const index=this.user.msg.findIndex( amsg => {
         return msg._id== amsg;
@@ -56,7 +89,7 @@ export class ChatServicesService {
     });
 
     this.socket.on('Server-addFriend', room => {
-      this.socket.emit('Client-join-room', [room.nameroom])
+      this.socket.emit('Client-join-room', { id: this.user._id, urlImg : this.user.urlImg, rooms :[room.nameroom]})
       this.user.friends.push(room.idfd);
       this.user.room.push(room.nameroom);
     })
@@ -111,7 +144,7 @@ export class ChatServicesService {
     })
     
     this.socket.on('Server-send-createdGroup', (data: MYINTERFACE.msg) => {
-      this.socket.emit('Client-join-room', [data.roomname])
+      this.socket.emit('Client-join-room', { id: this.user._id, urlImg : this.user.urlImg, rooms :[data.roomname]}  )
       const index1= this.user.room.findIndex( docs => { return docs== data.roomname});
       if(index1 != -1) this.user.room.push(data.roomname);
       const index2= this.user.msg.findIndex( docs => { return docs== data._id});
@@ -132,7 +165,7 @@ export class ChatServicesService {
     });
     
     this.socket.on('Server-send-unblock-room', data => {
-      this.socket.emit('Client-join-room', [ data.idroom])
+      this.socket.emit('Client-join-room', { id: this.user._id, urlImg : this.user.urlImg, rooms: [ data.idroom]})
       const index= this.user.block.findIndex( docs => {
         return docs== data.idroom;
       });
@@ -145,10 +178,17 @@ export class ChatServicesService {
 
     this.socket.on('Server-send-join-room', data => {
       this.user.room.push(data.idroom);
-      this.socket.emit('Client-join-room', [data.idroom])
+      this.socket.emit('Client-join-room', { id: this.user._id, urlImg : this.user.urlImg, rooms: [data.idroom]})
     });
 
     this.socket.on('Server-send-leave-room', data => {
+      // viet them
+      const index = this.user.room.findIndex( item => {
+        return item == data.idroom;
+      });
+      this.user.room.splice(index, 1);
+      // ket thuc
+
       this.socket.emit('Client-send-leave', data.idroom )
     })
 
@@ -166,6 +206,22 @@ export class ChatServicesService {
     // this.socket.on('Server-notifiAddFr', notifican => {
     //   console.log('day la' + notifican)
     // })
+   }
+
+   getStatusUser(iduser) {
+    const url= 'http://localhost:3000/user/getStatusUser';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        //'Authorization': 'my-auth-token'
+      })
+    };
+    const body= JSON.stringify({id : iduser});
+    return this.http.post<MYINTERFACE.statusUser[]>(url, body, httpOptions ).toPromise()
+    .then( respone => {
+      this.listStatusUser = respone;
+    })
+    .catch( err => console.log(err.message));
    }
 
    getInfoToast(message: MYINTERFACE.msg): {nameroom: string, namesend: string} {
@@ -208,7 +264,7 @@ export class ChatServicesService {
 
 
    getUserrr(): Promise<MYINTERFACE.User> {
-    const url= 'https://vuongdeptrai.herokuapp.com/user/get-user';
+    const url= 'http://localhost:3000/user/get-user';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -224,7 +280,7 @@ export class ChatServicesService {
  }
 
    middleWare(): Promise<{stt: boolean, user: MYINTERFACE.User}> {
-     const url= 'https://vuongdeptrai.herokuapp.com/user/middle-ware';
+     const url= 'http://localhost:3000/user/middle-ware';
      const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -269,7 +325,7 @@ export class ChatServicesService {
   }
 
    addMember(obj): Promise<MYINTERFACE.msg> {
-    const url= 'https://vuongdeptrai.herokuapp.com/user/add-member';
+    const url= 'http://localhost:3000/user/add-member';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -285,7 +341,7 @@ export class ChatServicesService {
  }
 
    seachMember(obj): Promise<MYINTERFACE.userSeach>{
-      const url= 'https://vuongdeptrai.herokuapp.com/user/seach-member';
+      const url= 'http://localhost:3000/user/seach-member';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -299,7 +355,7 @@ export class ChatServicesService {
    }
 
    createGroup(obj): Promise<MYINTERFACE.msg> {
-     const url= 'https://vuongdeptrai.herokuapp.com/user/create-group';
+     const url= 'http://localhost:3000/user/create-group';
      const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -312,14 +368,14 @@ export class ChatServicesService {
       this.user.room.push(res.roomname);
       this.user.msg.push(res._id);
       this.socket.emit('Client-send-createdGroup', res);
-      this.socket.emit('Client-join-room', [res.roomname])
+      this.socket.emit('Client-join-room', { id: this.user._id, urlImg : this.user.urlImg, rooms : [res.roomname]})
       return res;
     })
     .catch( err => { throw err});
    }
 
    deleteAmsg(obj): Promise<{index: number, message: MYINTERFACE.msg}> {
-    const url= 'https://vuongdeptrai.herokuapp.com/user/delete-amsg';
+    const url= 'http://localhost:3000/user/delete-amsg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -333,7 +389,7 @@ export class ChatServicesService {
    } 
    
   updateTime(obj) : Promise<boolean> {
-    const url= 'https://vuongdeptrai.herokuapp.com/user/update-seen-msg';
+    const url= 'http://localhost:3000/user/update-seen-msg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -348,7 +404,7 @@ export class ChatServicesService {
   
    
   deleteAllMsg(obj): Promise<boolean> {
-    const url= 'https://vuongdeptrai.herokuapp.com/user/delete-allmsg';
+    const url= 'http://localhost:3000/user/delete-allmsg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -377,7 +433,7 @@ export class ChatServicesService {
 
    
   getMessageinRoom(roomname, skip, iduser): Promise<MYINTERFACE.objMessage> {
-      const url = 'https://vuongdeptrai.herokuapp.com/user/get-messagess';
+      const url = 'http://localhost:3000/user/get-messagess';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -395,7 +451,7 @@ export class ChatServicesService {
 
 
   changePass(obj): Promise<{token: string}> {
-    const url = 'https://vuongdeptrai.herokuapp.com/user/change-pass';
+    const url = 'http://localhost:3000/user/change-pass';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -413,7 +469,7 @@ export class ChatServicesService {
   }
 
   upDateUser(obj): Promise<{user:{name: string, userName: string}, token: string}> {
-    const url= 'https://vuongdeptrai.herokuapp.com/user/update-user';
+    const url= 'http://localhost:3000/user/update-user';
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -427,7 +483,7 @@ export class ChatServicesService {
   
 
   getListMsg(listmsg: Array<any>, skip: number, myid): Promise<MYINTERFACE.objMsgUser> {
-      const url= 'https://vuongdeptrai.herokuapp.com/user/getlistmsg';
+      const url= 'http://localhost:3000/user/getlistmsg';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -445,7 +501,7 @@ export class ChatServicesService {
 
 
    getListUser(listUser: Array<string>): Promise<MYINTERFACE.listAccept[]>{
-    const url= "https://vuongdeptrai.herokuapp.com/user/getlistuser";
+    const url= "http://localhost:3000/user/getlistuser";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -461,7 +517,7 @@ export class ChatServicesService {
     
    getListAccept(iduser, skip): Promise<MYINTERFACE.friendAccept[]> {
 
-    const url= "https://vuongdeptrai.herokuapp.com/user/getaccept";
+    const url= "http://localhost:3000/user/getaccept";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -477,7 +533,7 @@ export class ChatServicesService {
 
 
    reloadUser(_id) {
-      const url= "https://vuongdeptrai.herokuapp.com/user/getuser";
+      const url= "http://localhost:3000/user/getuser";
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -492,7 +548,7 @@ export class ChatServicesService {
     }
 
   getListNoti(iduser, skip): Promise<MYINTERFACE.Notifican[]> {
-    const url= "https://vuongdeptrai.herokuapp.com/notifi/getnoti";
+    const url= "http://localhost:3000/notifi/getnoti";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -509,7 +565,7 @@ export class ChatServicesService {
 
 
   login(value) {
-    const url= "https://vuongdeptrai.herokuapp.com/user/signIn";
+    const url= "http://localhost:3000/user/signIn";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -522,7 +578,7 @@ export class ChatServicesService {
   }
 
   lognUp(value) {
-    const url= "https://vuongdeptrai.herokuapp.com/user/signUp";
+    const url= "http://localhost:3000/user/signUp";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -534,7 +590,7 @@ export class ChatServicesService {
   }
 
   onSeach(userName, time): Promise<MYINTERFACE.User[]> {
-    const url= "https://vuongdeptrai.herokuapp.com/user/users";
+    const url= "http://localhost:3000/user/users";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -553,7 +609,7 @@ export class ChatServicesService {
   }
 
   updateImg(value) {
-    const url= 'https://vuongdeptrai.herokuapp.com/user/updateImg';
+    const url= 'http://localhost:3000/user/updateImg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -584,7 +640,7 @@ export class ChatServicesService {
 
 
   onAvatar(value) {
-    const url= "https://vuongdeptrai.herokuapp.com/user/vuong";
+    const url= "http://localhost:3000/user/vuong";
     // const httpOptions = {
     //   headers: new HttpHeaders({
     //     'Content-Type':  'application/json',

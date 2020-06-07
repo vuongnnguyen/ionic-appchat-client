@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
       this._services.user = this.user;
       this._services.setCookie('token', token, 1);
       this.router.navigate(["/home"]);
-      this._services.socket.emit('Client-join-room', this.user.room );
+      this._services.socket.emit('Client-join-room', { urlImg : this.user.urlImg,  id: this.user._id, rooms : this.user.room });
     }, err => this.err= err.message );
   }
 

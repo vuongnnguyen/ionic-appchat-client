@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { ChatServicesService } from '../Services/chat-services.service';
@@ -158,6 +158,9 @@ export class MsgPage implements OnInit {
    }
 
  async ngOnInit() {
+
+    console.log(this._services.listStatusUser);
+
     this.activeRouter.paramMap.subscribe( pramap =>{
       if(!pramap.has('roomName')) return;
       this.id = pramap.get('roomName');
@@ -176,6 +179,10 @@ export class MsgPage implements OnInit {
     await setTimeout( () => {
       this.content.scrollToBottom(200);
     });
+  }
+
+  ngOnDestroy() {
+    // alert("ban muon thoai");
   }
 
   getSeen() :{ isseen: boolean, status: string} {
@@ -287,6 +294,14 @@ export class MsgPage implements OnInit {
   
 
   isBlock(){
+
+    //viet them
+    const indexcustom = this._services.user.room.findIndex( item => {
+      return item == this.id;
+    });
+    if(indexcustom == -1) return true;
+    // ket thuc
+
   //  console.log(this.rooms)
     if(!this.rooms) return true;
     const index= this._services.user.block.findIndex( docs => {

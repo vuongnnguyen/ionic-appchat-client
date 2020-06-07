@@ -52,7 +52,7 @@ export interface handelNickName{
     id: string; 
     name: string;
     nickname: string;
-    urlImg: string;
+    urlImg: string
     // msg page
 }
 
@@ -151,5 +151,13 @@ export interface nickName {
     urlImg: string;
     name: string;
     userName: string;
+  };
+
+  export interface statusUser {
+    _id: string;
+    urlImg: string;
+    name: string;
+    isOffline : boolean;
+    timeOff : number;
   }
 
