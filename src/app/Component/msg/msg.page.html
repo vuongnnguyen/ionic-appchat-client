@@ -1,179 +1,142 @@
 <!-- <ion-header>
   <ion-toolbar>
-    <ion-title>scroll</ion-title>
+	 <ion-title>scroll</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content  
-[scrollEvents]="true"  
-(ionScrollStart)="logScrollStart()"  
-(ionScroll)="logScrolling($event)"  
-(ionScrollEnd)="logScrollEnd()" 
-direction="xy" 
->  
-<ion-button (click)="ScrollToBottom()">  
-  Scroll To Bottom  
-</ion-button>  
- 
-<ion-button (click)="ScrollToPoint(300, 120)">  
-  Scroll To Point Left  
-</ion-button>  
- 
-<ion-list>  
-  <ion-item *ngFor="let item of dummyList">  
-    <ion-label>{{ item.value }}</ion-label>  
-  </ion-item>  
-</ion-list>  
- 
-<div style="height: 50px;width:600px;" text-right>  
-  <ion-button (click)="ScrollToPoint(-300, -120)">  
-    Scroll To Point Right  
-  </ion-button>  
-</div>  
- 
-<ion-button (click)="ScrollToTop()">  
-  Scroll To Top  
-</ion-button>  
+<ion-content
+[scrollEvents]="true"
+(ionScrollStart)="logScrollStart()"
+(ionScroll)="logScrolling($event)"
+(ionScrollEnd)="logScrollEnd()"
+direction="xy"
+>
+<ion-button (click)="ScrollToBottom()">
+  Scroll To Bottom
+</ion-button>
+
+<ion-button (click)="ScrollToPoint(300, 120)">
+  Scroll To Point Left
+</ion-button>
+
+<ion-list>
+  <ion-item *ngFor="let item of dummyList">
+	 <ion-label>{{ item.value }}</ion-label>
+  </ion-item>
+</ion-list>
+
+<div style="height: 50px;width:600px;" text-right>
+  <ion-button (click)="ScrollToPoint(-300, -120)">
+	 Scroll To Point Right
+  </ion-button>
+</div>
+
+<ion-button (click)="ScrollToTop()">
+  Scroll To Top
+</ion-button>
 </ion-content> -->
 
 
 
 <!-- đây là hiển thị tin nhắn nè -->
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button mode='ios' (click)='onBack()'></ion-back-button>
-    </ion-buttons>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button color="light" mode='ios' (click)='onBack()'></ion-back-button>
+		</ion-buttons>
+		<!-- them ten nguoi nhan tin -->
+		<ion-title>Title</ion-title>
+		<ion-buttons slot="end">
+			<ion-icon id="button-end" (click)='presentPoper($event)' name="ellipsis-horizontal-outline"></ion-icon>
+		</ion-buttons>
 
-<!-- thay cái này bằng icon tùy chọn trong message á và cho nó nằm bên phải nghen -->
-    <ion-icon (click)='presentPoper($event)' name="notifications"></ion-icon>
-  
 
-    
-  </ion-toolbar>
+	</ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" position="top" >
-    <ion-infinite-scroll-content
-     position="top"
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+	<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" position="top">
+		<ion-infinite-scroll-content position="top" loadingSpinner="bubbles" loadingText="Loading more data...">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 
-  <ion-grid>
+	<ion-grid>
 
 
-    <ion-row *ngFor='let message of messages'>
+		<ion-row  *ngFor='let message of messages'>
+			<div style="width: 25px;margin-right: 5px;"
+				*ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) '>
+				<ion-avatar>
+					<ion-img style="width: 25px;height: 25px;" [src]='message.urlImg'></ion-img>
+				</ion-avatar>
+			</div>
+			<div *ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) '
+				class="message other-message">
+				<!-- <b style="font-weight: 300; font-size: 13px; margin-top: 2px;">{{handleName(message)}}</b><br> -->
+				<small style="font-weight: 600; color:black;">{{message.msg}}</small>
+				<div class="time" text-right><br>
+					<small style="font-weight: 500;color:black ;">{{message.created | date:'shortTime'}}</small>
+				</div>
+			</div>
+			<ion-col size='2' *ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) '>
+				<ion-icon style="margin-top:15px" (click)='onDeleteAmsg(message._id)' name="trash-bin-outline">
+				</ion-icon>
+			</ion-col>
+			<ion-col style="padding-top: 10px;" size='1' offset='2'></ion-col>
+			<!-- k cần sửasửa -->
+			<ion-col size="9" >
+				<div *ngIf=' message.idsend == _services.user._id && !isDeleting(message._id)  '
+					class="message my-message">
+					<ion-icon id="abs" style="float: left;"
+						*ngIf=' message.idsend == _services.user._id && !isDeleting(message._id)  '
+						(click)='onDeleteAmsg(message._id)' name="trash-bin-outline"></ion-icon>
+					<!-- <b style="font-weight: 300; font-size: 13px;">{{handleName(message)}}</b><br> -->
+					<small style="font-weight: 600;color:black ;">{{message.msg}}</small>
+					<div class="time" text-right><br>
+						<small style="font-weight: 500; color: black;">{{message.created | date:'shortTime'}}</small>
+					</div>
+				</div>
+			</ion-col>
 
-      <!-- <ion-col size='1' style="width: 22px; height: 100%; border: 1px solid blue;">
-        <div style="width: 22px;margin-bottom: 0px!important; border: 1px solid red;"   *ngIf=' message.idsend != _services.user._id '>
-          <ion-avatar style="margin-bottom: 0px!important; " >
-            <ion-img style="width: 20px;height: 20px; display: block;margin: auto 0;" [src]='message.urlImg'></ion-img>
-          </ion-avatar>
-          </div>
-  
-      </ion-col> -->
+		</ion-row>
+		<ion-row *ngIf='isMySendMsg().checkRow' style="text-align: right; font-size: 13px;">
+			<!-- <ion-col *ngIf='!isMySendMsg().checkCol' size='9'>
+				<p *ngIf="getSeen().isseen">Đã xem <ion-icon name="checkmark-done-outline"></ion-icon></p>
+				<p *ngIf="!getSeen().isseen">hien icon chua xem</p>
 
+				{{getSeen().status}}
+			</ion-col> -->
+			<ion-col *ngIf='isMySendMsg().checkCol' size='12' offser='3' style="margin-top: -20px;">
+				<!-- day nua ne -->
+				<p *ngIf="isSeenMySendMsg().isseen">Đã xem <ion-icon name="checkmark-done-outline"></ion-icon>
+				</p>
+				<p *ngIf="!isSeenMySendMsg().isseen">Đã gửi <ion-icon name="checkmark-outline"></ion-icon>
+				</p>
+				<!-- {{isSeenMySendMsg().status}} <ion-icon name="checkmark-done-outline"></ion-icon> -->
+			</ion-col>
+		</ion-row>
 
-      <!-- đây là phần tin nhắn hiển thị  -->
-
-      <!-- đây là bên phía người gởigởi -->
-      <div style="width: 22px;"   *ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) '>
-        <ion-avatar>
-          <ion-img style="width: 20px;height: 20px;" [src]='message.urlImg'></ion-img>
-        </ion-avatar>
-        </div>
-
-        <!-- két thúc phía người gởigởi -->
-
-
-    <!-- cái này k cần sửa  -->
-      <ion-col size='9' *ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) ' class="message other-message">
-        <b style="font-weight: 300; font-size: 13px; margin-top: 2px;">{{handleName(message)}}</b><br>
-        <small style="font-weight: 300;">{{message.msg}}</small>
-        <div class="time" text-right><br>
-          <small style="font-weight: 500;">{{message.created | date:'short'}}</small>
-        </div>
-      </ion-col>
-      <!--kết thúc phía người nhậnnhận  -->
-
-
-      <ion-col size='2' *ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) '>
-        <!-- icon này nữa nè nó là icon thôgn báo ông thay icon gì mà nó giống nút xóa tin nhắn ếế -->
-        <ion-icon (click)='onDeleteAmsg(message._id)'  name="notifications"></ion-icon>
-      </ion-col>
-    <ion-col style="padding-top: 10px;" size='1' offset='2' *ngIf=' message.idsend == _services.user._id && !isDeleting(message._id)  ' >
-      <!-- icon này nữa nè nó là icon thôgn báo ông thay icon gì mà nó giống nút xóa tin nhắn ếế -->
-      <ion-icon (click)='onDeleteAmsg(message._id)' name="notifications"></ion-icon>
-    </ion-col>
-
-
-
-    <!-- k cần sửasửa -->
-      <ion-col  size='9' *ngIf=' message.idsend == _services.user._id && !isDeleting(message._id)  ' class="message my-message">
-        <b style="font-weight: 300; font-size: 13px;">{{handleName(message)}}</b><br>
-        <small style="font-weight: 300;">{{message.msg}}</small>
-        <div class="time" text-right><br>
-          <small style="font-weight: 500;">{{message.created | date:'short'}}</small>
-        </div>
-      </ion-col>
-
-
-
-
-
-
-
-    </ion-row>
-    <ion-row *ngIf='isMySendMsg().checkRow'>
-      <ion-col *ngIf='!isMySendMsg().checkCol' size='9'>
-        <!-- thay icon vao day ne -->
-        <p *ngIf="getSeen().isseen">hien icon da xem ne</p>
-        <p *ngIf="!getSeen().isseen">hien icon chua xem</p>
-        
-        {{getSeen().status}}
-      </ion-col>
-
-
-      <ion-col *ngIf='isMySendMsg().checkCol' size='9' offser='3'>
-        <!-- day nua ne -->
-        <p *ngIf="isSeenMySendMsg().isseen">hien icon da xem ne</p>
-        <p *ngIf="!isSeenMySendMsg().isseen">hien icon chua xem</p>
-        {{isSeenMySendMsg().status}}
-      </ion-col>
-    </ion-row>
-
-
-
-
-  </ion-grid>
-
-
+	</ion-grid>
 </ion-content>
-
-
-
-
 <!-- đây là cái phần nhập tin nhắn và cái nút gởigởi -->
-<ion-footer >
-  <ion-toolbar color='light' >
-    <ion-row align-items-center no-padding>
-    <ion-col size='10'>
-      <!-- chỗ nhâpj tin nhắn nènè -->
-      <textarea [disabled]='isBlock()'  autosize maxRows="4" [(ngModel)]="newMsg" class="message-input">
 
-      </textarea>
-    </ion-col>
-    <ion-col size='2'>
-      <!-- nút gởi nè -->
-      <ion-button expand="block" fill="clear" color="primary" [disabled]=" newMsg=='' " class="msg-btn" (click)='sendMessage()'>
-        <ion-icon name='ios-send' slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-    </ion-row>
-  </ion-toolbar>
+<ion-footer>
+	<ion-toolbar>
+		<ion-row align-items-center no-padding>
+			<ion-col size='10'>
+				<!-- chỗ nhâpj tin nhắn nènè -->
+				<textarea [disabled]='isBlock()' autosize maxRows="33" [(ngModel)]="newMsg" class="message-input">
+		</textarea>
+			</ion-col>
+			<ion-col size='2'>
+				<!-- nút gởi nè -->
+				<ion-button expand="block" fill="clear" color="primary" [disabled]=" newMsg=='' " class="msg-btn"
+					(click)='sendMessage()'>
+					<ion-icon style="color:black" name="send-sharp" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ion-col>
+		</ion-row>
+	</ion-toolbar>
 </ion-footer>

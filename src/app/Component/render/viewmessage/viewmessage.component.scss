@@ -1,10 +1,10 @@
 .seen{
     color: red;
 }
-.textIcons{
+.textIcons {
     position: relative;
 }
-.text-small{
+.text-small {
     position: absolute;
     bottom: 19%;
     // left: 30%;
@@ -13,24 +13,35 @@
     justify-content: center;
     font-size: 10px;
 }
-ion-item-option{
+ion-item-option {
     width: 60px;
 }
-ion-icon{
+ion-icon {
     font-size: 20px;
     color: rgb(238, 225, 225);
 }
-ion-img{
+ion-img {
     width: 50px;
     height: 50px;
     text-align: center;
     align-items: center;
     justify-self: center;
 }
-ion-avatar{
+ion-avatar {
     width: 45px;
     height: 47px;
     text-align: center;
     align-items: center;
     justify-self: center;
+}
+ion-badge {
+    border-radius: 35px;
+    padding: 6px;
+    --background: rgb(236, 70, 70);
+    --color: rgb(255, 255, 255);
+    font-weight: 500;
+    font-size: 10px;
+}
+ion-text{
+    font-weight: 700;
 }

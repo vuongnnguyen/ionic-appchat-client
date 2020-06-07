@@ -18,11 +18,25 @@ const routes: Routes = [
     loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule)
   },
   {
+    path: 'zola',
+    loadChildren: () => import('./Component/zola/zola.module').then(m => m.ZolaPageModule) ,canActivate: [MiddlewareGuard]
+  },
+  {
+    path: 'acceptFriend',
+    loadChildren: () => import('./Component/invite-friend/invite-friend.module').then(m => m.InviteFriendPageModule)
+  },
+  {
     path: 'forgotpassword',
     loadChildren: () => import('./Component/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordPageModule)
   },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'friends',
+    loadChildren: () => import('./Component/friends/friends.module').then(m => m.FriendsPageModule)
+  },
+  { path: '', redirectTo: 'zola', pathMatch: 'full' },
+  { path: '**', redirectTo: 'zola', pathMatch: 'full' },
+
+
 
 
 

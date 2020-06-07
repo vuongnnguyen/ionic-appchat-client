@@ -10,24 +10,25 @@ const routes: Routes = [
     path: '',
     component: HomePage,
     children: [
-      {path: '',     loadChildren: () => import('../render/render.module').then( m => m.RenderPageModule), canActivate: [MiddlewareAtHomeGuard] },
-      {path: 'vv', loadChildren: () => import('../render/render.module').then( m => m.RenderPageModule), canActivate: [MiddlewareAtHomeGuard]},
-      {path: 'acceptFriend', loadChildren: () => import('../invite-friend/invite-friend.module').then( m => m.InviteFriendPageModule), canActivate: [MiddlewareAtHomeGuard]},
-      {path: 'notification', loadChildren: () => import('../notification/notification.module').then( m => m.NotificationPageModule), canActivate: [MiddlewareAtHomeGuard]},
-      
+      { path: '', loadChildren: () => import('../render/render.module').then(m => m.RenderPageModule), canActivate: [MiddlewareAtHomeGuard] },
+      { path: 'friends', loadChildren: () => import('../friends/friends.module').then(m => m.FriendsPageModule), canActivate: [MiddlewareAtHomeGuard] },
+      { path: 'vv', loadChildren: () => import('../render/render.module').then(m => m.RenderPageModule), canActivate: [MiddlewareAtHomeGuard] },
+      { path: 'acceptFriend', loadChildren: () => import('../invite-friend/invite-friend.module').then(m => m.InviteFriendPageModule), canActivate: [MiddlewareAtHomeGuard] },
+      { path: 'notification', loadChildren: () => import('../notification/notification.module').then(m => m.NotificationPageModule), canActivate: [MiddlewareAtHomeGuard] },
+
     ]
-    
+
   },
   {
     path: 'chat',
     children: [
-      { path: '', loadChildren: () => import('../msg/msg.module').then(m => m.MsgPageModule)},
-      { path: ':roomName', loadChildren: () => import('../msg/msg.module').then(m => m.MsgPageModule), canActivate: [MiddlewareAtHomeGuard]}
-  ],
+      { path: '', loadChildren: () => import('../msg/msg.module').then(m => m.MsgPageModule) },
+      { path: ':roomName', loadChildren: () => import('../msg/msg.module').then(m => m.MsgPageModule), canActivate: [MiddlewareAtHomeGuard] }
+    ],
 
-},
-  {path: 'infor-user', loadChildren: () => import('../inf-user/inf-user.module').then(m => m.InfUserPageModule), canActivate: [MiddlewareAtHomeGuard]},
-  
+  },
+  { path: 'infor-user', loadChildren: () => import('../inf-user/inf-user.module').then(m => m.InfUserPageModule), canActivate: [MiddlewareAtHomeGuard] },
+
   {
     path: '**',
     redirectTo: '',
@@ -39,4 +40,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule { }

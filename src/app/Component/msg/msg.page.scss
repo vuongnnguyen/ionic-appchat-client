@@ -1,37 +1,72 @@
+ion-header ion-toolbar{
+    --background :rgb(126, 126, 243);
+    color: rgb(247, 233, 233);
+}
+ion-content{
+    --background: #d1eaf7cc !important;
+}
+ion-footer ion-toolbar{
+    --background :rgb(155, 155, 240);
+    color: black;
+    padding: 5px 10px;
+}
 .message {
     padding-top: 10px;
     border-radius: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
     white-space: pre-wrap;
+    border: 1px solid #8a9596;
 }
 
 .other-message {
-    background: var(--ion-color-tertiary);
-    color: #fff;
+    background:white;
+    --color: black !important;
+    padding: 5px 5px;
+    min-width: 70px;
+    max-width: 170px;
+    
 }
 
 .my-message {
-    background: var(--ion-color-secondary);
-    color: #fff;
-}
-
-.time { 
-    color: #dfdfdf;
+    background:rgb(177, 166, 204);
+    --color: black !important;
+    padding: 5px 5px;
+    min-width: 70px;
     float: right;
+    position: relative;
+    max-width: 170px;
+}
+#abs{
+    position: absolute;
+    z-index: 99;
+    left: -25px;
+    top: 30%;
+}
+.time {
     font-size: small;
 }
 
 .message-input {
     width: 100%;
-    border: 1px solid var(--ion-color-medium);
     border-radius: 10px;
-    background: #fff;
+    background: rgb(228, 226, 226);
     resize: none;
-    padding-left: 10px;
-    padding-right: 10px;
+    // padding-left: 10px;
+    // padding-right: 10px;
 }
 
 .msg-btn {
-    --padding-start: 0.5em;
-    --padding-end: 0.5em;
+    --padding-start: 1;
+    --padding-end: 1;
+    font-size: 15px;
+    cursor: pointer;
+    opacity: 0.3;
+}
+#button-end{
+    padding: 5px;
+    font-size: 25px;
+    cursor: pointer;
+}
+ion-grid{
+    background:  #d1eaf7cc !important;
 }
