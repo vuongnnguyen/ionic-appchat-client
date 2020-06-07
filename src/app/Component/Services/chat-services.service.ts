@@ -225,23 +225,27 @@ export class ChatServicesService {
       if(+Date.now().toString() - (+user.timeOff) < 60000) {
           contentHome = '';
           contentMsg = 'Hoat động vài giây trước';
+          return { isOnline, contentHome, contentMsg };
       }
 
       if(+Date.now().toString() - (+user.timeOff) >= 60000 && 
          +Date.now().toString() - (+user.timeOff) < 3600000 ) {
             contentMsg = `Hoạt động ${Math.round(+Date.now().toString() - (+user.timeOff)/60000)} phút trước`
             contentHome = `+Date.now().toString() - (+user.timeOff)/60000) p`;
+            return { isOnline, contentHome, contentMsg };
       }
 
       if(+Date.now().toString() - (+user.timeOff) >= 3600000 &&
          +Date.now().toString() - (+user.timeOff) < (3600000 * 48)) {
           contentMsg = `Hoạt động ${Math.round(+Date.now().toString()/3600000)} trước`;
-          contentHome = `${Math.round(+Date.now().toString()/3600000)} h`
+          contentHome = `${Math.round(+Date.now().toString()/3600000)} h`;
+          return { isOnline, contentHome, contentMsg };
       }
 
       contentHome = '';
       let day = new Date(user.timeOff)
       contentMsg = day.toLocaleString();
+      return { isOnline, contentHome, contentMsg };
        
    }
 
