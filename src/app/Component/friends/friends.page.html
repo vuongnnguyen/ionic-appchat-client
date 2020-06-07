@@ -1,9 +1,150 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>friends</ion-title>
+    <ion-title>Bạn bè</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-đasad
+  <ion-item style="margin-bottom: 2px; border-bottom: 1px solid rgb(199, 194, 194);" button (click)="acceptFriend()"
+    lines="none">
+    <ion-avatar id="avatar" slot="start">
+      <ion-icon id="icons" name="person-add-sharp"></ion-icon>
+    </ion-avatar>
+    <ion-label>
+      Lời mời kết bạn
+    </ion-label>
+  </ion-item>
+
+  <!-- thêm danh sách bạn bè đã kết bạn vào đây -->
+  <ion-list>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="share(item)">Xoá kb</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item>
+        <ion-label>Note (End)</ion-label>
+        <ion-note slot="end">
+          <ion-icon class="icon_note" name="call-sharp"></ion-icon>
+          <ion-icon class="icon_note" name="videocam-sharp"></ion-icon>
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="favorite(item)">Favorite</ion-item-option>
+        <ion-item-option color="primary" (click)="share(item)">Share</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

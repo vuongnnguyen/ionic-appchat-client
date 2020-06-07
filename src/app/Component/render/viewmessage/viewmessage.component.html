@@ -14,7 +14,7 @@
 					<p> {{handleNameRoom(msg)}} </p>
 				</ion-text>
 				<p style="color:rgb(151, 151, 151)" [class.seem]='msg.seen'>{{handleMsg(msg)}}</p>
-				<small>{{msg.created | date:'short'}}</small>
+				<small>{{msg.created | date:'shortTime'}}</small>
 			</ion-label>
 			<ion-badge *ngIf='isSeenMySendMsg(msg).isseen == false' slot="end">N</ion-badge>
 		</ion-item>

@@ -65,14 +65,15 @@ direction="xy"
 	<ion-grid>
 
 
-		<ion-row *ngFor='let message of messages'>
+		<ion-row  *ngFor='let message of messages'>
 			<div style="width: 25px;margin-right: 5px;"
 				*ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) '>
 				<ion-avatar>
 					<ion-img style="width: 25px;height: 25px;" [src]='message.urlImg'></ion-img>
 				</ion-avatar>
 			</div>
-			<div *ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) ' class="message other-message">
+			<div *ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) '
+				class="message other-message">
 				<!-- <b style="font-weight: 300; font-size: 13px; margin-top: 2px;">{{handleName(message)}}</b><br> -->
 				<small style="font-weight: 600; color:black;">{{message.msg}}</small>
 				<div class="time" text-right><br>
@@ -80,12 +81,14 @@ direction="xy"
 				</div>
 			</div>
 			<ion-col size='2' *ngIf=' message.idsend != _services.user._id && !isDeleting(message._id) '>
-				<ion-icon style="margin-top:15px" (click)='onDeleteAmsg(message._id)' name="trash-bin-outline"></ion-icon>
+				<ion-icon style="margin-top:15px" (click)='onDeleteAmsg(message._id)' name="trash-bin-outline">
+				</ion-icon>
 			</ion-col>
 			<ion-col style="padding-top: 10px;" size='1' offset='2'></ion-col>
 			<!-- k cần sửasửa -->
-			<ion-col size="9">
-				<div *ngIf=' message.idsend == _services.user._id && !isDeleting(message._id)  ' class="message my-message">
+			<ion-col size="9" >
+				<div *ngIf=' message.idsend == _services.user._id && !isDeleting(message._id)  '
+					class="message my-message">
 					<ion-icon id="abs" style="float: left;"
 						*ngIf=' message.idsend == _services.user._id && !isDeleting(message._id)  '
 						(click)='onDeleteAmsg(message._id)' name="trash-bin-outline"></ion-icon>
@@ -98,19 +101,20 @@ direction="xy"
 			</ion-col>
 
 		</ion-row>
-		<ion-row *ngIf='isMySendMsg().checkRow'>
-			<ion-col *ngIf='!isMySendMsg().checkCol' size='9'>
-				<!-- thay icon vao day ne -->
-				<p *ngIf="getSeen().isseen">hien icon da xem ne</p>
+		<ion-row *ngIf='isMySendMsg().checkRow' style="text-align: right; font-size: 13px;">
+			<!-- <ion-col *ngIf='!isMySendMsg().checkCol' size='9'>
+				<p *ngIf="getSeen().isseen">Đã xem <ion-icon name="checkmark-done-outline"></ion-icon></p>
 				<p *ngIf="!getSeen().isseen">hien icon chua xem</p>
 
 				{{getSeen().status}}
-			</ion-col>
-			<ion-col *ngIf='isMySendMsg().checkCol' size='9' offser='3'>
+			</ion-col> -->
+			<ion-col *ngIf='isMySendMsg().checkCol' size='12' offser='3' style="margin-top: -20px;">
 				<!-- day nua ne -->
-				<p *ngIf="isSeenMySendMsg().isseen">hien icon da xem ne</p>
-				<p *ngIf="!isSeenMySendMsg().isseen">hien icon chua xem</p>
-				{{isSeenMySendMsg().status}}
+				<p *ngIf="isSeenMySendMsg().isseen">Đã xem <ion-icon name="checkmark-done-outline"></ion-icon>
+				</p>
+				<p *ngIf="!isSeenMySendMsg().isseen">Đã gửi <ion-icon name="checkmark-outline"></ion-icon>
+				</p>
+				<!-- {{isSeenMySendMsg().status}} <ion-icon name="checkmark-done-outline"></ion-icon> -->
 			</ion-col>
 		</ion-row>
 

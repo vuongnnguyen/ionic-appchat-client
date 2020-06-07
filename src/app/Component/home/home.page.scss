@@ -1,11 +1,24 @@
-ion-header ion-toolbar{
-    --background :rgb(126, 126, 243);
+ion-header ion-toolbar {
+    --background: rgb(126, 126, 243);
     color: rgb(247, 233, 233);
 }
-ion-tab-bar{
+ion-tab-bar {
     --background: blueviolet;
     --color: azure;
 }
-small{
+small {
     font-size: 8px;
+}
+#rec {
+    position: relative;
+}
+#abs {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
 }
