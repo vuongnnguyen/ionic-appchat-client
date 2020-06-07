@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { MiddlewareGuard } from './guard/middleware.guard';
+import { MiddlewareHomeGuard } from './guard/middlewarehome.guard';
 
 const routes: Routes = [
 
   {
     path: 'login',
-    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule)
+    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule), canActivate: [MiddlewareHomeGuard]
   },
   {
     path: 'home',
@@ -17,19 +18,11 @@ const routes: Routes = [
     loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule)
   },
   {
-    path: 'signup',
-    loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule)
-  },
-  {
-    path: 'zola',
-    loadChildren: () => import('./Component/zola/zola.module').then(m => m.ZolaPageModule)
-  },
-  {
     path: 'forgotpassword',
     loadChildren: () => import('./Component/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordPageModule)
   },
-  { path: '', redirectTo: 'zola', pathMatch: 'full' },
-  { path: '**', redirectTo: 'zola', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 
 
 

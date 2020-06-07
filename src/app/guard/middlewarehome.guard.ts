@@ -13,9 +13,9 @@ export class MiddlewareHomeGuard implements CanActivate {
   async canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean >  {
-     const res= await this._services.middleWare()
-     if(res.stt== false) {
-      this.router.navigate(['/login']);
+     const res= await this._services.middleWare();
+     if(res.stt) {
+      this.router.navigate(['/home']);
        return false;
      }
     //  this.router.navigate(['/login']);

@@ -269,8 +269,8 @@ export class ViewmessageComponent implements OnInit {
     let count= 0;
     let isssen: boolean= false;
     if(msg.type== 'arrom'){
-     if(msg.listNameUser[0].seen >= msg.created) return { isseen: true, status: 'hien icon da xem'};
-     return { isseen: false, status: 'hien icon chua  xem'};
+     if(msg.listNameUser[0].seen >= msg.created) return { isseen: true, status: ''};
+     return { isseen: false, status: ''};
     }
 
     msg.listNameUser.forEach( nameuser => {
@@ -280,7 +280,7 @@ export class ViewmessageComponent implements OnInit {
       if(nameuser.seen >= msg.created && nameuser.id == this._services.user._id) isssen= true;
     });
     //if( !arrSeen) return { isseen: false, status: ''};// cai nay nes
-    if(arrSeen.length== 0 ) return { isseen: isssen, status: 'hien icon chua xem'+ isssen};
+    if(arrSeen.length== 0 ) return { isseen: isssen, status: ''};
     // arrSeen.forEach( docs => {
     //   const index= this._services.user.friends.findIndex( idfd => {return idfd== docs._id});
     //   if(index != -1) 
@@ -298,7 +298,7 @@ export class ViewmessageComponent implements OnInit {
           status += `, ${docs.name}`
         // }
       })
-      return { isseen: true, status: status};
+      return { isseen: isssen, status: status};
     }
 
     arrSeen.forEach( docs => {
@@ -319,7 +319,7 @@ export class ViewmessageComponent implements OnInit {
       // }
     })
 
-    return { isseen: true, status: status}
+    return { isseen: isssen, status: status}
 
     
     //msg.listNameUser.forEach( docs => {
@@ -340,8 +340,8 @@ export class ViewmessageComponent implements OnInit {
     let status= '';
     let count= 0;
     if(msg.type== 'aroom'){
-      if(msg.listNameUser[0].seen >= msg.created) return { isseen: true, status: 'icon da xem'};
-      return {isseen: false, status: 'icon chua xem'};
+      if(msg.listNameUser[0].seen >= msg.created) return { isseen: true, status: 'da xem'};
+      return {isseen: false, status: 'chua xem'};
     }
     msg.listNameUser.forEach( nameuser => {
       if(nameuser.seen >= msg.created) {
