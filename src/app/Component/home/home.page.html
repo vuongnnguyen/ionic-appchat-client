@@ -1,34 +1,4 @@
-<!-- cai nay la trang vừa hiện ra khi đăng nhậpnhập -->
-
-<ion-header>
-  <ion-toolbar>
-    <!-- Searchbar with cancel button shown on focus -->
-    <ion-title>Bạn bè</ion-title>
-    <!-- bat đầu cái avataravatar -->
-
-
-    <!-- cái avatar này dùng để click vào thì nó hiển thị tùy chọn cho người dùng  click vào sẽ biếtbiết -->
-    <!-- <ion-row style="margin-top: 10px;">
-      <ion-col size='12'>
-        <ion-chip (click)='presentActionSheet()'>
-          <ion-avatar>
-            <img [src]="user.urlImg">
-          </ion-avatar>
-          <ion-label>Chats</ion-label>
-        </ion-chip>
-      </ion-col>
-    </ion-row> -->
-
-    <!-- kết thúc cái avatar -->
-
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
-
-
-
   <!-- đây là cái tab ở dưới thôi có mấy cái icon coi cái nào k ưng ý thì có thể thay -->
   <ion-tabs>
     <ion-tab-bar slot="bottom">
@@ -36,14 +6,17 @@
         <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
         <small>Tin nhắn</small>
       </ion-tab-button>
-
+      <ion-tab-button tab="friends">
+        <ion-icon name="people-circle-outline"></ion-icon>
+        <small>Bạn bè</small>
+      </ion-tab-button>
       <ion-tab-button tab="acceptFriend">
         <ion-icon name="people-outline"></ion-icon>
         <small>Nhóm</small>
       </ion-tab-button>
       <ion-tab-button tab="notification">
         <ion-icon name="time-outline"></ion-icon>
-        <small>Thông báo</small>
+        <small>Nhật ký</small>
       </ion-tab-button>
       <ion-tab-button tab="notification">
         <ion-icon name="person-circle-outline"></ion-icon>

@@ -17,19 +17,21 @@ const routes: Routes = [
     loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule)
   },
   {
-    path: 'signup',
-    loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule)
-  },
-  {
     path: 'zola',
-    loadChildren: () => import('./Component/zola/zola.module').then(m => m.ZolaPageModule)
+    loadChildren: () => import('./Component/zola/zola.module').then(m => m.ZolaPageModule) ,canActivate: [MiddlewareGuard]
   },
   {
     path: 'forgotpassword',
     loadChildren: () => import('./Component/forgotpassword/forgotpassword.module').then(m => m.ForgotpasswordPageModule)
   },
+  {
+    path: 'friends',
+    loadChildren: () => import('./Component/friends/friends.module').then(m => m.FriendsPageModule)
+  },
   { path: '', redirectTo: 'zola', pathMatch: 'full' },
   { path: '**', redirectTo: 'zola', pathMatch: 'full' },
+
+
 
 
 

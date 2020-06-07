@@ -3,85 +3,67 @@
 
 <ion-list>
 
-  <ion-item-sliding *ngFor="let msg of listMsg, index as i">
-    <ion-item *ngIf='!isHideMsg(msg._id)' [routerLink]="['/home/chat', msg.roomname]"
-      routerLinkActive="router-link-active">
-      <ion-avatar slot="start">
-        <ion-img [src]="msg.urlImg"></ion-img>
-      </ion-avatar>
-      <ion-label style="margin-left: 0px; margin-right:2px;margin-top: 0px;margin-bottom: 0px;padding-top: 5px;">
-        <ion-text style="width: 80%;">
-          <p style="font-weight: 500; font-size: 13px;"> {{handleNameRoom(msg)}} </p>
-        </ion-text>
-        <p style="width: 80%; font-weight: 600; font-size: 11px;" [class.seem]='msg.seen'>{{handleMsg(msg)}}</p>
-        <small style="font-weight: 500; font-size: x-small;">{{msg.created | date:'short'}}</small>
-        <!-- isSeenMySendMsg(msg).isseen == false  hien icon chua xem -->
-        <!-- <p *ngIf='isSeenMySendMsg(msg).isseen == false && msg.idsend == _services.user._id'>
-          {{isSeenMySendMsg(msg).status}}</p>
-        <p *ngIf='isSeenMySendMsg(msg).isseen == true && msg.idsend == _services.user._id'>
-          {{isSeenMySendMsg(msg).status}}</p> -->
+	<ion-item-sliding *ngFor="let msg of listMsg, index as i">
+		<ion-item *ngIf='!isHideMsg(msg._id)' [routerLink]="['/home/chat', msg.roomname]"
+			routerLinkActive="router-link-active">
+			<ion-avatar slot="start">
+				<ion-img [src]="msg.urlImg"></ion-img>
+			</ion-avatar>
+			<ion-label>
+				<ion-text>
+					<p> {{handleNameRoom(msg)}} </p>
+				</ion-text>
+				<p style="color:rgb(151, 151, 151)" [class.seem]='msg.seen'>{{handleMsg(msg)}}</p>
+				<small>{{msg.created | date:'short'}}</small>
+			</ion-label>
+			<ion-badge *ngIf='isSeenMySendMsg(msg).isseen == false' slot="end">N</ion-badge>
+		</ion-item>
+		<ion-item-options side="end" *ngIf='!isHideMsg(msg._id)'>
+			<ion-item-option (click)='blockRoom(msg.roomname)' *ngIf='!isBlocked(msg.roomname)' slot="icon-only"
+				color="medium">
+				<!-- thay cái này bằng icon chặn tin nhắnnhắn -->
+				<ion-icon class="textIcons" name="close-circle-outline">
+				</ion-icon>
+				<small class="text-small">Chặn</small>
+			</ion-item-option>
+			<ion-item-option (click)='unBlockRoom(msg.roomname)' *ngIf='isBlocked(msg.roomname)' slot="icon-only"
+				color="medium">
+				<!-- thay cái này bằng icon bỏ chặn -->
+				<ion-icon class="textIcons" name="checkmark-done-circle-outline">
+				</ion-icon>
+				<small class="text-small">Bỏ Chặn</small>
+			</ion-item-option>
+			<ion-item-option *ngIf='!isDissmissNotification(msg.roomname)' (click)='dismissNotification(msg.roomname)'
+				slot="icon-only" color="secondary">
+				<!-- thay cái này bằng icon tắt thông báobáo -->
+				<ion-icon class="textIcons" name="notifications-off-outline">
+				</ion-icon>
+				<small class="text-small">Tắt</small>
+			</ion-item-option>
+			<ion-item-option *ngIf='isDissmissNotification(msg.roomname)' (click)='missNotification(msg.roomname)'
+				slot="icon-only" color="secondary">
+				<!-- thay cái này bằng icon bậtbật thông báobáo -->
+				<ion-icon class="textIcons" name="notifications-outline">
+				</ion-icon>
+				<small class="text-small">Bật</small>
+			</ion-item-option>
+			<ion-item-option (click)='hideRoom(msg._id)' slot="icon-only" color="primary">
+				<!-- thay cái này bằng icon ẩn tin nhắnnhắn -->
+				<ion-icon class="textIcons" name="eye-off-outline">
+				</ion-icon>
+				<small class="text-small">Ẩn</small>
+			</ion-item-option>
+			<ion-item-option (click)='deleteMessagesinRoom(msg, i)' slot="icon-only" color="danger">
+				<!-- thay cái này bằng icon xóa tin nhắnnhắn-->
+				<ion-icon class="textIcons" name="trash-outline">
 
-        <!-- <p isSeenMySendMsg(msg).isseen == true >isSeenMySendMsg(msg).status</p> -->
-        <!-- nguoi ta goi -->
-        <!-- <p *ngIf=' msg.idsend != _services.user._id'> {{ getSeen(msg).status}}</p> -->
-      </ion-label>
-    </ion-item>
-    <ion-item-options side="end" *ngIf='!isHideMsg(msg._id)'>
-      <ion-item-option (click)='blockRoom(msg.roomname)' *ngIf='!isBlocked(msg.roomname)' slot="icon-only"
-        color="medium">
-        <!-- thay cái này bằng icon chặn tin nhắnnhắn -->
-        <ion-icon class="textIcons" name="close-circle-outline">
-        </ion-icon>
-        <small class="text-small">Chặn</small>
-      </ion-item-option>
-      <ion-item-option (click)='unBlockRoom(msg.roomname)' *ngIf='isBlocked(msg.roomname)' slot="icon-only"
-        color="medium">
-        <!-- thay cái này bằng icon bỏ chặn -->
-        <ion-icon class="textIcons" name="checkmark-done-circle-outline">
-        </ion-icon>
-        <small class="text-small">Bỏ Chặn</small>
-      </ion-item-option>
-      <ion-item-option *ngIf='!isDissmissNotification(msg.roomname)' (click)='dismissNotification(msg.roomname)'
-        slot="icon-only" color="secondary">
-        <!-- thay cái này bằng icon tắt thông báobáo -->
-        <ion-icon class="textIcons" name="notifications-off-outline">
-        </ion-icon>
-        <small class="text-small">Tắt</small>
-      </ion-item-option>
-
-      <ion-item-option *ngIf='isDissmissNotification(msg.roomname)' (click)='missNotification(msg.roomname)'
-        slot="icon-only" color="secondary">
-        <!-- thay cái này bằng icon bậtbật thông báobáo -->
-        <ion-icon class="textIcons" name="notifications-outline">
-        </ion-icon>
-        <small class="text-small">Bật</small>
-      </ion-item-option>
-
-      <ion-item-option (click)='hideRoom(msg._id)' slot="icon-only" color="primary">
-        <!-- thay cái này bằng icon ẩn tin nhắnnhắn -->
-        <ion-icon class="textIcons" name="eye-off-outline">
-        </ion-icon>
-        <small class="text-small">Ẩn</small>
-      </ion-item-option>
-
-      <ion-item-option (click)='deleteMessagesinRoom(msg, i)' slot="icon-only" color="danger">
-        <!-- thay cái này bằng icon xóa tin nhắnnhắn-->
-        <ion-icon class="textIcons" name="trash-outline">
-
-        </ion-icon>
-        <small class="text-small">Xoá</small>
-      </ion-item-option>
-
-
-
-
-
-    </ion-item-options>
-  </ion-item-sliding>
-
+				</ion-icon>
+				<small class="text-small">Xoá</small>
+			</ion-item-option>
+		</ion-item-options>
+	</ion-item-sliding>
 </ion-list>
-
 <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-  </ion-infinite-scroll-content>
+	<ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+	</ion-infinite-scroll-content>
 </ion-infinite-scroll>
