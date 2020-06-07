@@ -208,6 +208,44 @@ export class ChatServicesService {
     // })
    }
 
+   handleUserStatus(id) : { isOnline: boolean, contentHome: string, contentMsg: string  } {
+     let isOnline = false;
+     let contentHome = '';
+     let contentMsg = '';
+     let time = +Date.now().toString();
+     let user : MYINTERFACE.statusUser;
+     user = this.listStatusUser.find( item => {
+        return item._id == id;
+      });
+
+      if(!user) return { isOnline: false, contentHome: '', contentMsg: ''  };
+      if(!user.isOffline) return { isOnline: true, contentHome: '', contentMsg: '' };
+      isOnline = false;
+
+      if(+Date.now().toString() - (+user.timeOff) < 60000) {
+          contentHome = '';
+          contentMsg = 'Hoat động vài giây trước';
+      }
+
+      if(+Date.now().toString() - (+user.timeOff) >= 60000 && 
+         +Date.now().toString() - (+user.timeOff) < 3600000 ) {
+            contentMsg = `Hoạt động ${Math.round(+Date.now().toString() - (+user.timeOff)/60000)} phút trước`
+            contentHome = `+Date.now().toString() - (+user.timeOff)/60000) p`;
+      }
+
+      if(+Date.now().toString() - (+user.timeOff) >= 3600000 &&
+         +Date.now().toString() - (+user.timeOff) < (3600000 * 48)) {
+          contentMsg = `Hoạt động ${Math.round(+Date.now().toString()/3600000)} trước`;
+          contentHome = `${Math.round(+Date.now().toString()/3600000)} h`
+      }
+
+      contentHome = '';
+      let day = new Date(user.timeOff)
+      contentMsg = day.toLocaleString();
+       
+   }
+
+
    getStatusUser(iduser) {
     const url= 'http://localhost:3000/user/getStatusUser';
     const httpOptions = {
