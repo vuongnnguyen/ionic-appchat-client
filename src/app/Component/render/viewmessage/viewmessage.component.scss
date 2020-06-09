@@ -1,4 +1,4 @@
-.seen{
+.seen {
     color: red;
 }
 .textIcons {
@@ -20,13 +20,13 @@ ion-icon {
     font-size: 20px;
     color: rgb(238, 225, 225);
 }
-ion-img {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    align-items: center;
-    justify-self: center;
-}
+// ion-img {
+//     width: 50px;
+//     height: 50px;
+//     text-align: center;
+//     align-items: center;
+//     justify-self: center;
+// }
 ion-avatar {
     width: 45px;
     height: 47px;
@@ -42,24 +42,54 @@ ion-badge {
     font-weight: 500;
     font-size: 10px;
 }
-ion-text{
+ion-text {
     font-weight: 700;
 }
-.avatar{
+.avatar {
     position: relative !important;
 }
-.badge{
+.badge {
     position: absolute !important;
-    bottom: -4px;
-    right: -4px;
-    border: 3px solid black;
+    bottom: -1px;
+    right: -1px;
+    border: 3px solid #2d2525;
     width: 17px;
     height: 17px;
     border-radius: 25px;
 }
-.badge-online{
+.badge-online {
     background-color: rgb(255, 208, 0);
 }
-.badge-offline{
+.badge-offline {
     background-color: rgb(192, 184, 149);
 }
+#label-rec {
+    position: relative;
+}
+#small-abs {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: rgb(135, 149, 150);
+    font-size: 10px;
+}
+#bage {
+    position: absolute;
+    background-color: red;
+    border-radius: 6px;
+    width: 17px;
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 400;
+    bottom: 15px;
+    right: 15px;
+    animation: mymove 1s infinite;
+}
+@keyframes mymove {
+    0%   {bottom: 15px;}
+    25%  {bottom: 20px;}
+    50%  {bottom: 15px;}
+    75%  {bottom: 17px;}
+    100% {bottom: 15px;}
+  }

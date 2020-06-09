@@ -76,7 +76,7 @@ direction="xy"
 				class="message other-message">
 				<!-- <b style="font-weight: 300; font-size: 13px; margin-top: 2px;">{{handleName(message)}}</b><br> -->
 				<small style="font-weight: 600; color:black;">{{message.msg}}</small>
-				<div class="time" text-right><br>
+				<div class="time" text-right>
 					<small style="font-weight: 500;color:black ;">{{message.created | date:'shortTime'}}</small>
 				</div>
 			</div>
@@ -94,7 +94,7 @@ direction="xy"
 						(click)='onDeleteAmsg(message._id)' name="trash-bin-outline"></ion-icon>
 					<!-- <b style="font-weight: 300; font-size: 13px;">{{handleName(message)}}</b><br> -->
 					<small style="font-weight: 600;color:black ;">{{message.msg}}</small>
-					<div class="time" text-right><br>
+					<div class="time" text-right>
 						<small style="font-weight: 500; color: black;">{{message.created | date:'shortTime'}}</small>
 					</div>
 				</div>
@@ -132,7 +132,7 @@ direction="xy"
 			</ion-col>
 			<ion-col size='2'>
 				<!-- nút gởi nè -->
-				<ion-button expand="block" fill="clear" color="primary" [disabled]=" newMsg=='' " class="msg-btn"
+				<ion-button expand="block" fill="clear"  [disabled]=" newMsg=='' " class="msg-btn"
 					(click)='sendMessage()'>
 					<ion-icon style="color:black" name="send-sharp" slot="icon-only"></ion-icon>
 				</ion-button>

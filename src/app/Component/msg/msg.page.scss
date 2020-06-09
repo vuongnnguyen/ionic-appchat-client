@@ -19,22 +19,22 @@ ion-footer ion-toolbar{
 }
 
 .other-message {
-    background:white;
+   background: white;
     --color: black !important;
-    padding: 5px 5px;
-    min-width: 70px;
-    max-width: 170px;
-    
+    min-width: 80px;
+    max-width: 160px;
+    padding: 5px 5px 7px 7px;
 }
+    
 
 .my-message {
     background:rgb(177, 166, 204);
     --color: black !important;
-    padding: 5px 5px;
-    min-width: 70px;
     float: right;
     position: relative;
-    max-width: 170px;
+    min-width: 80px;
+    max-width: 160px;
+    padding: 5px 5px 7px 7px;
 }
 #abs{
     position: absolute;
@@ -60,13 +60,13 @@ ion-footer ion-toolbar{
     --padding-end: 1;
     font-size: 15px;
     cursor: pointer;
-    opacity: 0.3;
+    opacity: 0.8;
 }
 #button-end{
     padding: 5px;
     font-size: 25px;
     cursor: pointer;
 }
-ion-grid{
-    background:  #d1eaf7cc !important;
-}
+// ion-grid{
+//     background:  #d1eaf7cc !important;
+// }

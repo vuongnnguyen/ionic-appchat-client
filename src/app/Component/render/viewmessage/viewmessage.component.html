@@ -1,7 +1,7 @@
 <ion-list>
 
 	<ion-item-sliding *ngFor="let msg of listMsg, index as i">
-		<ion-item *ngIf='!isHideMsg(msg._id)' [routerLink]="['/home/chat', msg.roomname]"
+		<ion-item id="label-rec" *ngIf='!isHideMsg(msg._id)' [routerLink]="['/home/chat', msg.roomname]"
 			routerLinkActive="router-link-active">
 			<ion-avatar slot="start" class="avatar">
 				<ion-img [src]="msg.urlImg"></ion-img>
@@ -14,9 +14,10 @@
 					<p> {{handleNameRoom(msg)}} </p>
 				</ion-text>
 				<p style="color:rgb(151, 151, 151)" [class.seem]='msg.seen'>{{handleMsg(msg)}}</p>
-				<small>{{msg.created | date:'shortTime'}}</small>
+				<small id=small-abs>{{msg.created | date:'shortTime'}}</small>
+
 			</ion-label>
-			<ion-badge *ngIf='isSeenMySendMsg(msg).isseen == false' slot="end">N</ion-badge>
+			<div id="bage" *ngIf='isSeenMySendMsg(msg).isseen == false' slot="end">N</div>
 		</ion-item>
 		<ion-item-options side="end" *ngIf='!isHideMsg(msg._id)'>
 			<ion-item-option (click)='blockRoom(msg.roomname)' *ngIf='!isBlocked(msg.roomname)' slot="icon-only"
