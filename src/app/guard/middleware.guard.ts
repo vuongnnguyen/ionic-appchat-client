@@ -16,6 +16,7 @@ export class MiddlewareGuard implements CanActivate {
      const res= await this._services.middleWare()
      if(!res.stt) {
       this.router.navigate(['/login']);
+      // this.router.navigate(['/login']);
        return false;
      }
     

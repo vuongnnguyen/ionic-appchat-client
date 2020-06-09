@@ -7,11 +7,11 @@ const routes: Routes = [
 
   {
     path: 'login',
-    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule), canActivate: [MiddlewareHomeGuard]
+    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule), 
   },
   {
     path: 'home',
-    loadChildren: () => import('./Component/home/home.module').then(m => m.HomePageModule), canActivate: [MiddlewareGuard]
+    loadChildren: () => import('./Component/home/home.module').then(m => m.HomePageModule),
   },
   {
     path: 'signup',
@@ -35,6 +35,11 @@ const routes: Routes = [
   },
   { path: '', redirectTo: 'zola', pathMatch: 'full' },
   { path: '**', redirectTo: 'zola', pathMatch: 'full' },
+  {
+    path: 'group',
+    loadChildren: () => import('./Component/group/group.module').then( m => m.GroupPageModule)
+  },
+
 
 
 

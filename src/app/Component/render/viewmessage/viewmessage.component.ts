@@ -186,7 +186,7 @@ export class ViewmessageComponent implements OnInit {
 
   unBlockRoom(idroom: string) {
     const obj= { iduser: this._services.user._id, idroom: idroom };
-    this._services.managementRoom(obj, 'http://localhost:3000/user/unblock-room')
+    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/unblock-room')
     .then( res => {
       this._services.user.room.push(idroom);
       const index= this._services.user.block.findIndex( docs => {
@@ -200,7 +200,7 @@ export class ViewmessageComponent implements OnInit {
   blockRoom(idroom: string){
     // this._services.user.block.push(this.idroom);    
     const obj= { iduser: this._services.user._id, idroom: idroom };
-    this._services.managementRoom(obj, 'http://localhost:3000/user/block-room')
+    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/block-room')
     .then( res => { 
       this._services.user.block.push(idroom);
       const indexs= this._services.user.room.findIndex( docs => {
@@ -228,40 +228,7 @@ export class ViewmessageComponent implements OnInit {
     return true;
   }
 
-  async createGroup() {
-    const createdGroup= await this.alertCtrl.create({
-      header: 'Tao Group',
-      message: 'Nhap ten group.',
-      inputs: [{
-        name: 'nameGroup',
-        type: 'text',
-        placeholder: 'Nhap ten Group' 
-      }],
-      buttons: [
-        {
-        text: 'Cancel',
-        handler: () => console.log('cancel'),
-        role: 'cancel'
-        },
-        {
-          text: 'Create',
-          handler: form => {
-            let obj= {username: this._services.user.name ,iduser: this._services.user._id, namegroup: form.nameGroup, idroom: `${this._services.user._id}${new Date().getTime()}${Math.floor(Math.random() * 10)}` };
-            if(form.nameGroup == '') {
-              obj= {username: this._services.user.name, iduser: this._services.user._id, namegroup: `${new Date().getTime()}${Math.floor(Math.random() * 10)}`, idroom: `${this._services.user._id}${new Date().getTime()}${Math.floor(Math.random() * 10)}`};
-            }
-            this._services.createGroup(obj)
-            .then( res => {
-          
-              this.listMsg.splice(0, 0, res)
-            })
-            .catch( err => console.log(err.message));
-          }
-        }
-      ]
-    });
-    await createdGroup.present();
-  }
+  
 
   getSeen(msg:msg) :{ isseen: boolean, status: string} {
     let arrSeen: Array<{_id: string, name: string}>= [];
@@ -416,7 +383,7 @@ export class ViewmessageComponent implements OnInit {
     //this._services.socket.emit('Client-send-dismiss-room', obj);
     // this._services.socket.emit('Client-send-dismiss-room', obj)
     this._services.user.dismissroom.push(idroom);
-    this._services.managementRoom(obj, 'http://localhost:3000/user/dismiss-room')
+    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/dismiss-room')
     .then( res => { this._services.socket.emit('Client-send-dismiss-room', obj);})
     .catch( err => {
       const index= this._services.user.dismissroom.findIndex( dosc => {
@@ -436,7 +403,7 @@ export class ViewmessageComponent implements OnInit {
     const obj= { idroom: idroom, iduser: this._services.user._id};
     // this._services.socket.emit('Client-send-miss-room', obj);
     this._services.user.dismissroom.splice( index, 1);
-    this._services.managementRoom(obj, 'http://localhost:3000/user/miss-room')
+    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/miss-room')
     .then( res => { this._services.socket.emit('Client-send-miss-room', obj)} )
     .catch( err => {
       const index= this._services.user.dismissroom.findIndex( dosc => {
@@ -457,7 +424,7 @@ export class ViewmessageComponent implements OnInit {
     this._services.user.hidemsg.push(idmsg);
     const obj= { idmsg: idmsg, iduser: this._services.user._id };
     // this._services.socket.emit('Client-send-hide-room', obj)
-    this._services.managementRoom(obj, 'http://localhost:3000/user/hide-room')
+    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/hide-room')
     .then( res => {this._services.socket.emit('Client-send-hide-room', obj)})
     .catch( err => {
       const index= this._services.user.hidemsg.findIndex( dosc => {

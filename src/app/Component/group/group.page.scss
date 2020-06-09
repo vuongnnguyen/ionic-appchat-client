@@ -1,3 +1,7 @@
+ion-header ion-toolbar{
+    --background :rgb(126, 126, 243);
+    color: rgb(247, 233, 233);
+}
 .seen{
     color: red;
 }
@@ -19,13 +23,6 @@ ion-item-option {
 ion-icon {
     font-size: 20px;
     color: rgb(238, 225, 225);
-}
-ion-img {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    align-items: center;
-    justify-self: center;
 }
 ion-avatar {
     width: 45px;

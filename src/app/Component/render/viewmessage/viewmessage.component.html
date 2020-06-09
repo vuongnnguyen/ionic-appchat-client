@@ -1,14 +1,14 @@
-<!-- 
-  <ion-icon (click)='createGroup()' style="width: 35px;height: 35px; border-radius:50%;border: 1px solid blue;" name="add"></ion-icon> -->
-
 <ion-list>
 
 	<ion-item-sliding *ngFor="let msg of listMsg, index as i">
 		<ion-item *ngIf='!isHideMsg(msg._id)' [routerLink]="['/home/chat', msg.roomname]"
 			routerLinkActive="router-link-active">
-			<ion-avatar slot="start">
+			<ion-avatar slot="start" class="avatar">
 				<ion-img [src]="msg.urlImg"></ion-img>
+				<div class="badge badge-online"></div>
+				<!-- <div class="badge badge-offline" ></div> -->
 			</ion-avatar>
+
 			<ion-label>
 				<ion-text>
 					<p> {{handleNameRoom(msg)}} </p>
