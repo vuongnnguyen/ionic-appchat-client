@@ -7,7 +7,7 @@ const routes: Routes = [
 
   {
     path: 'login',
-    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule), canActivate: [MiddlewareGuard]
+    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule),
   },
   {
     path: 'home',
