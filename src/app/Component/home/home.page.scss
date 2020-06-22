@@ -14,11 +14,29 @@ small {
 }
 #abs {
     position: absolute;
-    top: 10%;
-    right: 10%;
+    bottom: 28px;
+    right: 10px;
     width: 15px;
     height: 15px;
     background-color: red;
     color: white;
     border-radius: 10px;
+    // animation: mymove 1s infinite ;
 }
+// @keyframes mymove {
+//     0% {
+//         bottom: 28px;
+//     }
+//     25% {
+//         bottom: 30px;
+//     }
+//     50% {
+//         bottom: 28px;
+//     }
+//     75% {
+//         bottom: 29px;
+//     }
+//     100% {
+//         bottom: 28px;
+//     }
+// }

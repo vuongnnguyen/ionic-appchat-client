@@ -1,60 +1,23 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button ></ion-back-button>
-    </ion-buttons>
-    <ion-title>notification</ion-title>
+    <ion-title>Nhật Ký</ion-title>
   </ion-toolbar>
-</ion-header> -->
-
-
-
-<!-- đây ladf hiển thị thông báobáo -->
-
+</ion-header>
 <ion-content>
-  
-
-  <ion-grid style="margin-top: 10px;">
-    <ion-row>
-
-      <ion-col size='12' *ngFor="let noti of listNotificantion, index as i" style="margin-top: 0px; padding: 0 0;">
-        <ion-row style="margin-top: 0px;padding-top: 0px;">
-          <ion-col  style="width: auto;" style="max-width: 35px; padding-left: 0px ; padding-right: 3px; padding-top: 7px; padding-bottom: 0px; ">
-           <!-- đây là avtaravtar -->
-               <ion-img style="width: 35px!important; height: 35px!important; margin-left: 0px!important; border-radius: 50% ;"  [src]="noti.urlImg" ></ion-img>
-               
-          </ion-col >
-          <ion-col size='10' style="margin-bottom: 0px;padding: 0 0; margin-top: 0px;">
-            <!-- đây là test -->
-            <small  style="color: blue; margin-top: 0px;margin-bottom: 0px; line-height: 0px; font-weight: 400; color: black;">{{noti.msg}}</small><br>
-            <small style=" margin-left: 0px;margin-top: 0px;margin-bottom: 0px;" *ngIf="!noti.server && noti.status!= 'none'">{{noti.status}}</small>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-
-      <!-- <ion-col size="12">
-        <ion-list> 
-          <ion-item  *ngFor="let noti of listNotificantion, index as i">
-            <ion-avatar style="width: 35px!important; height: 35px!important; margin-left: 0px!important" slot="start"> <ion-img style="margin-left: 0px; padding-left: 0px;" [src]="noti.urlImg" ></ion-img> </ion-avatar>
-            <ion-label style="margin-left: 0px!important; margin-right:2px; height: auto;">    
-                <p  style="color: blue;">{{noti.msg}}</p>
-              <p *ngIf="!noti.server && noti.status!= 'none'">{{noti.status}}</p>
-          </ion-label>
-          </ion-item>
-        </ion-list>
-  
-        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" >
-          <ion-infinite-scroll-content
-            loadingSpinner="bubbles"
-            loadingText="Loading more data...">
-          </ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-      </ion-col> -->
+  <ion-grid>
+    <ion-row *ngFor="let noti of listNotificantion, index as i">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img [src]="noti.urlImg" />
+        </ion-avatar>
+        <div class="mes">{{noti.msg}}</div>
+        <ion-badge slot="end">
+          <ion-icon (click)="onClick()" style="font-size: 20px;cursor: pointer;" name="ellipsis-horizontal"></ion-icon>
+        </ion-badge>
+      </ion-item>
     </ion-row>
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" >
-      <ion-infinite-scroll-content
-        loadingSpinner="bubbles"
-        loadingText="Loading more data...">
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ion-grid>

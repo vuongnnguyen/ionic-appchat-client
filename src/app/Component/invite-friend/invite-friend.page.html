@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start" >
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
     <ion-title>Lời mời kết bạn</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,35 +17,35 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12"> 
-        <ion-list> 
-          <ion-item *ngFor="let friend of listFriends, index as i" >
+      <ion-col size="12">
+        <ion-list>
+          <ion-item *ngFor="let friend of listFriends, index as i">
 
             <!-- đây là ảnh người gởi lời mời kết bạnbạn -->
-            <ion-avatar style="width: 35px!important; height: 35px!important; margin-right: 7px;" slot="start"> <ion-img [src]="friend.urlImg" ></ion-img> </ion-avatar>
-            
+            <ion-avatar style="width: 35px!important; height: 35px!important; margin-right: 7px;" slot="start">
+              <ion-img [src]="friend.urlImg"></ion-img>
+            </ion-avatar>
+
             <ion-label style="margin-left: 0px; ">
-              <ion-text >
+              <ion-text>
                 <h3 style="font-weight: 500; font-size: 13px; ">{{friend.name}}</h3>
-              </ion-text >
+              </ion-text>
 
               <!-- đây là 2 cái nútnút -->
               <!-- <ion-buttons *ngIf='!noti.server'> -->
-                  <ion-button *ngIf="!checkFriend(friend.idsend)"  (click)="accepAdd(friend, i)">Đồng ý</ion-button>
-                  <ion-button *ngIf="!checkFriend(friend.idsend)" (click)="accepAdd(friend, i)">Từ chối</ion-button>
-                  <p *ngIf="checkFriend(friend.idsend)">Bạn bè</p>
-                <!-- </ion-buttons>     -->
+              <ion-button *ngIf="!checkFriend(friend.idsend)" (click)="accepAdd(friend, i)">Đồng ý</ion-button>
+              <ion-button *ngIf="!checkFriend(friend.idsend)" (click)="accepAdd(friend, i)">Từ chối</ion-button>
+              <p *ngIf="checkFriend(friend.idsend)">Bạn bè</p>
+              <!-- </ion-buttons>     -->
               <!-- <p *ngIf="!noti.server && noti.status!= 'none'">{{noti.status}}</p> -->
-          </ion-label>
+            </ion-label>
           </ion-item>
         </ion-list>
-  
+
 
         <!-- cái này k liên quan đâu đừng để ý -->
-        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)" >
-          <ion-infinite-scroll-content
-            loadingSpinner="bubbles"
-            loadingText="Loading more data...">
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+          <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
           </ion-infinite-scroll-content>
         </ion-infinite-scroll>
       </ion-col>

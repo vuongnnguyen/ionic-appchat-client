@@ -26,7 +26,7 @@ export class ChatServicesService {
 
 
   constructor( private http: HttpClient, public toastController: ToastController, private router: Router) {
-    // window.onbeforeunload  = () =>{
+    // /9/ window.onbeforeunload  = () =>{
     //   alert('ok')
     // }
 

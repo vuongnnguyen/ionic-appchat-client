@@ -50,7 +50,11 @@ export class NicknamesComponent implements OnInit {
             handler: form => {
               if(form.nickname.trim()== '') return;
               const obj= {  iduser: user.id, idroom: this.idroom, nickname: form.nickname.trim()};
+<<<<<<< HEAD
               this._serivces.managementRoom(obj, 'https://localhost:3000/user/change-nickname')
+=======
+              this._serivces.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/change-nickname')
+>>>>>>> ee2ac238b67264408ffec822c086d42d8261627e
               .then( res => {
                 this._serivces.socket.emit('Client-send-change-nickName', obj);
                 this.listAllNickName.forEach( docs => {
