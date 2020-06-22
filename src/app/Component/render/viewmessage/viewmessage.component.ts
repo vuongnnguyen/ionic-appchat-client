@@ -186,7 +186,7 @@ export class ViewmessageComponent implements OnInit {
 
   unBlockRoom(idroom: string) {
     const obj= { iduser: this._services.user._id, idroom: idroom };
-    this._services.managementRoom(obj, 'http://localhost:3000/user/unblock-room')
+    this._services.managementRoom(obj, 'https://localhost:3000/user/unblock-room')
     .then( res => {
       this._services.user.room.push(idroom);
       const index= this._services.user.block.findIndex( docs => {
@@ -200,7 +200,7 @@ export class ViewmessageComponent implements OnInit {
   blockRoom(idroom: string){
     // this._services.user.block.push(this.idroom);    
     const obj= { iduser: this._services.user._id, idroom: idroom };
-    this._services.managementRoom(obj, 'http://localhost:3000/user/block-room')
+    this._services.managementRoom(obj, 'https://localhost:3000/user/block-room')
     .then( res => { 
       this._services.user.block.push(idroom);
       const indexs= this._services.user.room.findIndex( docs => {
@@ -416,7 +416,7 @@ export class ViewmessageComponent implements OnInit {
     //this._services.socket.emit('Client-send-dismiss-room', obj);
     // this._services.socket.emit('Client-send-dismiss-room', obj)
     this._services.user.dismissroom.push(idroom);
-    this._services.managementRoom(obj, 'http://localhost:3000/user/dismiss-room')
+    this._services.managementRoom(obj, 'https://localhost:3000/user/dismiss-room')
     .then( res => { this._services.socket.emit('Client-send-dismiss-room', obj);})
     .catch( err => {
       const index= this._services.user.dismissroom.findIndex( dosc => {
@@ -436,7 +436,7 @@ export class ViewmessageComponent implements OnInit {
     const obj= { idroom: idroom, iduser: this._services.user._id};
     // this._services.socket.emit('Client-send-miss-room', obj);
     this._services.user.dismissroom.splice( index, 1);
-    this._services.managementRoom(obj, 'http://localhost:3000/user/miss-room')
+    this._services.managementRoom(obj, 'https://localhost:3000/user/miss-room')
     .then( res => { this._services.socket.emit('Client-send-miss-room', obj)} )
     .catch( err => {
       const index= this._services.user.dismissroom.findIndex( dosc => {
@@ -457,7 +457,7 @@ export class ViewmessageComponent implements OnInit {
     this._services.user.hidemsg.push(idmsg);
     const obj= { idmsg: idmsg, iduser: this._services.user._id };
     // this._services.socket.emit('Client-send-hide-room', obj)
-    this._services.managementRoom(obj, 'http://localhost:3000/user/hide-room')
+    this._services.managementRoom(obj, 'https://localhost:3000/user/hide-room')
     .then( res => {this._services.socket.emit('Client-send-hide-room', obj)})
     .catch( err => {
       const index= this._services.user.hidemsg.findIndex( dosc => {

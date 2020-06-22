@@ -76,7 +76,7 @@ export class HomePage implements OnInit {
   }
 
   onSubmit() {
-    const url= "http://localhost:3000/user/vuong";
+    const url= "https://localhost:3000/user/vuong";
     const formData = new FormData();
     formData.append('file', this.uploadForm.get('profile').value);
     this.httpClient.post<any>(url, formData).subscribe( res => {

@@ -1,22 +1,29 @@
-<!-- 
-  <ion-icon (click)='createGroup()' style="width: 35px;height: 35px; border-radius:50%;border: 1px solid blue;" name="add"></ion-icon> -->
+
+  <ion-icon (click)='createGroup()' style="width: 35px;height: 35px; border-radius:50%;border: 1px solid blue;" name="add"></ion-icon>
+
+<p [class.sen]=false>dd</p>
 
 <ion-list>
-
 	<ion-item-sliding *ngFor="let msg of listMsg, index as i">
 		<ion-item *ngIf='!isHideMsg(msg._id)' [routerLink]="['/home/chat', msg.roomname]"
 			routerLinkActive="router-link-active">
-			<ion-avatar slot="start">
+			<ion-avatar style="width: 50px; height: 50px;" slot="start">
 				<ion-img [src]="msg.urlImg"></ion-img>
 			</ion-avatar>
 			<ion-label>
 				<ion-text>
 					<p> {{handleNameRoom(msg)}} </p>
 				</ion-text>
-				<p style="color:rgb(151, 151, 151)" [class.seem]='msg.seen'>{{handleMsg(msg)}}</p>
+				<p style="color:rgb(151, 151, 151)">{{handleMsg(msg)}}</p>
 				<small>{{msg.created | date:'shortTime'}}</small>
+				<ion-badge *ngIf='_services.handleUserStatus(msg._id).isOnline' color='success'>On</ion-badge>
+
 			</ion-label>
-			<ion-badge *ngIf='isSeenMySendMsg(msg).isseen == false' slot="end">N</ion-badge>
+			<ion-badge color='primary' *ngIf='isSeenMySendMsg(msg).isseen== false && msg.idsend == _services.user._id'>{{isSeenMySendMsg(msg).status}}</ion-badge>
+			<ion-badge color='primary' *ngIf='isSeenMySendMsg(msg).isseen== true && msg.idsend == _services.user._id'>{{isSeenMySendMsg(msg).status}}</ion-badge>
+	  
+	  
+			<ion-badge color='light' *ngIf=' msg.idsend != _services.user._id'> {{ getSeen(msg).status}}</ion-badge>
 		</ion-item>
 		<ion-item-options side="end" *ngIf='!isHideMsg(msg._id)'>
 			<ion-item-option (click)='blockRoom(msg.roomname)' *ngIf='!isBlocked(msg.roomname)' slot="icon-only"

@@ -18,7 +18,7 @@
             <ion-input ngModel #txtEmail="ngModel" name="name" type="text" placeholder="Tên đầy đủ "></ion-input>
           </ion-item>
           <ion-item class="no-padding-top">
-            <ion-input ngModel #txtEmail="ngModel" name="userName" type="text" placeholder="Số điện thoại"></ion-input>
+            <ion-input ngModel #txtEmail="ngModel" name="userName" type="text" placeholder="Email"></ion-input>
           </ion-item>
           <ion-item class="no-padding-top">
             <ion-input ngModel #txtPass="ngModel" name="passWord" type="password" placeholder="Mật khẩu"></ion-input>
@@ -31,6 +31,7 @@
         <ion-button color="primary" shape="round" (click)="onSignUp(formSignUp)" id="dangki">Đăng ký</ion-button>
       </ion-col>
     </ion-row>
+    <p style="color: red;">{{err}}</p>
   </ion-grid>
   <div style="position: absolute;bottom: 4%;left: 15%;text-align: center;">
     <a href="" style="font-size: 14px; padding-bottom:5px;color: rgb(155, 152, 144);text-decoration: none;"><a href="">Đăng ký</a> nghĩa

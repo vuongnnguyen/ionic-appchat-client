@@ -33,8 +33,8 @@ const routes: Routes = [
     path: 'friends',
     loadChildren: () => import('./Component/friends/friends.module').then(m => m.FriendsPageModule)
   },
-  { path: '', redirectTo: 'zola', pathMatch: 'full' },
-  { path: '**', redirectTo: 'zola', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 
 
 
