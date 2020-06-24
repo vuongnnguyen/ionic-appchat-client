@@ -32,6 +32,15 @@
         <ion-button color="primary" shape="round" (click)="onLogin(formLogin)" id="password">Đăng Nhập</ion-button>
       </ion-col>
     </ion-row>
+
+    <ion-row style="text-align: center;">
+      <ion-col size="12">
+        <ion-button [routerLink]="['/signup']" routerLinkActive="router-link-active"  color="primary" shape="round" id="password">
+          Đăng Ký
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
   </ion-grid>
   <div style="position: absolute;bottom: 4%;left: 25%;">
     <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >vv</a>

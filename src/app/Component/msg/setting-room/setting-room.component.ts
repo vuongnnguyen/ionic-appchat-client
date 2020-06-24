@@ -26,7 +26,7 @@ export class SettingRoomComponent implements OnInit {
 
   leaveRoom() {
     const obj= { idroom: this.idroom, iduser: this._services.user._id};
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/leave-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/leave-room')
     .then( res => {
       this._services.socket.emit('Client-send-leave-room', obj);
     })
@@ -59,7 +59,7 @@ export class SettingRoomComponent implements OnInit {
 
   unBlockRoom() {
     const obj= { iduser: this._services.user._id, idroom: this.idroom};
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/unblock-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/unblock-room')
     .then( res => {
       this._services.user.room.push(this.idroom);
       const index = this._services.user.block.findIndex( docs => {
@@ -73,7 +73,7 @@ export class SettingRoomComponent implements OnInit {
   blockRoom(){
     // this._services.user.block.push(this.idroom);    
     const obj = { iduser: this._services.user._id, idroom: this.idroom };
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/block-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/block-room')
     .then( res => { 
       this._services.user.block.push(this.idroom);
       const indexs = this._services.user.room.findIndex( docs => {
@@ -127,7 +127,7 @@ export class SettingRoomComponent implements OnInit {
     if(index == -1) return;
     this._services.user.hidemsg.splice(index, 1);
     const obj = { idmsg: this.idMsgEnd, iduser: this._services.user._id };
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/show-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/show-room')
     .then( res => this._services.socket.emit('Client-send-show-room', obj))
     .catch( err => {
       console.log(err.message);
@@ -143,7 +143,7 @@ export class SettingRoomComponent implements OnInit {
     this._services.user.hidemsg.push(this.idMsgEnd);
     const obj = { idmsg: this.idMsgEnd, iduser: this._services.user._id };
     // this._services.socket.emit('Client-send-hide-room', obj)
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/hide-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/hide-room')
     .then( res => {this._services.socket.emit('Client-send-hide-room', obj)})
     .catch( err => {
       const index= this._services.user.hidemsg.findIndex( dosc => {
@@ -171,7 +171,7 @@ export class SettingRoomComponent implements OnInit {
     const obj = { idroom: this.room.idroom, iduser: this._services.user._id};
     // this._services.socket.emit('Client-send-miss-room', obj);
     this._services.user.dismissroom.splice( index, 1);
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/miss-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/miss-room')
     .then( res => { this._services.socket.emit('Client-send-miss-room', obj)} )
     .catch( err => {
       const index = this._services.user.dismissroom.findIndex( dosc => {
@@ -193,7 +193,7 @@ export class SettingRoomComponent implements OnInit {
     //this._services.socket.emit('Client-send-dismiss-room', obj);
     // this._services.socket.emit('Client-send-dismiss-room', obj)
     this._services.user.dismissroom.push(this.room.idroom);
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/dismiss-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/dismiss-room')
     .then( res => { this._services.socket.emit('Client-send-dismiss-room', obj);})
     .catch( err => {
       const index = this._services.user.dismissroom.findIndex( dosc => {

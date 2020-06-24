@@ -1,58 +1,60 @@
-<!-- đây là trang hiển thij thông tin người dùng có thể sửa đcđc -->
-<!-- 
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button  color="light"></ion-back-button>
-    </ion-buttons>
-    <ion-title>inf-user</ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-content>
-  
-  <!-- đây là avatar có thể css cho nó đẹp -->
-  <ion-img style="width: 100%; height: auto; max-height: 178px; max-width: 100px; display: block; margin: 0 auto;"  [src]='_services.user.urlImg'></ion-img>
+<ion-content overflow-scroll="false">
 
 
+  <div id="anhbia">
+    <img src="../../../assets/anhbia.jpg" alt="">
+    <div>
+      <img id="anhdaidien" [src]='_services.user.urlImg' alt="">
+      <div >
+        <!-- <ion-icon   name="add"></ion-icon> -->
+        <ion-icon id="icons-anhdaidien" name="camera-reverse"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <ion-card style="text-align: center;border: none;box-shadow: none;margin-top: 25px;">
+    <ion-card-header>
+      <ion-card-title>{{_services.user.name}}</ion-card-title>
+      <ion-card-subtitle> Lời giới thiệu : Đẹp trai</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
   <ion-list>
-  
+
     <!-- đây là item chứa têntên -->
-  <ion-item >
-    <ion-label  style="width: 15%;">Tên:</ion-label>
-    <ion-input id='name'  type='text' value={{_services.user.name}} [disabled]='isDisabled("name")' style="width: 70%;" ></ion-input>
-    <ion-button (click)='dontDisabled("name")'>Sửa</ion-button>
-  </ion-item>
+    <ion-item>
+      <ion-label style="width: 15%;">Tên:</ion-label>
+      <ion-input id='name' type='text' value={{_services.user.name}} [disabled]='isDisabled("name")'
+        style="width: 70%;"></ion-input>
+      <ion-button (click)='dontDisabled("name")'>Sửa</ion-button>
+    </ion-item>
 
 
-  <!-- đây là item chứa userName(tên tài khoảnkhoản) -->
-  <ion-item >
-    <ion-label  style="width: 15%;">Sdt:</ion-label>
-    <ion-input id="userName"  type='text' value={{_services.user.userName}} [disabled]='isDisabled("userName")' style="width: 70%;" ></ion-input>
-    <ion-button (click)='dontDisabled("userName")'>Sửa</ion-button>
-  </ion-item>
+    <!-- đây là item chứa userName(tên tài khoảnkhoản) -->
+    <ion-item>
+      <ion-label style="width: 15%;">Sdt:</ion-label>
+      <ion-input id="userName" type='text' value={{_services.user.userName}} [disabled]='isDisabled("userName")'
+        style="width: 70%;"></ion-input>
+      <ion-button (click)='dontDisabled("userName")'>Sửa</ion-button>
+    </ion-item>
 
-</ion-list>
+  </ion-list>
 
-<!-- cái này k  cần làm gì đâu khi bấm nút có lỗi nó hiển thị lỗi thôithôi -->
-<p *ngIf='err'>{{err}}</p>
+  <!-- cái này k  cần làm gì đâu khi bấm nút có lỗi nó hiển thị lỗi thôithôi -->
+  <p *ngIf='err'>{{err}}</p>
 
-<ion-button (click)='onUpdate()'>Cập Nhật</ion-button>
+  <ion-button (click)='onUpdate()'>Cập Nhật</ion-button>
 
-<!-- đây là form thay đôi mkmk -->
-<form  #formPass="ngForm" >
-  <ion-item class="no-padding-top">
-    <ion-input ngModel #txtEmail="ngModel"
-    name="passOld" type="password" placeholder="mk cu"></ion-input>
-  </ion-item>
-  <ion-item class="no-padding-top">
-    <ion-input  ngModel #txtPass="ngModel"
-    name="passNew" type="password" placeholder="Mật khẩu moi"></ion-input>
-</ion-item>
-<ion-button color="primary" (click)='changePassWord(formPass)' >Thay doi mk</ion-button>
-<!-- <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >Đăng kí tài khoản.</a> -->
-<p *ngIf="errPass">{{errPass}}</p>
-</form>
+  <!-- đây là form thay đôi mkmk -->
+  <form #formPass="ngForm">
+    <ion-item class="no-padding-top">
+      <ion-input ngModel #txtEmail="ngModel" name="passOld" type="password" placeholder="mk cu"></ion-input>
+    </ion-item>
+    <ion-item class="no-padding-top">
+      <ion-input ngModel #txtPass="ngModel" name="passNew" type="password" placeholder="Mật khẩu moi"></ion-input>
+    </ion-item>
+    <ion-button color="primary" (click)='changePassWord(formPass)'>Thay doi mk</ion-button>
+    <!-- <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >Đăng kí tài khoản.</a> -->
+    <p *ngIf="errPass">{{errPass}}</p>
+  </form>
 
- 
+
 </ion-content>

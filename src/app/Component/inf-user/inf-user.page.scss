@@ -1,4 +1,34 @@
-ion-header ion-toolbar{
-    --background :rgb(126, 126, 243);
+ion-header ion-toolbar {
+    --background: rgb(126, 126, 243);
     color: rgb(247, 233, 233);
 }
+#anhbia {
+    position: relative;
+}
+
+#anhdaidien {
+    position: absolute;
+    bottom: -25%;
+    left: 35%;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border: 4px solid rgb(185, 193, 196);
+}
+#icons-anhdaidien{
+    font-size: 15px;
+    position: absolute;
+    left: 58%;
+    bottom: -20%;
+    background-color: rgb(192, 175, 175);
+    width: 20px;
+    border-radius: 40px;
+    border: 2px solid rgb(224, 228, 230);
+    text-align: center;
+    color: black;
+    cursor: pointer;
+}
+

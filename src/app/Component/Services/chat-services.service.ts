@@ -26,34 +26,38 @@ export class ChatServicesService {
 
 
   constructor( private http: HttpClient, public toastController: ToastController, private router: Router) {
-    window.onbeforeunload  = () =>{
-      alert('ok')
-    }
+    // /9/ window.onbeforeunload  = () =>{
+    //   alert('ok')
+    // }
 
   
 
-    this.socket = io('http://vuongdeptrai.herokuapp.com');
+    this.socket = io('https://vuongdeptrai.herokuapp.com');
     this.socket.on("Server-send-chat", data => {
       // $("#tn").text(data);
       // this.setMsg(data);
     });
 
-    this.socket.on('Server-logout', ( data : MYINTERFACE.statusUser ) => {
+    this.socket.on('Server-logout', ( data ) => {
       console.log('co nguoi ofline', data);
 
       this.listStatusUser.forEach( item => {
         if(item._id == data._id) {
-          item = data;
+          item.isOffline = data.isOffline;
+          item.timeOff =  +data.time;
+          item.urlImg = data.url;
         }
       });
       console.log(this.listStatusUser)
     });
 
-    this.socket.on('Server-send-online',( data : MYINTERFACE.statusUser ) => {
+    this.socket.on('Server-send-online',( data ) => {
       console.log('co nguoi online', data);
       this.listStatusUser.forEach( item => {
         if(item._id == data._id) {
-          item = data;
+          item.isOffline = data.isOffline;
+          item.timeOff =  +data.time;
+          item.urlImg = data.url;
         }
       });
       console.log(this.listStatusUser)
@@ -214,12 +218,17 @@ export class ChatServicesService {
      let contentMsg = '';
      let time = +Date.now().toString();
      let user : MYINTERFACE.statusUser;
-     user = this.listStatusUser.find( item => {
-        return item._id == id;
-      });
+  
+    //  user = this.listStatusUser.find( item => {
+    //     return item._id == id;
+    //   });
+
+      this.listStatusUser.forEach( item => {
+        if(item._id == id)  user = item
+      })
 
       if(!user) return { isOnline: false, contentHome: '', contentMsg: ''  };
-      if(!user.isOffline) return { isOnline: true, contentHome: '', contentMsg: '' };
+      if(user.isOffline == false) return { isOnline: true, contentHome: '', contentMsg: '' };
       isOnline = false;
 
       if(+Date.now().toString() - (+user.timeOff) < 60000) {
@@ -251,7 +260,7 @@ export class ChatServicesService {
 
 
    getStatusUser(iduser) {
-    const url= 'http://vuongdeptrai.herokuapp.com/user/getStatusUser';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/getStatusUser';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -306,7 +315,7 @@ export class ChatServicesService {
 
 
    getUserrr(): Promise<MYINTERFACE.User> {
-    const url= 'http://vuongdeptrai.herokuapp.com/user/get-user';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/get-user';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -322,7 +331,7 @@ export class ChatServicesService {
  }
 
    middleWare(): Promise<{stt: boolean, user: MYINTERFACE.User}> {
-     const url= 'http://vuongdeptrai.herokuapp.com/user/middle-ware';
+     const url= 'https://vuongdeptrai.herokuapp.com/user/middle-ware';
      const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -330,7 +339,7 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify({token: this.getCookie('token') });
-    return this.http.post<{stt: boolean, user: MYINTERFACE.User}>(url, body, httpOptions ).toPromise()
+    return this.http.get<{stt: boolean, user: MYINTERFACE.User}>(url, httpOptions ).toPromise()
     .then( res => res)
     .catch( err => {
       console.log(err.message);
@@ -367,7 +376,7 @@ export class ChatServicesService {
   }
 
    addMember(obj): Promise<MYINTERFACE.msg> {
-    const url= 'http://vuongdeptrai.herokuapp.com/user/add-member';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/add-member';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -383,7 +392,7 @@ export class ChatServicesService {
  }
 
    seachMember(obj): Promise<MYINTERFACE.userSeach>{
-      const url= 'http://vuongdeptrai.herokuapp.com/user/seach-member';
+      const url= 'https://vuongdeptrai.herokuapp.com/user/seach-member';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -397,7 +406,7 @@ export class ChatServicesService {
    }
 
    createGroup(obj): Promise<MYINTERFACE.msg> {
-     const url= 'http://vuongdeptrai.herokuapp.com/user/create-group';
+     const url= 'https://vuongdeptrai.herokuapp.com/user/create-group';
      const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -417,7 +426,7 @@ export class ChatServicesService {
    }
 
    deleteAmsg(obj): Promise<{index: number, message: MYINTERFACE.msg}> {
-    const url= 'http://vuongdeptrai.herokuapp.com/user/delete-amsg';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/delete-amsg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -431,7 +440,7 @@ export class ChatServicesService {
    } 
    
   updateTime(obj) : Promise<boolean> {
-    const url= 'http://vuongdeptrai.herokuapp.com/user/update-seen-msg';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/update-seen-msg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -446,7 +455,7 @@ export class ChatServicesService {
   
    
   deleteAllMsg(obj): Promise<boolean> {
-    const url= 'http://vuongdeptrai.herokuapp.com/user/delete-allmsg';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/delete-allmsg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -475,7 +484,7 @@ export class ChatServicesService {
 
    
   getMessageinRoom(roomname, skip, iduser): Promise<MYINTERFACE.objMessage> {
-      const url = 'http://vuongdeptrai.herokuapp.com/user/get-messagess';
+      const url = 'https://vuongdeptrai.herokuapp.com/user/get-messagess';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -493,7 +502,7 @@ export class ChatServicesService {
 
 
   changePass(obj): Promise<{token: string}> {
-    const url = 'http://vuongdeptrai.herokuapp.com/user/change-pass';
+    const url = 'https://vuongdeptrai.herokuapp.com/user/change-pass';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -511,7 +520,7 @@ export class ChatServicesService {
   }
 
   upDateUser(obj): Promise<{user:{name: string, userName: string}, token: string}> {
-    const url= 'http://vuongdeptrai.herokuapp.com/user/update-user';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/update-user';
     const httpOptions = {
       headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -525,7 +534,7 @@ export class ChatServicesService {
   
 
   getListMsg(listmsg: Array<any>, skip: number, myid): Promise<MYINTERFACE.objMsgUser> {
-      const url= 'http://vuongdeptrai.herokuapp.com/user/getlistmsg';
+      const url= 'https://vuongdeptrai.herokuapp.com/user/getlistmsg';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -543,7 +552,7 @@ export class ChatServicesService {
 
 
    getListUser(listUser: Array<string>): Promise<MYINTERFACE.listAccept[]>{
-    const url= "http://vuongdeptrai.herokuapp.com/user/getlistuser";
+    const url= "https://vuongdeptrai.herokuapp.com/user/getlistuser";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -559,7 +568,7 @@ export class ChatServicesService {
     
    getListAccept(iduser, skip): Promise<MYINTERFACE.friendAccept[]> {
 
-    const url= "http://vuongdeptrai.herokuapp.com/user/getaccept";
+    const url= "https://vuongdeptrai.herokuapp.com/user/getaccept";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -575,7 +584,7 @@ export class ChatServicesService {
 
 
    reloadUser(_id) {
-      const url= "http://vuongdeptrai.herokuapp.com/user/getuser";
+      const url= "https://vuongdeptrai.herokuapp.com/user/getuser";
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -590,7 +599,7 @@ export class ChatServicesService {
     }
 
   getListNoti(iduser, skip): Promise<MYINTERFACE.Notifican[]> {
-    const url= "http://vuongdeptrai.herokuapp.com/notifi/getnoti";
+    const url= "https://vuongdeptrai.herokuapp.com/notifi/getnoti";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -607,7 +616,7 @@ export class ChatServicesService {
 
 
   login(value) {
-    const url= "http://vuongdeptrai.herokuapp.com/user/signIn";
+    const url= "https://vuongdeptrai.herokuapp.com/user/signIn";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -615,12 +624,16 @@ export class ChatServicesService {
       })
     };
     const body= JSON.stringify(value);
-    return this.http.post<{user: MYINTERFACE.User, token: string}>(url, body, httpOptions);
+    return this.http.post<{user: MYINTERFACE.User, token: string, status: number, data: string}>(url, body, httpOptions).toPromise()
+    .then( res => res)
+    .catch( err => {
+      console.log(err.message)
+      throw err})
 
   }
 
-  lognUp(value) {
-    const url= "http://vuongdeptrai.herokuapp.com/user/signUp";
+  lognUp(value): Promise<{status : number, data: string}> {
+    const url= "https://vuongdeptrai.herokuapp.com/user/signUp";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -628,11 +641,13 @@ export class ChatServicesService {
       })
     }; 
     const body= JSON.stringify(value);
-    return this.http.post(url, body, httpOptions);
+    return this.http.post<{status : number, data: string}>(url, body, httpOptions).toPromise()
+    .then(res => res)
+    .catch( err => {throw err})
   }
 
   onSeach(userName, time): Promise<MYINTERFACE.User[]> {
-    const url= "http://vuongdeptrai.herokuapp.com/user/users";
+    const url= "https://vuongdeptrai.herokuapp.com/user/users";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -651,7 +666,7 @@ export class ChatServicesService {
   }
 
   updateImg(value) {
-    const url= 'http://vuongdeptrai.herokuapp.com/user/updateImg';
+    const url= 'https://vuongdeptrai.herokuapp.com/user/updateImg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -682,7 +697,7 @@ export class ChatServicesService {
 
 
   onAvatar(value) {
-    const url= "http://vuongdeptrai.herokuapp.com/user/vuong";
+    const url= "https://vuongdeptrai.herokuapp.com/user/vuong";
     // const httpOptions = {
     //   headers: new HttpHeaders({
     //     'Content-Type':  'application/json',

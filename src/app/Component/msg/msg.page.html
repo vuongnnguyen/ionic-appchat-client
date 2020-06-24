@@ -48,7 +48,7 @@ direction="xy"
 		<!-- them ten nguoi nhan tin -->
 		<ion-title>Title</ion-title>
 		<ion-buttons slot="end">
-			<ion-icon id="button-end" (click)='presentPoper($event)' name="ellipsis-horizontal-outline"></ion-icon>
+			<ion-icon id="button-end" (click)='presentPoper($event)' name="ellipsis-vertical-outline"></ion-icon>
 		</ion-buttons>
 
 
@@ -134,7 +134,7 @@ direction="xy"
 				<!-- nút gởi nè -->
 				<ion-button expand="block" fill="clear"  [disabled]=" newMsg=='' " class="msg-btn"
 					(click)='sendMessage()'>
-					<ion-icon style="color:black" name="send-sharp" slot="icon-only"></ion-icon>
+					<ion-icon style="color:red" name="send-sharp" slot="icon-only"></ion-icon>
 				</ion-button>
 			</ion-col>
 		</ion-row>

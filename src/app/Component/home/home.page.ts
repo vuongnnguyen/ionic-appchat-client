@@ -76,7 +76,7 @@ export class HomePage implements OnInit {
   }
 
   onSubmit() {
-    const url= "http://vuongdeptrai.herokuapp.com/user/vuong";
+    const url= "https://vuongdeptrai.herokuapp.com/user/vuong";
     const formData = new FormData();
     formData.append('file', this.uploadForm.get('profile').value);
     this.httpClient.post<any>(url, formData).subscribe( res => {

@@ -34,12 +34,7 @@ const routes: Routes = [
     loadChildren: () => import('./Component/friends/friends.module').then(m => m.FriendsPageModule)
   },
   { path: '', redirectTo: 'zola', pathMatch: 'full' },
-  { path: '**', redirectTo: 'zola', pathMatch: 'full' },
-  {
-    path: 'group',
-    loadChildren: () => import('./Component/group/group.module').then( m => m.GroupPageModule)
-  },
-
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 
 
 

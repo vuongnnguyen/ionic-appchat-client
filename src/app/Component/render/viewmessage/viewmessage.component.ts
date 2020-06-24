@@ -186,7 +186,7 @@ export class ViewmessageComponent implements OnInit {
 
   unBlockRoom(idroom: string) {
     const obj= { iduser: this._services.user._id, idroom: idroom };
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/unblock-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/unblock-room')
     .then( res => {
       this._services.user.room.push(idroom);
       const index= this._services.user.block.findIndex( docs => {
@@ -200,7 +200,7 @@ export class ViewmessageComponent implements OnInit {
   blockRoom(idroom: string){
     // this._services.user.block.push(this.idroom);    
     const obj= { iduser: this._services.user._id, idroom: idroom };
-    this._services.managementRoom(obj, 'http://vuongdeptrai.herokuapp.com/user/block-room')
+    this._services.managementRoom(obj, 'https://vuongdeptrai.herokuapp.com/user/block-room')
     .then( res => { 
       this._services.user.block.push(idroom);
       const indexs= this._services.user.room.findIndex( docs => {

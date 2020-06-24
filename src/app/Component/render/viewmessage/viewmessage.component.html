@@ -1,5 +1,6 @@
 <ion-list>
 
+<ion-list>
 	<ion-item-sliding *ngFor="let msg of listMsg, index as i">
 		<ion-item id="label-rec" *ngIf='!isHideMsg(msg._id)' [routerLink]="['/home/chat', msg.roomname]"
 			routerLinkActive="router-link-active">
