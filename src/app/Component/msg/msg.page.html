@@ -41,16 +41,18 @@ direction="xy"
 
 <!-- đây là hiển thị tin nhắn nè -->
 <ion-header>
-	<ion-toolbar>
+	<ion-toolbar style="text-align: center;">
 		<ion-buttons slot="start">
 			<ion-back-button color="light" mode='ios' (click)='onBack()'></ion-back-button>
 		</ion-buttons>
 		<!-- them ten nguoi nhan tin -->
-		<ion-title>{{handelNameRomm}}</ion-title>
-		<small>{{myHandle()}}</small>
+		<ion-title style="display: block;">{{handelNameRomm}}</ion-title>
+		<small style="margin-top: 40px;">{{myHandle()}}</small>
 		<ion-buttons slot="end">
 			<ion-icon id="button-end" (click)='presentPoper($event)' name="ellipsis-vertical-outline"></ion-icon>
 		</ion-buttons>
+
+	
 
 
 	</ion-toolbar>

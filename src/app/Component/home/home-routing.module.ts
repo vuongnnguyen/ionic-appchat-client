@@ -16,6 +16,7 @@ const routes: Routes = [
       { path: 'group', loadChildren: () => import('../group/group.module').then(m => m.GroupPageModule), canActivate: [MiddlewareAtHomeGuard] },
       { path: 'notification', loadChildren: () => import('../notification/notification.module').then(m => m.NotificationPageModule), canActivate: [MiddlewareAtHomeGuard] },
       { path: 'infor-user', loadChildren: () => import('../inf-user/inf-user.module').then(m => m.InfUserPageModule), canActivate: [MiddlewareAtHomeGuard] },
+      { path: 'invite-friend', loadChildren: () => import('../invite-friend/invite-friend.module').then( m => m.InviteFriendPageModule), canActivate: [MiddlewareAtHomeGuard] }
     ]
 
   },

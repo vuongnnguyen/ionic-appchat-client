@@ -117,6 +117,7 @@ export interface nickName {
     name: string;
     nickname: string;
     seen: number;
+    img?: string;
   }
   export interface  msg{
     _id: string;

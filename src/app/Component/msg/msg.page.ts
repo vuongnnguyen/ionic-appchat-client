@@ -440,6 +440,20 @@ export class MsgPage implements OnInit {
     this.handelNameRomm = this.rooms.name;
   }
 
+  getUrl() {
+    let url = '';
+    let check = false;
+    this.nickNames.forEach( nickname => {
+      if(check) return;
+      if(nickname.iduser != this._services.user._id){
+        url = this.getUser(nickname.iduser).urlImg
+        check = true;
+      }
+    });
+    console.log(url)
+    return url;
+  }
+
   getNickName( iduser: string) : string {
     let anickname = '';
     this.nickNames.forEach( nickname => {
@@ -469,7 +483,7 @@ export class MsgPage implements OnInit {
     roomname: this.id,
     name: this._services.user.name,
 
-    urlImg:  this.rooms.type== 'aroom'? this._services.user.urlImg: this.rooms.urlImg ,
+    urlImg:  this.rooms.type== 'aroom'? this._services.user.urlImg : this.rooms.urlImg ,
         nickname: this.getNickName(this._services.user._id),
     room: this.rooms.name,
     color: this.rooms.color,

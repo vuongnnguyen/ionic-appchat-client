@@ -62,6 +62,7 @@ export class ViewmessageComponent implements OnInit {
        if(index != -1) { 
          this.listMsg.splice(index, 1);
        }
+       msg.urlImg = this.getUrl(msg.roomname)
        this.listMsg.splice(0, 0, msg);
        this.arrSendMsg.splice(1, 0);
 
@@ -179,8 +180,10 @@ export class ViewmessageComponent implements OnInit {
 
   async ngOnInit() {
    await this.loadMsg();
+   console.log(this.listMsg)
 
   } 
+
 
   ////
 
@@ -472,6 +475,10 @@ export class ViewmessageComponent implements OnInit {
      return  idsend+ myid 
   }
 
+  getUrlImg(idroom) {
+    
+  }
+
   async loadMsg() {
     this.msgs= [];
     this.users= [];
@@ -480,6 +487,7 @@ export class ViewmessageComponent implements OnInit {
     await this._services.getListMsg(this._services.user.msg, this.listMsg.length, this._services.user._id)
     .then( respone => {
        if(respone.listMsg.length == 0) return;
+       console.log(respone)
        this.msgs= respone.listMsg;
        this.users= respone.user;
        this.rooms= respone.room;
@@ -491,6 +499,8 @@ export class ViewmessageComponent implements OnInit {
         const amsg= this.getUser(msg.idsend);
         msg.name = amsg.name;
         msg.urlImg= amsg.urlImg;
+        
+        msg.urlImg = this.getUrl(msg.roomname)
         
         msg.nickname= this.getNickName(msg.roomname, msg.idsend);
       //  if(msg.nickname== 'null') msg.nickname= msg.name;
@@ -523,15 +533,28 @@ export class ViewmessageComponent implements OnInit {
 
   }
 
+getUrl(idroom) {
+  let url = ''
+  let check = false;
+  this.nickNames.forEach( anickname => {
+    if(check) return;
+    if(anickname.iduser != this._services.user._id){
+      check = true;
+      url = this.getUser(anickname.iduser).urlImg;
+    }
+  });
+  return url;
+}
+
  getId2InAroom(idroom: string, iduser: string): objUser[]  { // lat id con lai cua phong
   let obuser: objUser[]= [];
   this.nickNames.forEach( anickname => {
     if(anickname.nameroom== idroom && anickname.iduser != iduser) {
       const auser= this.getUser(anickname.iduser);
       
-
+      
       // if(!auser) return;
-      obuser.push({id: anickname.iduser, name: auser.name, nickname: anickname.name, seen: anickname.seen})
+      obuser.push({ id: anickname.iduser, name: auser.name, nickname: anickname.name, seen: anickname.seen})
     }
   })
   return obuser;
@@ -541,7 +564,7 @@ export class ViewmessageComponent implements OnInit {
  getUser(id: string): listAccept {
   let user: listAccept;
   this.users.forEach(  auser => {
-    if(auser._id== id) {
+    if(auser._id == id) {
        user= auser;
        return;
     }

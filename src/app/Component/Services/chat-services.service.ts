@@ -243,16 +243,16 @@ export class ChatServicesService {
 
       if(+Date.now().toString() - (+user.timeOff) >= 60000 && 
          +Date.now().toString() - (+user.timeOff) < 3600000 ) {
-            contentMsg = `Hoạt động ${Math.round(+Date.now().toString() - (+user.timeOff))/60000} phút trước`
+            contentMsg = `Hoạt động ${Math.floor(+Date.now().toString() - (+user.timeOff))/60000} phút trước`
           //  const x = (Date.now().toString() - (+user.timeOff))/60000;
-            contentHome = `${Math.round(+Date.now().toString() - (+user.timeOff))/60000} p`;
+            contentHome = `${Math.floor(+Date.now().toString() - (+user.timeOff))/60000} p`;
             return { isOnline, contentHome, contentMsg };
       }
 
       if(+Date.now().toString() - (+user.timeOff) >= 3600000 &&
          +Date.now().toString() - (+user.timeOff) < (3600000 * 48)) {
-          contentMsg = `Hoạt động ${Math.round(+Date.now().toString()/3600000)} giờ trước`;
-          contentHome = `${Math.round(+Date.now().toString()/3600000)} h`;
+          contentMsg = `Hoạt động ${Math.floor((+Date.now().toString() - (+user.timeOff))/3600000)} giờ trước`;
+          contentHome = `${Math.floor((+Date.now().toString() - (+user.timeOff))/3600000)} h`;
           return { isOnline, contentHome, contentMsg };
       }
 
