@@ -78,7 +78,7 @@ export class AddmemberComponent implements OnInit {
 
   onSeach() {
     if($('#seach').val().toString() == '') return;
-    const obj= { contentSeach: $('#seach').val().toString(), listFriends: this._services.user.friends, skip: this.listUser.length };
+    const obj= { contentSeach: $('#seach').val().toString(), iduser: this._services.user._id, skip: this.listUser.length };
     this._services.seachMember(obj)
     .then( res => {
    
