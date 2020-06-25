@@ -10,8 +10,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding>
-      <ion-item>
+    <ion-item-sliding *ngFor="let msg of listMsg" *ngIf="msg.type == 'group'">
+      <ion-item [routerLink]="['/home/chat', msg.roomname]">
         <ion-avatar slot="start" class="avatar">
           <img style="border: 1px solid green;" src="../../../assets/group-chat.png" alt="">
           <div class="badge badge-online"></div>
@@ -19,99 +19,13 @@
         </ion-avatar>
         <ion-label style="margin-bottom: 2px;">
           <ion-text>
-            <p> Name </p>
           </ion-text>
-          <p style="color:rgb(151, 151, 151)">Title</p>
-          <small>Time</small>
+          <p style="color:rgb(151, 151, 151)">{{msg.room}}</p>
         </ion-label>
       </ion-item>
 
       <ion-item-options side="end">
-        <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-    <ion-item-sliding>
-      <ion-item>
-        <ion-avatar slot="start" class="avatar">
-          <img style="border: 1px solid green;" src="../../../assets/group-chat.png" alt="">
-          <div class="badge badge-online"></div>
-          <div class="badge badge-offline"></div>
-        </ion-avatar>
-        <ion-label style="margin-bottom: 2px;">
-          <ion-text>
-            <p> Name </p>
-          </ion-text>
-          <p style="color:rgb(151, 151, 151)">Title</p>
-          <small>Time</small>
-        </ion-label>
-      </ion-item>
-      
-      <ion-item-options side="end">
-        <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-    <ion-item-sliding>
-      <ion-item>
-        <ion-avatar slot="start" class="avatar">
-          <img style="border: 1px solid green;" src="../../../assets/group-chat.png" alt="">
-          <div class="badge badge-online"></div>
-          <div class="badge badge-offline"></div>
-        </ion-avatar>
-        <ion-label style="margin-bottom: 2px;">
-          <ion-text>
-            <p> Name </p>
-          </ion-text>
-          <p style="color:rgb(151, 151, 151)">Title</p>
-          <small>Time</small>
-        </ion-label>
-      </ion-item>
-      
-      <ion-item-options side="end">
-        <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-    <ion-item-sliding>
-      <ion-item>
-        <ion-avatar slot="start" class="avatar">
-          <img style="border: 1px solid green;" src="../../../assets/group-chat.png" alt="">
-          <div class="badge badge-online"></div>
-          <div class="badge badge-offline"></div>
-        </ion-avatar>
-        <ion-label style="margin-bottom: 2px;">
-          <ion-text>
-            <p> Name </p>
-          </ion-text>
-          <p style="color:rgb(151, 151, 151)">Title</p>
-          <small>Time</small>
-        </ion-label>
-      </ion-item>
-      
-      <ion-item-options side="end">
-        <ion-item-option (click)="unread(item)">Unread</ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-
-    <ion-item-sliding>
-      <ion-item>
-        <ion-avatar slot="start" class="avatar">
-          <img style="border: 1px solid green;" src="../../../assets/group-chat.png" alt="">
-          <div class="badge badge-online"></div>
-          <div class="badge badge-offline"></div>
-        </ion-avatar>
-        <ion-label style="margin-bottom: 2px;">
-          <ion-text>
-            <p> Name </p>
-          </ion-text>
-          <p style="color:rgb(151, 151, 151)">Title</p>
-          <small>Time</small>
-        </ion-label>
-      </ion-item>
-      
-      <ion-item-options side="end">
-        <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+        <ion-item-option >Unread</ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
 

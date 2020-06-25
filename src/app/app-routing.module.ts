@@ -7,7 +7,7 @@ const routes: Routes = [
 
   {
     path: 'login',
-    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule),
+    loadChildren: () => import('./Component/login/login.module').then(m => m.LoginPageModule), canActivate: [MiddlewareHomeGuard]
   },
   {
     path: 'home',
@@ -15,12 +15,12 @@ const routes: Routes = [
   },
   {
     path: 'signup',
-    loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule)
+    loadChildren: () => import('./Component/sign-up/sign-up.module').then(m => m.SignUpPageModule), canActivate: [MiddlewareHomeGuard]
   },
-  {
-    path: 'zola',
-    loadChildren: () => import('./Component/zola/zola.module').then(m => m.ZolaPageModule) ,canActivate: [MiddlewareGuard]
-  },
+  // {
+  //   path: 'zola',
+  //   loadChildren: () => import('./Component/zola/zola.module').then(m => m.ZolaPageModule) ,canActivate: [MiddlewareGuard]
+  // },
   {
     path: 'acceptFriend',
     loadChildren: () => import('./Component/invite-friend/invite-friend.module').then(m => m.InviteFriendPageModule)
@@ -33,7 +33,7 @@ const routes: Routes = [
     path: 'friends',
     loadChildren: () => import('./Component/friends/friends.module').then(m => m.FriendsPageModule)
   },
-  { path: '', redirectTo: 'zola', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 
 

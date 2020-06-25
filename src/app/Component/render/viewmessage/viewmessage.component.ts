@@ -153,11 +153,11 @@ export class ViewmessageComponent implements OnInit {
     });
 
     this._services.socket.on('Server-send-createdGroup', (data: msg) => {
-
+      console.log('nhan emit')
       const index= this.listMsg.findIndex( docs => { return docs.roomname== data.roomname});
       if(index != -1) return
       this.listMsg.splice(0, 0, data)
-    }); 
+    });  
 
     this._services.socket.on('Server-send-deleteAllmsg-inRoom', data => {
 
@@ -227,8 +227,6 @@ export class ViewmessageComponent implements OnInit {
     if(index== -1) return false;
     return true;
   }
-
-  
 
   getSeen(msg:msg) :{ isseen: boolean, status: string} {
     let arrSeen: Array<{_id: string, name: string}>= [];
@@ -307,8 +305,8 @@ export class ViewmessageComponent implements OnInit {
     let status= '';
     let count= 0;
     if(msg.type== 'aroom'){
-      if(msg.listNameUser[0].seen >= msg.created) return { isseen: true, status: 'da xem'};
-      return {isseen: false, status: 'chua xem'};
+      if(msg.listNameUser[0].seen >= msg.created) return { isseen: true, status: 'đã xemxem'};
+      return {isseen: false, status: 'chưa xem'};
     }
     msg.listNameUser.forEach( nameuser => {
       if(nameuser.seen >= msg.created) {
@@ -573,7 +571,7 @@ export class ViewmessageComponent implements OnInit {
       return;
     }
     if(this.listMsg.length== this._services.user.msg.length ){
-      event.target.disabled= true;// chi cho lan sau nen phai return
+      // event.target.disabled= true;// chi cho lan sau nen phai return
       event.target.complete();
       return;
       }

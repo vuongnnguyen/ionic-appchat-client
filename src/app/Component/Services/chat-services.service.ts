@@ -260,11 +260,15 @@ export class ChatServicesService {
 
 
    getStatusUser(iduser) {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= 'https://vuongdeptrai.herokuapp.com/user/getStatusUser';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const body= JSON.stringify({id : iduser});
@@ -315,6 +319,10 @@ export class ChatServicesService {
 
 
    getUserrr(): Promise<MYINTERFACE.User> {
+     if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= 'https://vuongdeptrai.herokuapp.com/user/get-user';
     const httpOptions = {
       headers: new HttpHeaders({
@@ -331,6 +339,10 @@ export class ChatServicesService {
  }
 
    middleWare(): Promise<{stt: boolean, user: MYINTERFACE.User}> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
      const url= 'https://vuongdeptrai.herokuapp.com/user/middle-ware';
      const httpOptions = {
       headers: new HttpHeaders({
@@ -376,11 +388,15 @@ export class ChatServicesService {
   }
 
    addMember(obj): Promise<MYINTERFACE.msg> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= 'https://vuongdeptrai.herokuapp.com/user/add-member';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const body= JSON.stringify(obj);
@@ -392,11 +408,15 @@ export class ChatServicesService {
  }
 
    seachMember(obj): Promise<MYINTERFACE.userSeach>{
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
       const url= 'https://vuongdeptrai.herokuapp.com/user/seach-member';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
-          //'Authorization': 'my-auth-token'
+          'Authorization': this.getCookie('token')
         })
       };
       const body= JSON.stringify(obj);
@@ -406,11 +426,15 @@ export class ChatServicesService {
    }
 
    createGroup(obj): Promise<MYINTERFACE.msg> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
      const url= 'https://vuongdeptrai.herokuapp.com/user/create-group';
      const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const body= JSON.stringify(obj);
@@ -426,11 +450,15 @@ export class ChatServicesService {
    }
 
    deleteAmsg(obj): Promise<{index: number, message: MYINTERFACE.msg}> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= 'https://vuongdeptrai.herokuapp.com/user/delete-amsg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const body= JSON.stringify(obj);
@@ -440,11 +468,15 @@ export class ChatServicesService {
    } 
    
   updateTime(obj) : Promise<boolean> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= 'https://vuongdeptrai.herokuapp.com/user/update-seen-msg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const body= JSON.stringify(obj);
@@ -455,11 +487,15 @@ export class ChatServicesService {
   
    
   deleteAllMsg(obj): Promise<boolean> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= 'https://vuongdeptrai.herokuapp.com/user/delete-allmsg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const body= JSON.stringify(obj);
@@ -470,10 +506,14 @@ export class ChatServicesService {
   
 
   managementRoom(obj, url): Promise<boolean> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
      const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const body= JSON.stringify(obj);
@@ -484,11 +524,15 @@ export class ChatServicesService {
 
    
   getMessageinRoom(roomname, skip, iduser): Promise<MYINTERFACE.objMessage> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
       const url = 'https://vuongdeptrai.herokuapp.com/user/get-messagess';
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
-          //'Authorization': 'my-auth-token'
+          'Authorization': this.getCookie('token')
         })
       };
       const obj= { roomname: roomname, skip: skip, iduser: iduser };
@@ -502,6 +546,10 @@ export class ChatServicesService {
 
 
   changePass(obj): Promise<{token: string}> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url = 'https://vuongdeptrai.herokuapp.com/user/change-pass';
     const httpOptions = {
       headers: new HttpHeaders({
@@ -520,6 +568,10 @@ export class ChatServicesService {
   }
 
   upDateUser(obj): Promise<{user:{name: string, userName: string}, token: string}> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= 'https://vuongdeptrai.herokuapp.com/user/update-user';
     const httpOptions = {
       headers: new HttpHeaders({
@@ -534,6 +586,10 @@ export class ChatServicesService {
   
 
   getListMsg(listmsg: Array<any>, skip: number, myid): Promise<MYINTERFACE.objMsgUser> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
       const url= 'https://vuongdeptrai.herokuapp.com/user/getlistmsg';
       const httpOptions = {
         headers: new HttpHeaders({
@@ -550,13 +606,38 @@ export class ChatServicesService {
       .catch( err =>  { throw err })
   } 
 
+  getListMsgGroup(listmsg: Array<any>, skip: number, myid): Promise<MYINTERFACE.objMsgUser> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
+    const url= 'https://vuongdeptrai.herokuapp.com/user/getlistmsg-group';
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.getCookie('token')
+      })
+    };
+    const obj= { arrMsg: listmsg, skip: skip, myid: myid };
+    const body= JSON.stringify(obj);
+    return this.http.post<MYINTERFACE.objMsgUser>( url, body,  httpOptions).toPromise()
+    .then( respone => {
+
+      return respone})
+    .catch( err =>  { throw err })
+} 
+
 
    getListUser(listUser: Array<string>): Promise<MYINTERFACE.listAccept[]>{
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= "https://vuongdeptrai.herokuapp.com/user/getlistuser";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const obj= { listUser: listUser};
@@ -567,12 +648,15 @@ export class ChatServicesService {
   } 
     
    getListAccept(iduser, skip): Promise<MYINTERFACE.friendAccept[]> {
-
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= "https://vuongdeptrai.herokuapp.com/user/getaccept";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const obj= { iduser : iduser, skip: skip};
@@ -584,11 +668,15 @@ export class ChatServicesService {
 
 
    reloadUser(_id) {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
       const url= "https://vuongdeptrai.herokuapp.com/user/getuser";
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
-          //'Authorization': 'my-auth-token'
+          'Authorization': this.getCookie('token')
         })
       };
       const obj= { _id:_id};
@@ -599,11 +687,15 @@ export class ChatServicesService {
     }
 
   getListNoti(iduser, skip): Promise<MYINTERFACE.Notifican[]> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= "https://vuongdeptrai.herokuapp.com/notifi/getnoti";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const obj= { iduser, skip};
@@ -620,7 +712,6 @@ export class ChatServicesService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
       })
     };
     const body= JSON.stringify(value);
@@ -637,7 +728,6 @@ export class ChatServicesService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
       })
     }; 
     const body= JSON.stringify(value);
@@ -647,11 +737,15 @@ export class ChatServicesService {
   }
 
   onSeach(userName, time): Promise<MYINTERFACE.User[]> {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= "https://vuongdeptrai.herokuapp.com/user/users";
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const obj= { userName: userName, time: time};
@@ -666,11 +760,15 @@ export class ChatServicesService {
   }
 
   updateImg(value) {
+    if(!this.getCookie('token')) {
+      this.router.navigate(['/login'])
+      return; 
+     }
     const url= 'https://vuongdeptrai.herokuapp.com/user/updateImg';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        //'Authorization': 'my-auth-token'
+        'Authorization': this.getCookie('token')
       })
     };
     const body= JSON.stringify(value);

@@ -36,6 +36,7 @@ export class MsgPage implements OnInit {
   timeSeen = 0;
   check = false; 
   listDelete = []; 
+  handelNameRomm = '';
 
 
   constructor(private _services: ChatServicesService, private activeRouter: ActivatedRoute, private router: Router, public popoverController: PopoverController
@@ -392,7 +393,7 @@ export class MsgPage implements OnInit {
     }
     
     this.getListObj();
-
+    this.getNameRoom();
     this.msgs.forEach( msg => {  
         const amsg = this.getUser(msg.idsend);
         msg.name = amsg.name;
@@ -423,6 +424,16 @@ export class MsgPage implements OnInit {
       })
     })
 
+  }
+
+
+  getNameRoom() {
+    if(this.rooms.type == 'aroom'){
+      if(this.listNameUser[0].nickname == 'nulls') this.handelNameRomm = this.listNameUser[0].name;
+      else this.handelNameRomm = this.listNameUser[0].nickname;
+      return;
+    }
+    this.handelNameRomm = this.rooms.name;
   }
 
   getNickName( iduser: string) : string {
