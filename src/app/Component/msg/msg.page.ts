@@ -182,6 +182,10 @@ export class MsgPage implements OnInit {
     });
   }
 
+  myHandle(){
+    return this._services.handleUserStatus(this.id).contentMsg;
+  }
+
   ngOnDestroy() {
     // alert("ban muon thoai");
   }

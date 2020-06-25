@@ -4,17 +4,25 @@
   <div id="anhbia">
     <img src="../../../assets/anhbia.jpg" alt="">
     <div>
-      <img id="anhdaidien" [src]='_services.user.urlImg' alt="">
+      <img id="anhdaidien" [src]='urlImg' alt="">
       <div >
         <!-- <ion-icon   name="add"></ion-icon> -->
         <ion-icon id="icons-anhdaidien" name="camera-reverse"></ion-icon>
       </div>
-    </div>
+    </div> 
   </div>
   <ion-card style="text-align: center;border: none;box-shadow: none;margin-top: 25px;">
     <ion-card-header>
       <ion-card-title>{{_services.user.name}}</ion-card-title>
       <ion-card-subtitle> Lời giới thiệu : Đẹp trai</ion-card-subtitle>
+      <form  #uploadForm="ngForm" (ngSubmit)="onSubmit()">      
+          
+        <ion-input type="file" name="profile" (change)="onFileSelect($event)" ></ion-input>
+      
+      
+        <ion-button type="submit">Upload</ion-button>
+    
+    </form>
     </ion-card-header>
   </ion-card>
   <ion-list>
@@ -55,6 +63,8 @@
     <!-- <a [routerLink]="['/signup']" routerLinkActive="router-link-active" >Đăng kí tài khoản.</a> -->
     <p *ngIf="errPass">{{errPass}}</p>
   </form>
+
+  <ion-button style="margin-top: 30px;" (click)="onLognout()">Đăng xuất</ion-button>
 
 
 </ion-content>

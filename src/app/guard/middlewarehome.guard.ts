@@ -14,6 +14,7 @@ export class MiddlewareHomeGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Promise<boolean >  {
      const res= await this._services.middleWare();
+     if(!this._services.getCookie('token')) return true;
      if(res.stt) {
       this.router.navigate(['/home']);
        return false;

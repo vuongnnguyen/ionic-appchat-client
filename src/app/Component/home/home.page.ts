@@ -75,29 +75,26 @@ export class HomePage implements OnInit {
     await actionSheet.present();
   }
 
-  onSubmit() {
-    const url= "https://vuongdeptrai.herokuapp.com/user/vuong";
-    const formData = new FormData();
-    formData.append('file', this.uploadForm.get('profile').value);
-    this.httpClient.post<any>(url, formData).subscribe( res => {
-      const data= {_id: this._services.user._id, urlImg: res.fileName };
-        this._services.updateImg(data).subscribe(respone => {
-        })
-        }, err => { 
-        }
-    );
-  }
+//   onSubmit() {
+//     const url= "https://vuongdeptrai.herokuapp.com/user/vuong";
+//     const formData = new FormData();
+//     formData.append('file', this.uploadForm.get('profile').value);
+//     this.httpClient.post<any>(url, formData).subscribe( res => {
+//       const data= {_id: this._services.user._id, urlImg: res.fileName };
+//         this._services.updateImg(data)
+//   }
+// }
 
-  onFileSelect(event) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.uploadForm.get('profile').setValue(file);
-    }
-  }
+  // onFileSelect(event) {
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     this.uploadForm.get('profile').setValue(file);
+  //   }
+  // }
 
-  onAvatar(formAvatar: FormGroup) {
-    this._services.onAvatar(formAvatar.value).subscribe( aa => console.log(aa) )
-  }
+  // onAvatar(formAvatar: FormGroup) {
+  //   this._services.onAvatar(formAvatar.value).subscribe( aa => console.log(aa) )
+  // }
 
 
 

@@ -31,6 +31,7 @@ export class LoginPage implements OnInit {
         this.user = respone.user;
         this._services.user = this.user;
         this._services.setCookie('token', token, 1);
+        // this.formLogin.setValue([{userName: ''}, {passWord: ''}])
         this.router.navigate(["/home"]);
         this._services.socket.emit('Client-join-room', { urlImg : this.user.urlImg,  id: this.user._id, rooms : this.user.room });
         return;
