@@ -231,7 +231,7 @@ export class ChatServicesService {
         if(item._id == idfb)  user = item
       })
       
-      if(!user) return { isOnline: true, contentHome: '', contentMsg: ''  };
+      if(!user) return { isOnline: false, contentHome: '', contentMsg: ''  };
       if(user.isOffline == false) return { isOnline: true, contentHome: '', contentMsg: '' };
       isOnline = false;
 

@@ -21,7 +21,7 @@
 				<small id=small-abs>{{msg.created | date:'shortTime'}}</small>
 
 			</ion-label>
-			<div id="bage" *ngIf='msg.idsend != _services.user._id && !getSeen.isseen' slot="end">N</div>
+			<div id="bage" *ngIf='msg.idsend != _services.user._id && !getSeen(msg).isseen' slot="end">N</div>
 
 		</ion-item>
 		<ion-item-options side="end" *ngIf='!isHideMsg(msg._id)'>

@@ -489,7 +489,7 @@ export class ViewmessageComponent implements OnInit {
 
        this.msgs= respone.listMsg;
        this.users= respone.user;
-       this.rooms= respone.room;
+       this.rooms= respone.room; 
        this.nickNames= respone.nickname;
     } )
     .catch( err => console.log(err.message));
