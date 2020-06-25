@@ -230,13 +230,13 @@ export class ChatServicesService {
       this.listStatusUser.forEach( item => {
         if(item._id == idfb)  user = item
       })
-
-      if(!user) return { isOnline: false, contentHome: '', contentMsg: ''  };
+      
+      if(!user) return { isOnline: true, contentHome: '', contentMsg: ''  };
       if(user.isOffline == false) return { isOnline: true, contentHome: '', contentMsg: '' };
       isOnline = false;
 
       if(+Date.now().toString() - (+user.timeOff) < 60000) {
-          contentHome = '';
+          contentHome = 'vài giây';
           contentMsg = 'Hoat động vài giây trước';
           return { isOnline, contentHome, contentMsg };
       }
@@ -251,7 +251,7 @@ export class ChatServicesService {
 
       if(+Date.now().toString() - (+user.timeOff) >= 3600000 &&
          +Date.now().toString() - (+user.timeOff) < (3600000 * 48)) {
-          contentMsg = `Hoạt động ${Math.round(+Date.now().toString()/3600000)} trước`;
+          contentMsg = `Hoạt động ${Math.round(+Date.now().toString()/3600000)} giờ trước`;
           contentHome = `${Math.round(+Date.now().toString()/3600000)} h`;
           return { isOnline, contentHome, contentMsg };
       }
