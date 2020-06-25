@@ -83,8 +83,10 @@ export class MsgPage implements OnInit {
         return docs == message.roomname;
       });
       if(index != -1) return;
-     
-      this._services.socket.emit('Client-send-seen-msg', { iduser: this._services.user._id, idroom: this.id, time: +new Date().getTime() });
+      this._services.socket.emit('Client-send-seen-msg', 
+      { iduser: this._services.user._id, idroom: this.id, time: +new Date().getTime()+ 1000 });
+      // this._services.socket.emit('Client-send-seen-msg', 
+      // { iduser: this._services.user._id, idroom: this.id, time: +new Date().getTime() });
     })
 
     this._services.socket.on('Server-send-updateTime', message => {
@@ -109,6 +111,7 @@ export class MsgPage implements OnInit {
     })
 
     this._services.socket.on('Server-send-seen-msg', data => {
+      console.log('nhan emittttt')
       if(data.idroom != this.id) return;
       if(this._services.user._id == data.iduser) {
         this.timeSeen == data.time;
@@ -159,7 +162,7 @@ export class MsgPage implements OnInit {
    }
 
  async ngOnInit() {
-
+    this.check = false;
     console.log(this._services.listStatusUser);
 
     this.activeRouter.paramMap.subscribe( pramap =>{
@@ -180,6 +183,7 @@ export class MsgPage implements OnInit {
     await setTimeout( () => {
       this.content.scrollToBottom(200);
     });
+    console.log(this.check)
   }
 
   myHandle(){
