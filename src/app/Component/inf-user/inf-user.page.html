@@ -4,7 +4,7 @@
   <div id="anhbia">
     <img src="../../../assets/anhbia.jpg" alt="">
     <div>
-      <img id="anhdaidien" [src]='urlImg' alt="">
+      <img id="anhdaidien" [src]='urlImg' alt="" (click)="updateProfilePic()">
       <div >
         <!-- <ion-icon   name="add"></ion-icon> -->
         <ion-icon id="icons-anhdaidien" name="camera-reverse"></ion-icon>
@@ -17,10 +17,10 @@
       <ion-card-subtitle> Lời giới thiệu : Đẹp trai</ion-card-subtitle>
       <form  #uploadForm="ngForm" (ngSubmit)="onSubmit()">      
           
-        <input type="file" name="profile" (change)="onFileSelect($event)" #fileButton>
+        <input type="file" name="profile" class="fileBtn" (change)="onFileSelect($event)" #fileBtn/>
       
       
-        <ion-button type="submit" (click)="updateProfilePic()">Upload</ion-button>
+        <ion-button type="submit">Upload</ion-button>
     
     </form>
     </ion-card-header>

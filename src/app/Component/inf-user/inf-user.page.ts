@@ -1,5 +1,5 @@
-import { Component, OnInit , ViewChild} from '@angular/core';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../../model/interface';
 import { ChatServicesService } from '../Services/chat-services.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -19,12 +19,14 @@ export class InfUserPage implements OnInit {
   formForgotPass: FormGroup;
   uploadForm : FormGroup;
   urlImg = '';
+  data : any;
+  imageURL : string ='';
 
-  @ViewChild('fileButton',{static:false}) fileButton: {
-       nativeElement: HTMLInputElement
+  @ViewChild('fileBtn',{static : false}) fileBtn: {
+		nativeElement: HTMLInputElement
   }
   
-  constructor(private formBuilder: FormBuilder, private _services: ChatServicesService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private _services: ChatServicesService, private router: Router,private http: HttpClient) { }
 
   ngOnInit() {
     this.uploadForm = this.formBuilder.group({
@@ -51,12 +53,12 @@ export class InfUserPage implements OnInit {
       console.log(err);
       this.errPass=err.message})
   }
-
-  //UploadFile voi viewChild
+  
+  //Update voi viewChild
   updateProfilePic() {
-		this.fileButton.nativeElement.click()
-	}
-
+		this.fileBtn.nativeElement.click()
+  }
+  
 
   onUpdate()  {
     const obj= {id: this._services.user._id, name: $('#name').val().toString(), userName: $('#userName').val().toString() };
@@ -110,7 +112,6 @@ export class InfUserPage implements OnInit {
 
 
 
-
   onFileSelect(event) {
     console.log(this.uploadForm)
 
@@ -119,7 +120,6 @@ export class InfUserPage implements OnInit {
       this.uploadForm.get('profile').setValue(file);
     }
   }
-
 
 
 
@@ -143,6 +143,27 @@ export class InfUserPage implements OnInit {
     .catch( err => {
       console.log('loi  rpo');
       console.log(err.message)
+    })
+    
+  }
+
+  //Chon hinh anh lay duong link uploadcare <img src="https://ucarecdn.com/{{ imageURL: cai nay imageURL vua posts dc }}/-/preview/-/scale_crop/200x200/center/" />
+  fileChanged(event) {
+    
+    const files = event.target.files
+    
+    this.data = new FormData()
+    
+    this.data.append('file',files[0]);
+    this.data.append('UPLOADCARE_STORE', '1');
+    this.data.append('UPLOADCARE_PUB_KEY', '91b8c870b3213b3cf337');
+    
+		this.http.post('https://upload.uploadcare.com/base/',this.data)
+		.subscribe((event: any)  => {
+			console.log(event)
+      this.imageURL = event.file
+      //Day la image url da post dc => 
+      //may chi can cho imageURl nay cho vao co so du lieu thoi
     })
     
   }
