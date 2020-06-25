@@ -243,9 +243,9 @@ export class ChatServicesService {
 
       if(+Date.now().toString() - (+user.timeOff) >= 60000 && 
          +Date.now().toString() - (+user.timeOff) < 3600000 ) {
-            contentMsg = `Hoạt động ${Math.floor(+Date.now().toString() - (+user.timeOff))/60000} phút trước`
+            contentMsg = `Hoạt động ${Math.floor((+Date.now().toString() - (+user.timeOff))/60000)} phút trước`
           //  const x = (Date.now().toString() - (+user.timeOff))/60000;
-            contentHome = `${Math.floor(+Date.now().toString() - (+user.timeOff))/60000} p`;
+            contentHome = `${Math.floor((+Date.now().toString() - (+user.timeOff))/60000)} p`;
             return { isOnline, contentHome, contentMsg };
       }
 

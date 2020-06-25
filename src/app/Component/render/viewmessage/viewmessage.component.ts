@@ -180,7 +180,6 @@ export class ViewmessageComponent implements OnInit {
 
   async ngOnInit() {
    await this.loadMsg();
-   console.log(this.listMsg)
 
   } 
 
@@ -487,7 +486,7 @@ export class ViewmessageComponent implements OnInit {
     await this._services.getListMsg(this._services.user.msg, this.listMsg.length, this._services.user._id)
     .then( respone => {
        if(respone.listMsg.length == 0) return;
-       console.log(respone)
+
        this.msgs= respone.listMsg;
        this.users= respone.user;
        this.rooms= respone.room;
