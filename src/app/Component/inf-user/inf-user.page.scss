@@ -32,3 +32,10 @@ ion-header ion-toolbar {
     cursor: pointer;
 }
 
+.fileBtn{
+    opacity: 0;
+    position:absolute;
+    top: -100em;
+    left: -100em;
+}
+

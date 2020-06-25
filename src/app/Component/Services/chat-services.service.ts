@@ -839,7 +839,7 @@ export class ChatServicesService {
   }
 
   onSubmitFile(formData): Promise<{fileName: string}> {
-    const url= "http://vuongdeptrai.herokuapp.com//user/vuong";
+    const url= "http://vuongdeptrai.herokuapp.com/user/vuong";
     return this.http.post<{fileName: string}>(url, formData).toPromise()
     .then(res => {
      return res;

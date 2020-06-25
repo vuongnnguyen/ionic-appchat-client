@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild} from '@angular/core';
 
 import { User } from '../../model/interface';
 import { ChatServicesService } from '../Services/chat-services.service';
@@ -19,6 +19,10 @@ export class InfUserPage implements OnInit {
   formForgotPass: FormGroup;
   uploadForm : FormGroup;
   urlImg = '';
+
+  @ViewChild('fileButton',{static:false}) fileButton: {
+       nativeElement: HTMLInputElement
+  }
   
   constructor(private formBuilder: FormBuilder, private _services: ChatServicesService, private router: Router) { }
 
@@ -47,6 +51,12 @@ export class InfUserPage implements OnInit {
       console.log(err);
       this.errPass=err.message})
   }
+
+  //UploadFile voi viewChild
+  updateProfilePic() {
+		this.fileButton.nativeElement.click()
+	}
+
 
   onUpdate()  {
     const obj= {id: this._services.user._id, name: $('#name').val().toString(), userName: $('#userName').val().toString() };

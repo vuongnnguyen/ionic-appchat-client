@@ -17,10 +17,10 @@
       <ion-card-subtitle> Lời giới thiệu : Đẹp trai</ion-card-subtitle>
       <form  #uploadForm="ngForm" (ngSubmit)="onSubmit()">      
           
-        <ion-input type="file" name="profile" (change)="onFileSelect($event)" ></ion-input>
+        <input type="file" name="profile" (change)="onFileSelect($event)" #fileButton>
       
       
-        <ion-button type="submit">Upload</ion-button>
+        <ion-button type="submit" (click)="updateProfilePic()">Upload</ion-button>
     
     </form>
     </ion-card-header>

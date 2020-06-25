@@ -10,8 +10,13 @@
 
 <ion-content>
   <ion-list>
+<<<<<<< HEAD
     <ion-item-sliding *ngFor="let msg of listMsg" *ngIf="msg.type == 'group'">
-      <ion-item *ngIf="msg.type == group" [routerLink]="['/home/chat', msg.roomname]">
+      <ion-item *ngIf="msg.type == 'group'" [routerLink]="['/home/chat', msg.roomname]">
+=======
+    <ion-item-sliding *ngFor="let msg of listMsg" >
+      <ion-item *ngIf="msg.type == 'group'" [routerLink]="['/home/chat', msg.roomname]">
+>>>>>>> 510410c38680f6d81d023c1d028d99055040a648
         <ion-avatar slot="start" class="avatar">
           <img style="border: 1px solid green;" src="../../../assets/group-chat.png" alt="">
           <div class="badge badge-online"></div>
