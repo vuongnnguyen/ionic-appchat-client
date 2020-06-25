@@ -11,7 +11,7 @@
 <ion-content>
   <ion-list>
     <ion-item-sliding *ngFor="let msg of listMsg" *ngIf="msg.type == 'group'">
-      <ion-item [routerLink]="['/home/chat', msg.roomname]">
+      <ion-item *ngIf="msg.type == group" [routerLink]="['/home/chat', msg.roomname]">
         <ion-avatar slot="start" class="avatar">
           <img style="border: 1px solid green;" src="../../../assets/group-chat.png" alt="">
           <div class="badge badge-online"></div>
