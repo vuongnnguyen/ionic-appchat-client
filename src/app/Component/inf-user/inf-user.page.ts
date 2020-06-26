@@ -33,7 +33,7 @@ export class InfUserPage implements OnInit {
   onLognout() {
     this._services.socket.emit('log-out', this._services.user._id);
     this._services.deleteCookie('token');
-    this.router.navigate(['/login'])
+    this.router.navigate(['/zola'])
   }
  
   changePassWord(formPass: FormGroup) {
